@@ -1,0 +1,42 @@
+.cart-container{
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width:22.5%;
+    min-width: 300px;
+    background-color: #fff;
+    .my-cart{
+        margin:40px auto 30px;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+    .added-items{
+        width: 90%;
+        min-width: 250px;
+        max-height: 70%;
+        overflow: auto;
+    }
+    .button{
+        position: absolute;
+        left: 10%;
+        bottom:30px;
+        width: 82.5%;
+        min-width: 250px;
+        height: 50px;
+        font-weight: 700;
+    }
+}
+
+
+@media only screen and (min-width: 776px) and (max-width:1200px){
+    .cart-container{
+        width: 25%;
+        min-width: 200px;
+        .added-items{
+            min-width: 175px !important;
+            height: 60%;
+        }
+    }
+    
+}

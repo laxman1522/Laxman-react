@@ -1,0 +1,121 @@
+//place order page main container styling
+.place-order-main-container{
+    background-color: #f6f6f6;
+    height: 100vh;
+
+    //order details & features container styling
+    .order-details-features-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .order-details-container{
+            margin: 60px auto 10px;
+            width:1109px;
+            height: 365px;
+            background-color: #fff;
+            .order-placed{
+                margin: 40px 0 30px 50px;
+                font-weight: 600;
+                font-size: 1.9rem;
+            }
+            .successfull-order
+            {
+                margin: 0 0 20px 50px;
+            }
+            .successfull-order,.order-track,.thankyou{
+                font-weight: 500;
+                font-size: 1.2rem;
+                opacity: 0.65;
+            }
+            .order-track,.thankyou
+            {
+                margin: 0 0 10px 50px;
+            }
+            .ordered-items{
+                display: flex;
+                justify-content: start;
+                flex-wrap: wrap;
+                margin: 15px 40px;
+                max-height: 125px;
+                overflow: auto;
+                .order-item-card{
+                    width: 300px;
+                }
+            }
+        }
+
+        //no items available text styling
+        .no-items{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px auto 10px;
+            width:1109px;
+            height: 360px;
+            font-size: 2rem;
+            color: #a50014;
+            background-color: #fff;
+        }
+
+        //features container styling
+        .features-container{
+            display:flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin:20px auto;
+            width: 1109px;
+        }
+    }
+    footer{
+        margin-bottom: 50px;
+        .button{
+            padding: 15px 50px;
+        }
+    }
+
+}
+
+
+@media only screen and (min-width: 1200px) and (max-width:1400px)
+{
+    .order-details-features-container{
+        background-color: #f6f6f6;
+        height: 100vh;
+    }
+}
+
+
+//media query styling
+@media only screen and (min-width: 776px) and (max-width:1200px){
+
+    .order-details-container,.no-items{
+        width: 70% !important;
+        min-width: 600px;
+        height:330px !important;
+    }
+    .successfull-order,.order-track,.thankyou{
+        font-size: 1rem !important;
+    }
+
+    .no-items{
+        height: 200px !important;
+    }
+
+    .no-order{
+        font-size: 1.2rem;
+        max-width: 500px;
+    }
+
+    .order-details-features-container{
+        background-color: #f6f6f6;
+    }
+
+    .features-container{
+        width: 70% !important;
+        min-width: 600px;
+    }
+
+    footer{
+        margin-bottom: 50px;
+    }
+}

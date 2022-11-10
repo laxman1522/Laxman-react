@@ -1,0 +1,16 @@
+.button{
+    font-size: 1rem;
+    background-color: #a50014;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    &:disabled{
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.grey-button{
+    background-color: #8e7e80;
+    cursor: default;
+}

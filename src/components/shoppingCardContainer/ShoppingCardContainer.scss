@@ -1,0 +1,61 @@
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 10px 30px;
+    overflow: auto;
+    .user-details{
+        display: flex;
+        justify-content: space-between;
+        width: 99%;
+        margin: 20px auto;
+        .category{
+            font-size: 2rem;
+        }
+        .user-avatar{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 125px;
+            font-weight: 700;
+            .name{
+                font-size: 1.1rem;
+            }
+        }
+        .avatar {
+            vertical-align: middle;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+    }
+}
+
+.shopping-card-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+    grid-gap: 20px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+
+.main-container::-webkit-scrollbar {
+    display: none;
+}
+
+.loader-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+  @media only screen and (min-width: 776px) and (max-width:1200px){
+    .shopping-card-container{
+        grid-template-columns:repeat(auto-fill, minmax(175px,1fr)); ;
+    }
+  }
