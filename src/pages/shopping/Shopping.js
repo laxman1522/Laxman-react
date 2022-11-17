@@ -10,7 +10,7 @@ import Cart from "../../components/cart/Cart";
  */
 class ShoppingPage extends React.Component{
 
-    addedItems=[];
+    addedIteclms=[];
 
      //state initialization
    state={items:[],category:"men",addedItems:[],cartCount:(JSON.parse(localStorage.getItem("items"))?.length || 0),disableButton:true,loading:true};

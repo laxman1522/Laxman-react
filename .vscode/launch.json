@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/sitback-furniture/src/component/productCategories/ProductCategories.js"
+        },
+        {
+            "type": "node",
+            "runtimeVersion": "18.12.1", // If i need to run node 4.8.7
+            "request": "launch",
+            "name": "Launch",
+            "program": "${workspaceFolder}/sample.js"
+        }
+    ]
+}

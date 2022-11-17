@@ -14,7 +14,6 @@ class MenuBar extends React.Component{
     menuSelected=false;
 
     componentDidMount(){
-        console.log("didmount1")
         this.menuSelected=true;
     }
 

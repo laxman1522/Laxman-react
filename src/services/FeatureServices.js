@@ -1,5 +1,5 @@
 import { urlConstants } from "../constants/urlConstants";
-import api from "./Api";
+import api from "./api/Api";
 
 export const FeatureService={
 
