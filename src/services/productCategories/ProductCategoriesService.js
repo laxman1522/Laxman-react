@@ -1,4 +1,4 @@
-import api from "../Api";
+import api from "../api/Api";
 import { UrlConstants } from "../../constants/urlConstants";
 
 export const productCategoriesService = {
