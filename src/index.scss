@@ -1,0 +1,22 @@
+@font-face {
+  font-family: product-sans-regular;
+  src: url("./resources/product-sans/Product\ Sans\ Regular.ttf");
+}
+
+@font-face {
+  font-family: product-sans-bold;
+  src: url("./resources/product-sans/Product\ Sans\ Bold.ttf");
+}
+
+body {
+  margin: 0;
+  font-family:product-sans-regular;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}

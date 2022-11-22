@@ -1,0 +1,119 @@
+.cart-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 120px;
+    width: 30%;
+    background-color: #f5f5f5;
+    .cart-wishlist {
+        display: flex;
+        justify-content: flex-start;
+        width: 80%;
+        margin: 0 auto;
+        color: darkgray;
+        font-size: 0.85rem;
+        .my-wishlist,.my-cart {
+            cursor: pointer;
+        }
+        .active {
+            color: black !important;
+            border-bottom: 2px solid;
+            padding-bottom: 5px;
+        }
+        .my-wishlist {
+            margin-left: 30px;
+        }
+    }
+    .items-container {
+        margin-top: 10px;
+        max-height: 600px;
+        overflow: auto;
+        .empty-cart {
+            width:80%;
+            margin: 75px auto;
+            color: #ff0000;
+        }
+    }
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        background-color: #fff;
+        padding: 30px;
+        .total-amount-text {
+            font-size: 0.7rem;
+            opacity: 0.7;
+        }
+        .total{
+            i{
+                font-size: 0.8rem;
+            }
+        }
+        .button {
+            padding: 10px 20px;
+            border-radius: 0px 0px 5px 0px;
+            &:disabled{
+                cursor: not-allowed;
+                opacity: 0.3;
+            }
+        }
+    }
+}
+
+
+//cart card styling 
+
+.cart-card {
+    position: relative;
+    width:75%;
+    min-width: 250px;
+    height: 75px;
+    background-color: #fff;
+    margin: 20px 0 20px 55px;
+    border-radius: 10px;
+    img {
+        position: absolute;
+        top:10px;
+        left: -20px;
+        width: 40%;
+        height: 100%;
+        border-radius: 10px;
+    }
+    .name-price {
+        position: absolute;
+        left:40%;
+        top:15px;
+        font-size: 0.7rem;
+        i{
+            font-size: 0.6rem;
+            opacity: 0.7;
+        }
+        .item-name{
+            margin-bottom: 10px;
+        }
+    }
+    .add-delete {
+        position: absolute;
+        top:82.5%;
+        left:70%;
+        display: flex;
+        justify-content: space-between;
+        width: 50px;
+        font-size: 0.6rem;
+        padding: 5px 10px;
+        background-color: #fff;
+        box-shadow: 0px 0px 0px 1px #efefef;
+        border-radius: 5px;
+        .delete,.add {
+            cursor: pointer;
+        }
+    }
+    .button {
+        position: absolute;
+        top:82.5%;
+        left:62.5%;
+        padding: 5px 10px;
+        border-radius: 0 0 5px 0;
+        font-size: 0.7rem;
+    }
+}

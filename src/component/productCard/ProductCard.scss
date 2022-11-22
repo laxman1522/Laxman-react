@@ -1,0 +1,23 @@
+.product-card {
+    .name-price {
+        display: flex;
+        justify-content: space-between;
+    }
+    .guarantee {
+        display: flex;
+        align-items: center;
+    }
+    .buttons{
+        display: flex;
+        justify-content: right;
+        align-items: center;
+    }
+}
+
+.unclear-details{
+    opacity: 0.5;
+    cursor: not-allowed;
+    button{
+        cursor: not-allowed;
+    }
+}
