@@ -12,7 +12,6 @@ const Shopping = () => {
 
     const [addedItem,setAddedItem] = useState([]);
     const [wishlistItem,setWishlistItem] = useState([]);
-
     const [isCartEmpty,setIsCartEmpty] = useState(Object.keys(localStorage).length===0 ? true : false);
 
     const itemAdded = (item) => {
@@ -26,7 +25,7 @@ const Shopping = () => {
     }
 
      const itemDeleted = () => {
-        Object.keys(localStorage).length===0 && setIsCartEmpty(true);
+        Object.keys(localStorage).length === 0 && setIsCartEmpty(true);
         !localStorage.getItem(addedItem.id) && setAddedItem([]);
      }
 
@@ -39,7 +38,8 @@ const Shopping = () => {
             <Header/>
             <div className="products-cart-container">
                 <Product itemAddedHandler = {itemAdded} itemWishListed = {itemWishlisted}/>
-                {!isCartEmpty && <Cart addedItem = {addedItem} wishlistItem = {wishlistItem} itemDeleted = {itemDeleted} wishlistToCartHandler = {wishlistToCart} />}
+                {!isCartEmpty && <Cart addedItem = {addedItem} wishlistItem = {wishlistItem} 
+                itemDeleted = {itemDeleted} wishlistToCartHandler = {wishlistToCart} />}
             </div>
         </React.Fragment>
     )

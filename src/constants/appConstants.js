@@ -21,5 +21,8 @@ export const AppConstants = {
     TotalAmount:"TOTAL AMOUNT",
     WishlistToCart:"WISHLISTTOCART",
     FakeDescription:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    Nil:"NIL"
+    Nil:"NIL",
+    OrderConfirmation:"Order Confirmation",
+    ThankYouForShopping:"Thank you for shopping with us. the items will be delivered within 7 days.",
+    Quantity:"Quantity"
 }

@@ -2,7 +2,7 @@ import "./Header.scss";
 import React from "react";
 import { AppConstants } from "../../constants/appConstants";
 import { NavLink,Link } from "react-router-dom";
-import { Routes } from "../../constants/routeConstants";
+import { RouteConstants } from "../../constants/routeConstants";
 
 /**
  * Header component responsible for showing all the available menu options 
@@ -14,11 +14,11 @@ const Header = () => {
     return(
         <div className="header-container">
             <div className="header-items">
-                <Link to={Routes.Home} className="shop-name">{ShopName}</Link>
+                <Link to={RouteConstants.Home} className="shop-name">{ShopName}</Link>
                 <div className="categories">
-                    <NavLink to={Routes.Couches}>{Couches}</NavLink>
-                    <NavLink to={Routes.Chairs}>{Chairs}</NavLink>
-                    <NavLink to={Routes.Dining}>{Dining}</NavLink>
+                    <NavLink to={RouteConstants.Couches}>{Couches}</NavLink>
+                    <NavLink to={RouteConstants.Chairs}>{Chairs}</NavLink>
+                    <NavLink to={RouteConstants.Dining}>{Dining}</NavLink>
                 </div>
                 <div className="user-dropdown">
                     <div className="user-name">{UserName}</div>

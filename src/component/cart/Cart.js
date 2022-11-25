@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react"
 import { AppConstants } from "../../constants/appConstants";
 import CartCard from "../cartCard/CartCard";
 import Button from "../button/Button";
+import { useNavigate } from "react-router-dom";
+import { RouteConstants } from "../../constants/routeConstants";
+import  PropTypes from "prop-types";
 
 
 /**
@@ -10,6 +13,7 @@ import Button from "../button/Button";
  */
 const Cart = (props) => {
 
+    const {addedItem,wishlistItem,itemDeleted,wishlistToCartHandler} = props;
     const {MyCart,MyWishlist,PlaceOrder,TotalAmount} = AppConstants;
     const [addedItems,setAddedItems] = useState([]);
     const [selectedMenu,setSelectedMenu] = useState("cart");
@@ -18,59 +22,59 @@ const Cart = (props) => {
     const [isCartEmpty,setIsCartEmpty] = useState(true);
     const [disabled,setDisabled] = useState(true);
     const [totalAmount,setTotalAmount] = useState(0);
+    const navigate = useNavigate();
 
     const localStorageItems = () => {
         let amount = 0;
         setTotalAmount(0)
         let keys =Object.keys(localStorage)
-        keys.length === 0 && props.itemDeleted();
+        keys.length === 0 && itemDeleted();
         for(let key of keys)
         {
-            if(!key.includes("wishlist"))
+            if(!key.includes("wishlist") && !key.includes("orderPlaced"))
             {
                 setIsCartEmpty(false);
-                setDisabled(false);
                 amount = amount + JSON.parse(localStorage.getItem(key)).price * JSON.parse(localStorage.getItem(key)).count;
                 amount === 0 && setDisabled(true);
                 amount > 0 && setDisabled(false);
                 setTotalAmount(amount);
                 setAddedItems(addedItems=>[...addedItems,JSON.parse(localStorage.getItem(key))]);
             }
-            else {
+            else if(key.includes("wishlist")) {
                 setWishlistItems(wishlistItems=>[...wishlistItems,JSON.parse(localStorage.getItem(key))]);
             }
         }
     }
-    
+
     useEffect(()=>{
         setAddedItems([]);
         setWishlistItems([]);
         localStorageItems();  
-    },[props.addedItem,props.wishlistItem])
+    },[addedItem,wishlistItem])
 
     useEffect(() => {
-        if((props.wishlistItem.length)!==0)
+        if((wishlistItem.length)!==0)
         { 
         setShowWishlist(true);
         setSelectedMenu("wishlist");
         }
-    },[props.wishlistItem])
+    },[wishlistItem])
 
     useEffect(() => {
-        if((props.addedItem.length)!==0)
+        if((addedItem.length)!==0)
         {
             setShowWishlist(false);
             setSelectedMenu("cart");
         }
-    },[props.addedItem])
+    },[addedItem])
 
-    const itemDeleted = () => {
+    const itemDeletedHandler = () => {
         setWishlistItems([]);
         setAddedItems([]);
         setIsCartEmpty(true);
         setDisabled(true);
         localStorageItems();
-        props.itemDeleted();
+        itemDeleted();
     }
 
     const itemAdded = (info) => {
@@ -79,7 +83,7 @@ const Cart = (props) => {
         setShowWishlist(false);
         setSelectedMenu("cart");
         localStorageItems();
-        info === AppConstants.WishlistToCart && props.wishlistToCartHandler();
+        info === AppConstants.WishlistToCart && wishlistToCartHandler();
     }
 
     const showWishList = () => {
@@ -92,15 +96,18 @@ const Cart = (props) => {
         setShowWishlist(false);
     }
 
+    const orderPlaced = () => {
+        localStorage.setItem("orderPlaced",true);
+        navigate(RouteConstants.PlaceOrder);
+    }
 
    const items = addedItems.map((item)=>{
-        return <CartCard key={item.id} cartItem={item} itemDeleted = {itemDeleted} itemAdded = {itemAdded}/>
+        return <CartCard key={item.id} cartItem={item} itemDeleted = {itemDeletedHandler} itemAdded = {itemAdded}/>
     })
 
     const wishlist = wishlistItems.map((item)=>{
         return <CartCard key={`wishlist${item.id}`} cartItem={item} wishlistToCartHandler = {itemAdded} />
     })
-
 
     return (
         <div className="cart-container">
@@ -121,10 +128,20 @@ const Cart = (props) => {
                     <div className="total-amount-text">{TotalAmount}</div>
                     <div className="amount"><i className="fas fa-rupee-sign">&nbsp;</i>{totalAmount}</div>
                 </div>
-                <Button buttonName = {PlaceOrder} disabled={disabled}/>
+                <Button buttonName = {PlaceOrder} disabled={disabled} buttonClickHandler = {orderPlaced}/>
             </div>}
         </div>
     )
+}
+
+Cart.propTypes = {
+    addedItem:PropTypes.oneOfType([PropTypes.string,PropTypes.array]),
+    wishlistItem:PropTypes.oneOfType([PropTypes.object,PropTypes.array])
+}
+
+Cart.defaultProps = {
+    addedItem:[],
+    wishlistItem:[]
 }
 
 export default Cart;

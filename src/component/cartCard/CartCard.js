@@ -1,4 +1,3 @@
-import "./CartCard.scss";
 import Button from "../button/Button";
 import { useState } from "react";
 import { AppConstants } from "../../constants/appConstants";
@@ -10,42 +9,40 @@ import fakeImg from "../../resources/fakeImg.jpeg";
  */
 const CartCard = (props) => {
 
-    const {name,photo,price,id,count,cart} = props.cartItem;
-
-    const [item,setItem] = useState(props.cartItem);
+    const {cartItem,itemDeleted,itemAdded,wishlistToCartHandler} = props;
+    const {name,photo,price,id,count,cart} = cartItem;
+    const [item,setItem] = useState(cartItem);
 
     const deleteItemHandler = () => {
+            localStorage.removeItem(id);
             if(count > 1)
             {
-                localStorage.removeItem(id);
-                props.cartItem.count = props.cartItem.count - 1;
-                localStorage.setItem(id,JSON.stringify(props.cartItem));
-                props.itemDeleted();
+                cartItem.count = cartItem.count - 1;
+                localStorage.setItem(id,JSON.stringify(cartItem));
+                itemDeleted();
             }
             else {
-                localStorage.removeItem(id);
                 setItem([]);
-                props.itemDeleted();
+                itemDeleted();
             }
             
     }
 
     const addItemHandler = () => {
                 localStorage.removeItem(id);
-                props.cartItem.count = props.cartItem.count + 1;
-                localStorage.setItem(id,JSON.stringify(props.cartItem));
+                cartItem.count = cartItem.count + 1;
+                localStorage.setItem(id,JSON.stringify(cartItem));
                 setItem(JSON.parse(localStorage.getItem(id)));
-                props.itemAdded();
+                itemAdded();
     }
 
     const addToCartHandler = () => {
         localStorage.removeItem(`wishlist${id}`);
-        props.cartItem.cart = true;
-        props.cartItem.count = (JSON.parse(localStorage.getItem(id))?.count || 0) + 1;
-        localStorage.setItem(id,JSON.stringify(props.cartItem));
+        cartItem.cart = true;
+        cartItem.count = (JSON.parse(localStorage.getItem(id))?.count || 0) + 1;
+        localStorage.setItem(id,JSON.stringify(cartItem));
         setItem(JSON.parse(localStorage.getItem(id)));
-        props.wishlistToCartHandler(AppConstants.WishlistToCart);
-        console.log(props.cartItem,JSON.parse(localStorage.getItem(id))?.count);
+        wishlistToCartHandler(AppConstants.WishlistToCart);
     }
 
     return(

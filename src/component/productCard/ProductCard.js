@@ -1,4 +1,5 @@
 import "./ProductCard.scss";
+import React from "react";
 import { AppConstants } from "../../constants/appConstants";
 import Button from "../button/Button";
 import {useRef, useState} from "react";
@@ -11,10 +12,10 @@ import  PropTypes from "prop-types";
  */
 const ProductCard = (props) => {
 
-    const {product,itemAddedHandler,itemWishlisted} = props;
-    const {name,photo,price,description,guarantee,id} = props.product;
+    const {product,itemAddedHandler,itemWishlisted,orderPage} = props;
+    const {name,photo,price,description,guarantee,id,count} = props.product;
     const year = guarantee > 1 ? AppConstants.Years : AppConstants.Year;
-    const {Guarantee,AddToWishlist,AddToCart} = AppConstants;
+    const {Guarantee,AddToWishlist,AddToCart,Quantity} = AppConstants;
     const imageRef = useRef();
     const cardRef = useRef();
     const [disabled,setDisabled] = useState(false);
@@ -59,7 +60,10 @@ const ProductCard = (props) => {
                 <div className="name">{name}</div>
                 <div className="price"><i className="fas fa-rupee-sign">&nbsp;</i>{price}</div>
             </div>
+            {orderPage && <div className="quantity">{Quantity} : {count}</div>}
             <div className="description">{description}</div>
+            {!orderPage && 
+            <React.Fragment>
             <div className="guarantee">
                 <img src={shield} alt="shield"/>{`${guarantee} ${year} ${Guarantee}`}
             </div>
@@ -68,6 +72,7 @@ const ProductCard = (props) => {
                 <div className={`wishlist disabled${disabled}`} onClick={addToWishlist}>{AddToWishlist}</div>
                 <Button buttonName = {AddToCart} buttonClickHandler = {itemAdded} disabled={disabled}/>
             </div>
+            </React.Fragment>}
         </div>
     )
 }
@@ -79,7 +84,9 @@ ProductCard.propTypes={
     price:PropTypes.string,
     description:PropTypes.string,
     guarantee:PropTypes.string,
-    id:PropTypes.string
+    id:PropTypes.string,
+    orderPage:PropTypes.bool,
+    count:PropTypes.number
 }
 
 ProductCard.defaultProps = {
@@ -89,7 +96,9 @@ ProductCard.defaultProps = {
     price:AppConstants.Nil,
     description:AppConstants.FakeDescription,
     guarantee:AppConstants.Nil,
-    id:""
+    id:"",
+    orderPage:false,
+    count:0
 }
 
 export default ProductCard;

@@ -4,7 +4,7 @@ import Button from "../button/Button";
 import { AppConstants } from "../../constants/appConstants";
 import { useNavigate } from "react-router-dom";
 import  PropTypes from "prop-types";
-import { Routes } from "../../constants/routeConstants";
+import { RouteConstants} from "../../constants/routeConstants";
 import fakeImg from "../../resources/fakeImg.jpeg";
 
 
@@ -21,7 +21,7 @@ const Category = (props) => {
     const navigate = useNavigate();
 
     const shopNowHandler = () => {
-        navigate(`${Routes.categories}/${category.toLowerCase()}`);
+        navigate(`${RouteConstants.categories}/${category.toLowerCase()}`);
     }
 
     const invalidImageHandler = () => {
