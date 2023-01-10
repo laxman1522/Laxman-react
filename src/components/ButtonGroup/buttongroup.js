@@ -15,7 +15,6 @@ const ButtonGroup = (props) => {
     const {value,type} = props.buttonValue;
 
     const buttonClickHandler = (buttonValue) => {
-        // console.log(buttonValue);
         props.buttonClickHandler(buttonValue);
     };
 
