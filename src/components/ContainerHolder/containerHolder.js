@@ -1,12 +1,10 @@
 import './containerHolder.scss';
 /* eslint-disable no-unused-vars */
-import React, { useCallback, useEffect, useState } from 'react';
-import cityPromotion from '../../containers/CityPromotion/cityPromotion';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import GlobalPromotion from '../../containers/GlobalPromotion/globalPromotion';
 import PlanMyTrip from '../../containers/PlanMyTrip/planMyTrip';
 import Search from '../../containers/Search/search';
 import { TouristSpotsService } from '../../services/TouristSpotsService';
-import { UserInfoService } from '../../services/UserInfoService';
 import { memo } from 'react';
 import { FlightService } from '../../services/FlightService';
 import AvailableFlights from '../../containers/AvailableFlights/availableFlights';
@@ -34,6 +32,9 @@ const ContainerHolder = () => {
         amount:5
     }
 
+      const searchedDestinationRef = useRef();
+      const previousDestinationRef = useRef('');
+
       const [destination, setDestination] = useState('');
       const [touristSpots, setTouristSpots] = useState([]);
       const [searchedDestination, setSearchedDestination] = useState();
@@ -47,6 +48,7 @@ const ContainerHolder = () => {
       const [showBookingContainer, setShowBookingContainer] = useState(false);
 
     useEffect(() => {
+      
         const touristSpots = async() => {
             const touristSpots = await TouristSpotsService.getTouristSpots();
             setTouristSpots(touristSpots)
@@ -57,30 +59,35 @@ const ContainerHolder = () => {
       //To update the destination based on the search bar value
       const searchDestination = useCallback((searchDestination) => { 
         if(searchDestination!==destination) {
-          searchedDestination!==undefined && setPreviousDestination(searchedDestination);
+          searchedDestinationRef.current!==undefined && setPreviousDestination(searchedDestinationRef.current);
+          searchedDestinationRef.current!==undefined && (previousDestinationRef.current = searchedDestinationRef.current);
           setSearchedDestination(searchDestination);
+          searchedDestinationRef.current = searchDestination;
           setDestination(searchDestination);
           setShowCitypromotion(true);   
         }
-      },[destination, searchedDestination]);
-    
+      },[]);
+
       //To update the destination based on the drop down value
       const selectedDestination = useCallback((selectedDestination) => {
-        if(selectedDestination.toLowerCase() !== previousDestination && selectedDestination.toLowerCase() !== searchedDestination) {
-            searchedDestination!==undefined && setPreviousDestination(searchedDestination);
+        if(selectedDestination.toLowerCase() !== previousDestinationRef.current && selectedDestination.toLowerCase() !== searchedDestinationRef.current) {
+            searchedDestinationRef.current!==undefined && setPreviousDestination(searchedDestinationRef.current);
+            searchedDestinationRef.current!==undefined && (previousDestinationRef.current = searchedDestinationRef.current);
             setDestination(selectedDestination);
             setShowCitypromotion(true);  
         } else {
             setPreviousDestination("");
+            previousDestinationRef.current = '';
             setDestination(selectedDestination);
             setShowCitypromotion(true);  
         }
         
-      },[previousDestination,searchedDestination]);
+      },[]);
     
       //To update the previous destination once the user clicks the previous button
       const previousDestinationSelectHandler = useCallback((destination) => {
           setSearchedDestination("");
+          searchedDestinationRef.current = '';
           setPreviousDestination('');
           setDestination(destination);
       },[]);
