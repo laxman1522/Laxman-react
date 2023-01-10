@@ -1,30 +1,52 @@
-import React from "react";
-import './App.css';
-import axios from "axios";
-import unsplash from "./api/unsplash";
-import SearchBar from './searchBar/SearchBar';
-import ImageList from "./imageList/ImageList";
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
+import './App.scss';
+import Header from './components/Header/header';
+import { TouristSpotsService } from './services/TouristSpotsService';
+import { UserInfoService } from './services/UserInfoService';
+import { memo } from 'react';
+import { AppConstants } from './constants/appConstants';
+import ContainerHolder from './components/ContainerHolder/containerHolder';
 
-class App extends React.Component {
+export const TouristContext = React.createContext();
+export const PrimeContext = React.createContext();
 
-  state={images:[]};
+function App() {
 
-   onSearchSubmit=async (text)=>{
-    const response= await unsplash.get("search/photos",{
-      params:{query:text}
-    });
-    this.setState({images:response.data.results});
-  }
+  const [userDetails, setUserDetails] = useState('');
+  const [touristSpots, setTouristSpots] = useState([]);
+  const [isUserPrime, setIsUserPrime] = useState();
 
-  render(){
-    return (
-      <div className='ui container' style={{marginTop:"10px"}}>
-        <SearchBar onSubmit={this.onSearchSubmit}/>
-        <ImageList images={this.state.images}/>
-      </div>
-    );
-  }
-  
+  const mockUsers = AppConstants.MOCK_USERS;
+
+  useEffect(() => {
+    const userDetails = async() => {
+      const userInfo = await UserInfoService.loginInUser(mockUsers[0].name, mockUsers[0].password);
+      setUserDetails(userInfo);
+      userInfo.type === "prime" ? setIsUserPrime(true) : setIsUserPrime(false);
+    }
+    userDetails();
+  }, [])
+
+  useEffect(() => {
+    const touristSpots = async() => {
+        const touristSpots = await TouristSpotsService.getTouristSpots();
+        setTouristSpots(touristSpots)
+    }
+
+    touristSpots();
+  }, [])
+
+  return (
+    <React.Fragment>
+      <PrimeContext.Provider value={isUserPrime}>
+      <Header userDetails={userDetails}></Header>
+      <TouristContext.Provider value={touristSpots}>
+        <ContainerHolder></ContainerHolder>
+      </TouristContext.Provider>
+      </PrimeContext.Provider>
+    </React.Fragment>
+  );
 }
 
-export default App;
+export default memo(App);

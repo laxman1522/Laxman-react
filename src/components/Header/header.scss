@@ -1,0 +1,33 @@
+.header-container {
+    padding: 0 1.5rem;
+    background-color: #dc2d47;
+    .logo {
+        width: 10rem;
+    }
+    .timezone-username {
+        .user-name {
+            color: #fff;
+        }
+        .time-zones {
+            width: 30rem;
+            margin: 0 2rem;
+        }
+    }
+    .prime {
+        width: 3rem;
+        margin: 0 0 0.4rem 1rem;
+    }
+    .time {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 33%;
+        padding: 1rem 0;
+        color: #fff;
+        background-color: rgb(191,33,56);
+        .time-title {
+            font-size: 0.8rem;
+            padding-bottom: 0.5rem;
+        }
+    }
+}

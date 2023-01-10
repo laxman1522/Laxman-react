@@ -1,0 +1,39 @@
+.available-flights-container {
+    padding: 1.5rem;
+    background-color: rgb(171,232,115);
+    margin-top: 1.5rem;
+    .no-flights {
+        padding: 1rem;
+        text-align: center;
+    }
+    .flight-container {
+        align-items: center;
+        padding: 1rem;
+        background-color: #fff;
+        margin-top: 1rem;
+        .flight-date,.source-destination {
+            margin-bottom: 0.3rem;
+        }
+        .info {
+            margin-left: 0.5rem;
+        }
+        .flight-date {
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+        .source-destination,.fare {
+            font-size: 0.7rem;
+        }
+        .logo-info {
+            img {
+                width: 25%;
+                height: 3rem;
+            }
+        }
+        .btn {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.7rem;
+            width: 3rem;
+        }
+    }
+}

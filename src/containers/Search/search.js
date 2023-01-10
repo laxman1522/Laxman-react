@@ -1,0 +1,38 @@
+import "./search.scss";
+import React, { useEffect, useRef } from "react";
+import { AppConstants } from "../../constants/appConstants";
+import { memo } from "react";
+
+/**
+ *  Allows the user to search for the destination
+ */
+const Search = (props) => {
+
+    console.log("Container - Destination Search container");
+
+    const {searchDestination} = props;
+
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        inputRef.current.focus();
+    },[])
+
+    //To pass the entered destination value through props on click of enter
+    const searchDestinationHandler = (event) => {
+        if(event.keyCode === 13) {
+            searchDestination(inputRef.current.value);
+            inputRef.current.value = "";
+        }
+    }
+    return(
+        <div className="search-container">
+            <div className="search-heading">{AppConstants.SEARCH_HEADING}</div>
+            <div className="search-sub-heading-one">{AppConstants.SEARCH_SUBHEADING_ONE}</div>
+            <div className="search-sub-heading-two">{AppConstants.SEARCH_SUBHEADING_TWO}</div>
+            <input ref={inputRef} type="text" placeholder={AppConstants.SEARCH_PLACEHOLDER} onKeyUp={searchDestinationHandler}></input>
+        </div>
+    )
+}
+
+export default memo(Search);

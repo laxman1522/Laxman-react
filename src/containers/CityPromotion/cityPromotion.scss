@@ -1,0 +1,52 @@
+.city-promotion-container {
+    position: relative;
+    padding: 2rem;
+    background-color: rgb(254,219,91);
+    margin-top: 1.75rem;
+    .city-promotion-title {
+        font-size: 1.25rem;
+    }
+    .temperature {
+        font-size: 2rem;
+    }
+    .description,.temperature,.city-promotion-title {
+        margin-bottom: 1rem;
+    }
+    .description {
+        font-size: 0.8rem;
+    }
+    .no-cities {
+        justify-content: center;
+        padding: 1rem;
+    }
+    .previous {
+        position: absolute;
+        top:2rem;
+        right: 2rem;
+        padding: 0.75rem 1.25rem;
+        background-color: #dc2d47;
+        color: #fff;
+    }
+    .tourist-spot-card {
+        width: 10rem;
+        height: 13rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #fff;
+        img {
+            width: 9rem;
+            height: 9rem;
+            margin: 0.5rem 0;
+            object-fit: cover;
+            object-position: top;
+        }
+        .tourist-place,.tourist-city {
+            text-align: center;
+        }
+        .tourist-place {
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+        }
+    }
+}

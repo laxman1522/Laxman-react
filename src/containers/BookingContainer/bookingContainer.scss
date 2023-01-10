@@ -1,0 +1,43 @@
+.booking-container {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background-color: rgb(119,176,255);
+    .heading-logo {
+        align-items: baseline;
+        img {
+            width: 3rem;
+        }
+        .book-now {
+            font-size: 1.4rem;
+        }
+    }
+    .fare {
+        margin-top: 1rem;
+        font-size: 2.25rem;
+    }
+    .discount-container {
+        margin: 1rem 2rem 0 0;
+
+    }
+    .btn {
+        width: 100%;
+        padding: 0.75rem;
+    }
+    .membership-renewal,.covid-donation,.ticket-sending-details,.btn {
+        margin-top: 1rem;
+    }
+    .membership-renewal,.covid-donation,.ticket-sending-details {
+        font-size: 0.9rem;
+    }
+    .button-group {
+        font-size: 0.8rem;
+    }
+    .discount-container {
+        .type {
+            margin-bottom: 0.5rem;
+        }
+        .amount {
+            font-size: 0.9rem;
+        }
+    }
+}
