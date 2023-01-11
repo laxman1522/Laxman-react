@@ -28,7 +28,7 @@ const FlightCard = (props) => {
                 <div className='info'>
                     <div className='flight-date'>{flight} - {Date}</div>
                     <div className='source-destination'>{source.charAt(0).toUpperCase() + source.slice(1)} -  {destination.charAt(0).toUpperCase() + destination.slice(1)}</div>
-                    <div className='fare fw-bold'>$ {fare}</div>
+                    <div className='fare fw-bold'>{AppConstants.DOLLAR} {fare}</div>
                 </div>
             </div>
             <Button buttonName={AppConstants.BOOK} buttonClickHandler={buttonClickHandler}></Button>
@@ -41,7 +41,8 @@ FlightCard.propTypes={
     source: PropTypes.string,
     destination: PropTypes.string,
     Date: PropTypes.string,
-    fare: PropTypes.number
+    fare: PropTypes.number,
+    bookNowHandler: PropTypes.func
 }
 
 FlightCard.defaultProps={
@@ -49,7 +50,8 @@ FlightCard.defaultProps={
     source: AppConstants.NIL,
     destination: AppConstants.NIL,
     Date: AppConstants.NIL,
-    fare: 0
+    fare: 0,
+    bookNowHandler: () => {}
 }
 
 export default memo(FlightCard);

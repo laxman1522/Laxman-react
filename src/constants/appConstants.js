@@ -38,5 +38,8 @@ export const AppConstants = {
     YEAR: "YEAR",
     NIL: "NIL",
     DOLLAR: "$",
-    IMAGE_NOT_FOUND: "https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found-300x169.jpg"
+    IMAGE_NOT_FOUND: "https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found-300x169.jpg",
+    SELECTED: "selected",
+    SEARCHED: "searched",
+    NO_PREVIOUS_DESTINATION: "No previous destination",
 }

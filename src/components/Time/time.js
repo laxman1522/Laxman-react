@@ -8,6 +8,7 @@ import { memo } from 'react';
  * Responsible for showing the session, EST & IST time to the user
  */
 const Time = (props) => {
+    
     console.log("component - time");
 
     const {heading, subHeading} = props;
@@ -15,7 +16,7 @@ const Time = (props) => {
     return(
         <div className='time d-flex '>
             <div className='time-title'>{heading}</div>
-            <div>{subHeading}</div>
+            <div className='time-value'>{subHeading}</div>
         </div>
     )
 }

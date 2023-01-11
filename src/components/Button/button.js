@@ -23,12 +23,14 @@ const Button = (props) => {
 
 Button.propTypes={
     buttonName:PropTypes.string,
-    disabled:PropTypes.bool
+    disabled:PropTypes.bool,
+    buttonClickHandler: PropTypes.func,
 }
 
 Button.defaultProps={
     buttonName:AppConstants.NIL,
-    disabled:false
+    disabled:false,
+    buttonClickHandler: ()=> {}
 }
 
 export default memo(Button);

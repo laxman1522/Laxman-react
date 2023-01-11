@@ -8,7 +8,7 @@
     }
     .flight-container {
         align-items: center;
-        padding: 1rem;
+        padding: 0.75rem;
         background-color: #fff;
         margin-top: 1rem;
         .flight-date,.source-destination {
@@ -19,10 +19,10 @@
         }
         .flight-date {
             font-weight: 400;
-            font-size: 0.9rem;
         }
         .source-destination,.fare {
             font-size: 0.7rem;
+            font-weight: 500;
         }
         .logo-info {
             img {
@@ -31,7 +31,7 @@
             }
         }
         .btn {
-            padding: 0.25rem 0.5rem;
+            padding: 0.3rem 0.5rem;
             font-size: 0.7rem;
             width: 3rem;
         }

@@ -1,13 +1,33 @@
 import './bookingContainer.scss';
 import { AppConstants } from '../../constants/appConstants';
 import primeLogo from '../../assets/prime.png';
-import React, { useContext, useState, useEffect, useCallback } from 'react';
+import React, { useContext, useState, useEffect, useRef, useCallback } from 'react';
 import { memo } from 'react';
-import { MembershipDiscountContext, TaxAmountContext, PrimeContext } from '../../components/ContainerHolder/containerHolder';
 import DiscountDisplayer from '../../components/DiscountDisplayer/discountDisplayer';
 import Button from '../../components/Button/button';
 import ButtonGroup from '../../components/ButtonGroup/buttongroup';
 import PropTypes from "prop-types";
+import { PrimeContext } from '../../App';
+
+const MembershipDiscount = {
+    type:AppConstants.MEMBERSHIP_DISCOUNT,
+    amount:10
+  }
+
+const TaxAmount = {
+    type:AppConstants.TAX_AMOUNT,
+    amount:5
+}
+
+const ButtonGroupYear = {
+    value:[1,2,3],
+    type:AppConstants.YEAR
+}
+
+const ButtonGroupTax = {
+    value:[10,20,30],
+    type:"%"
+}
 
 /**
  *  Display the fare for the selected flight and allows the user to select membership & tax
@@ -16,57 +36,42 @@ const BookingContainer = (props) => {
 
     console.log("Container - Booking Container");
 
-    const MembershipDiscount = {
-        type:AppConstants.MEMBERSHIP_DISCOUNT,
-        amount:10
-      }
-    
-      const TaxAmount = {
-        type:AppConstants.TAX_AMOUNT,
-        amount:5
-    }
-
     const {flightDetails} = props;
 
+    const isUserPrime = useContext(PrimeContext);
+    const [fare,setFare] = useState();
+    const baseFareRef = useRef(flightDetails.fare);
+    const membershipDiscountRef = useRef(MembershipDiscount);
+    const taxAmountref = useRef(TaxAmount);
+
     useEffect(() => {
+        baseFareRef.current = flightDetails.fare;
+        membershipDiscountRef.current = MembershipDiscount;
+        taxAmountref.current = TaxAmount;
         setFare(flightDetails.fare - MembershipDiscount.amount + TaxAmount.amount);
-        setMembershipDiscount(MembershipDiscount);
-        setTaxAmount(TaxAmount);
     },[flightDetails])
 
-    const [fare,setFare] = useState(flightDetails.fare);
-    const [membershipDiscount, setMembershipDiscount] = useState(MembershipDiscount);
-    const [taxAmount, setTaxAmount] = useState(TaxAmount);
-
-    const ButtonGroupYear = {
-        value:[1,2,3],
-        type:AppConstants.YEAR
-    }
-
-    const ButtonGroupTax = {
-        value:[10,20,30],
-        type:"%"
-    }
-
-    const isUserPrime = useContext(PrimeContext);
-
     //updating the fare, membership discount & tax amount based on the user selection
-    const buttonClickHandler = (buttonValue) => {
+    const buttonClickHandler = useCallback((buttonValue) => {
         const value = buttonValue.split(" ");
         const updatedFare = value[1] === AppConstants.YEAR ? (MembershipDiscount.amount + (value[0]*5)) : (TaxAmount.amount + TaxAmount.amount*(value[0]*0.01));
         if(value[1] === AppConstants.YEAR) {
-          let updatedMembershipDiscount = MembershipDiscount;
-          updatedMembershipDiscount.amount = updatedFare;
-          setMembershipDiscount(updatedMembershipDiscount);
-          setFare(parseInt(flightDetails.fare) - updatedFare + taxAmount.amount);
+            const updatedMembershipDiscount = {
+                type:MembershipDiscount.type,
+                amount:updatedFare
+            }
+          membershipDiscountRef.current = updatedMembershipDiscount;
+          setFare(parseInt(baseFareRef.current) - updatedFare + taxAmountref.current.amount);
         }
         else {
-          let updatedTaxAmount = TaxAmount;
-          updatedTaxAmount.amount = updatedFare; 
-          setTaxAmount(updatedTaxAmount);
-          setFare(parseInt(flightDetails.fare) + updatedFare - membershipDiscount.amount);
+            const updatedTaxAmount = {
+                type:TaxAmount.type,
+                amount:updatedFare
+            }
+          taxAmountref.current = updatedTaxAmount;
+          setFare(parseInt(baseFareRef.current) + updatedFare - membershipDiscountRef.current.amount);
         }
-    }
+    },[]);
 
     return(
         <div className='booking-container'>
@@ -76,8 +81,8 @@ const BookingContainer = (props) => {
             </div>
             <div className='fare'>$ {fare}</div>
             <div className='discount-container d-flex'>
-                <DiscountDisplayer discountDetails={membershipDiscount}></DiscountDisplayer>
-                <DiscountDisplayer discountDetails={taxAmount}></DiscountDisplayer>
+                <DiscountDisplayer discountDetails={membershipDiscountRef.current}></DiscountDisplayer>
+                <DiscountDisplayer discountDetails={taxAmountref.current}></DiscountDisplayer>
             </div>
             <div className='membership-renewal'>{AppConstants.MEMBERSHIP_RENEWAL}</div>
             <ButtonGroup buttonValue={ButtonGroupYear} buttonClickHandler={buttonClickHandler}></ButtonGroup>

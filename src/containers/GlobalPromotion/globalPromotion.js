@@ -2,7 +2,7 @@ import "./globalPromotion.scss";
 import React, { useContext} from "react";
 import TouristSpotCard from "../../components/TouristSpotCard/touristSpotCard";
 import { AppConstants } from "../../constants/appConstants";
-import { TouristContext } from "../../App";
+import { PrimeContext, TouristContext } from "../../App";
 import { memo } from "react";
 
 /**

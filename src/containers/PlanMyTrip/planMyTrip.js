@@ -4,6 +4,7 @@ import { AppConstants } from '../../constants/appConstants';
 import { CitiesService } from '../../services/CitiesService';
 import { memo } from 'react';
 import Button from '../../components/Button/button';
+import PropTypes from "prop-types";
 
 /**
  *  Allows the user to select the source and destination and search for the flights
@@ -43,7 +44,7 @@ const PlanMyTrip = (props) => {
     //To disable the search button if the user selects same source & destination
     const destinationCityHandler = () => {
         sourceRef.current.value === destinationRef.current.value ? setDisableButton(true) : setDisableButton(false);
-        selectedDestination(destinationRef.current.value)
+        selectedDestination(destinationRef.current.value, AppConstants.SELECTED)
     }
 
     //To pass the source and destination value thorugh props on click of search flights button
@@ -73,6 +74,16 @@ const PlanMyTrip = (props) => {
             </div>
         </div>
     )
+}
+
+PlanMyTrip.propTypes = {
+    selectedDestination: PropTypes.func,
+    searchFlightsHandler: PropTypes.func
+}
+
+PlanMyTrip.defaultProps = {
+    selectedDestination: () => {},
+    searchFlightsHandler: () => {}
 }
 
 export default memo(PlanMyTrip);

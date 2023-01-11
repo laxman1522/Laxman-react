@@ -6,7 +6,8 @@ import { TouristSpotsService } from './services/TouristSpotsService';
 import { UserInfoService } from './services/UserInfoService';
 import { memo } from 'react';
 import { AppConstants } from './constants/appConstants';
-import ContainerHolder from './components/ContainerHolder/containerHolder';
+import ContainerHolder from './components/HomeScreen/homeScreen';
+import HomeScreen from './components/HomeScreen/homeScreen';
 
 export const TouristContext = React.createContext();
 export const PrimeContext = React.createContext();
@@ -42,7 +43,7 @@ function App() {
       <PrimeContext.Provider value={isUserPrime}>
       <Header userDetails={userDetails}></Header>
       <TouristContext.Provider value={touristSpots}>
-        <ContainerHolder></ContainerHolder>
+        <HomeScreen></HomeScreen>
       </TouristContext.Provider>
       </PrimeContext.Provider>
     </React.Fragment>

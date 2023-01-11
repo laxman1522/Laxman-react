@@ -14,9 +14,9 @@ const ButtonGroup = (props) => {
 
     const {value,type} = props.buttonValue;
 
-    const buttonClickHandler = (buttonValue) => {
+    const buttonClickHandler = useCallback((buttonValue) => {
         props.buttonClickHandler(buttonValue);
-    };
+    },[]);
 
     return(
         <div className='button-group d-flex'>
@@ -29,12 +29,14 @@ const ButtonGroup = (props) => {
 
 ButtonGroup.propTypes={
     value: PropTypes.number,
-    type: PropTypes.string
+    type: PropTypes.string,
+    buttonClickHandler: PropTypes.func
 }
 
 ButtonGroup.defaultProps={
     value: 0,
-    type: AppConstants.NIL
+    type: AppConstants.NIL,
+    buttonClickHandler: () => {}
 }
 
 export default memo(ButtonGroup);

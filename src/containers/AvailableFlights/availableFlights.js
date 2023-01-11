@@ -1,9 +1,10 @@
 import './availableFlights.scss';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import FlightCard from '../../components/FlightCard/flightCard';
 import { AppConstants } from '../../constants/appConstants';
 import { memo } from 'react';
 import propTypes from "prop-types";
+import { PrimeContext } from '../../App';
 
 
 /**
@@ -43,11 +44,13 @@ const AvailableFlights = (props) => {
 }
 
 AvailableFlights.propTypes = {
-    flights: propTypes.array
+    flights: propTypes.array,
+    bookNowHandler: propTypes.func
 }
 
 AvailableFlights.defaultProps = {
-    flights: []
+    flights: [],
+    bookNowHandler: () => {}
 }
 
 export default memo(AvailableFlights);

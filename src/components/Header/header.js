@@ -1,5 +1,5 @@
 import './header.scss';
-import React from "react";
+import React, { useContext } from "react";
 import logo from '../../assets/logo.png';
 import prime from '../../assets/prime.png';
 import { AppConstants } from '../../constants/appConstants';
@@ -37,7 +37,7 @@ const Header = (props) => {
                     <Time heading={estDate} subHeading={estTime}></Time>
                     <Time heading={istDate} subHeading={istTime}></Time>
                 </div>
-                <div className='user-name'>{AppConstants.HI},{userDetails?.username?.charAt(0).toUpperCase() + userDetails.username?.slice(1)}</div>
+                <div className='user-name'>{AppConstants.HI}, {userDetails?.username?.charAt(0).toUpperCase() + userDetails.username?.slice(1)}</div>
             </div>
         </div>
     )

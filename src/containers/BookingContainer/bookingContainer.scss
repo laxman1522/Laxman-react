@@ -16,18 +16,22 @@
         font-size: 2.25rem;
     }
     .discount-container {
-        margin: 1rem 2rem 0 0;
+        margin: 0.75rem 2rem 0 0;
 
     }
     .btn {
         width: 100%;
         padding: 0.75rem;
+        font-size: 0.7rem !important;
     }
     .membership-renewal,.covid-donation,.ticket-sending-details,.btn {
         margin-top: 1rem;
     }
     .membership-renewal,.covid-donation,.ticket-sending-details {
         font-size: 0.9rem;
+        font-weight: 500;
+        opacity: 0.7;
+        line-height: 1.25;
     }
     .button-group {
         font-size: 0.8rem;
@@ -35,8 +39,10 @@
     .discount-container {
         .type {
             margin-bottom: 0.5rem;
+            font-weight: 500;
+            opacity: 0.7;
         }
-        .amount {
+        .amount,.type {
             font-size: 0.9rem;
         }
     }

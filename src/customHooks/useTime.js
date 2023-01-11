@@ -18,8 +18,8 @@ const useTime = (sessionTime,timeZone) => {
         let date = timeZone === "IST" ? new Date().toDateString().split(" ") : new Date().toLocaleString('en-US', {timeZone: 'America/New_York'}).split(" ")[0];
         timeZone !== "IST" && (date = new Date(date).toDateString().split(" "));
         const year = date[3];
-        const istDate = date[2]+ " "+ date[1]+ " " + year[2]+year[3] + " - IST";
-        const estDate = date[2]+ " "+ date[1]+ " " + year[2]+year[3] + " - EST";
+        const istDate = date[2]+ " "+ date[1].toUpperCase()+ " " + year[2]+year[3] + " - IST";
+        const estDate = date[2]+ " "+ date[1].toUpperCase()+ " " + year[2]+year[3] + " - EST";
         timeZone === "IST" ? setIstDate(istDate) :  setEstDate(estDate);
         timeZone === "IST" ? setIstTime(istTime) : setEstTime(estTime);
     }, [sessionTime])

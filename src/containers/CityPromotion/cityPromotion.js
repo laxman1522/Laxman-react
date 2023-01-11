@@ -1,5 +1,5 @@
 import './cityPromotion.scss';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { TouristContext } from '../../App';
 import TouristSpotCard from '../../components/TouristSpotCard/touristSpotCard';
 import { AppConstants } from '../../constants/appConstants';
@@ -14,54 +14,63 @@ const CityPromotion = (props) => {
     console.log("Container - City promotion");
 
     const touristSpots = useContext(TouristContext);
-    const [destination,setDestination] = useState("empty");
-    const [touristSpot, setTouristSpot] = useState();
-    const [selectedTouristSpots, setSelectedTouristSpots] = useState();
-    const [isValidDestination, setIsValidDestination] = useState(false);
     const [previousDestination, setPreviousDestination] = useState();
+    const destinationRef = useRef("empty");
+    const touristSpotRef = useRef();
+    const isValidDestinationRef = useRef(true);
 
     useEffect(() => {
-        setPreviousDestination(props.previousDestination);
-        setDestination(props.destination);
+            if(props.destination !== '') {
+            setPreviousDestination(props.previousDestination);
+            let validDestination = false;
+            for(let touristSpot of touristSpots) {
+                if(touristSpot?.city.toLowerCase() === props.destination.toLowerCase()) {
+                    validDestination = true;
+                }
+            }
+            (!validDestination && destinationRef.current !== "empty") && props.previousDestinationSelected('');
+            (!validDestination && destinationRef.current === "empty") && props.previousDestinationSelected(AppConstants.NO_PREVIOUS_DESTINATION);
+            destinationRef.current = props.destination;
+            !validDestination && (isValidDestinationRef.current = false);
+            validDestination && (isValidDestinationRef.current = true);
+            }
+            else {
+                isValidDestinationRef.current = false;
+                setPreviousDestination('');
+            }
     }, [props.destination, props.previousDestination]);
 
-    useEffect(() => {
-        let isValidDestination = false;
-        const selectedTouristSpots = touristSpots.map((touristSpot) => {
-            if(touristSpot?.city.toLowerCase() === destination.toLowerCase()) {
-                isValidDestination = true;
-                setTouristSpot(touristSpot);
-                return <TouristSpotCard key={touristSpot.city} touristSpot={touristSpot}></TouristSpotCard>
-            }
-        });
-        setSelectedTouristSpots(selectedTouristSpots);
-        ((!isValidDestination && destination!=="empty") && props.previousDestinationSelected(''));
-        !isValidDestination && setIsValidDestination(false);
-        isValidDestination && setIsValidDestination(true);
-    }, [destination])
+    const selectedTouristSpots = touristSpots.map((touristSpot) => {
+        if(touristSpot?.city.toLowerCase() === props.destination.toLowerCase()) {
+            !isValidDestinationRef.current && (isValidDestinationRef.current = true);
+            touristSpotRef.current = touristSpot;
+            return <TouristSpotCard key={touristSpot.city} touristSpot={touristSpot}></TouristSpotCard>
+        }
+    });
 
+    //To Update the previous destination 
     const previousDestinationHandler = () => {
-        setIsValidDestination(true);
+        (isValidDestinationRef.current = true);
         props.previousDestinationSelected(previousDestination);
     };
 
 
     return(
         <div className='city-promotion-container '> 
-        {isValidDestination && 
+        {isValidDestinationRef.current && 
                 <React.Fragment>
-                <div className='city-promotion-title fw-bold'>{AppConstants.TRAVELLING_TO}{touristSpot?.city} ? {AppConstants.KNOW_MORE}</div>
-                <div className='temperature'>{touristSpot?.temperature}</div>
-                <div className='description'>{touristSpot?.description}</div>
+                <div className='city-promotion-title fw-bold'>{AppConstants.TRAVELLING_TO}{touristSpotRef.current?.city.toUpperCase()} ? {AppConstants.KNOW_MORE}</div>
+                <div className='temperature'>{touristSpotRef?.current?.temperature}</div>
+                <div className='description'>{touristSpotRef?.current?.description}</div>
                 <div className='tourist-spots d-flex'>
                     {selectedTouristSpots}
                 </div>
-                {previousDestination!=='' && 
+                {previousDestination !=='' && 
                     <button className='previous' onClick={previousDestinationHandler}>{AppConstants.PREVIOUS}</button>
                 }
                 </React.Fragment> 
         }
-        {!isValidDestination && 
+        {!isValidDestinationRef.current && 
             <div className='no-cities d-flex fw-bold'>{AppConstants.NO_CITIES}</div>
         }
         </div>
@@ -71,13 +80,15 @@ const CityPromotion = (props) => {
 CityPromotion.propTypes = {
     previousDestination: PropTypes.string,
     searchedDestination: PropTypes.string,
-    destination: PropTypes.string
+    destination: PropTypes.string,
+    previousDestinationSelected: PropTypes.func
 }
 
 CityPromotion.defaultProps = {
     previousDestination: AppConstants.NIL,
     searchedDestination: AppConstants.NIL,
-    destination: AppConstants.NIL
+    destination: AppConstants.NIL,
+    previousDestinationSelected: () => {}
 }
 
 export default memo(CityPromotion);
