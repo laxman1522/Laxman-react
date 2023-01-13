@@ -1,7 +1,7 @@
 import './bookingContainer.scss';
 import { AppConstants } from '../../constants/appConstants';
 import primeLogo from '../../assets/prime.png';
-import React, { useContext, useState, useEffect, useRef, useCallback } from 'react';
+import React, { useContext, useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { memo } from 'react';
 import DiscountDisplayer from '../../components/DiscountDisplayer/discountDisplayer';
 import Button from '../../components/Button/button';
@@ -60,16 +60,20 @@ const BookingContainer = (props) => {
                 type:MembershipDiscount.type,
                 amount:updatedFare
             }
-          membershipDiscountRef.current = updatedMembershipDiscount;
-          setFare(parseInt(baseFareRef.current) - updatedFare + taxAmountref.current.amount);
+            if(membershipDiscountRef.current.amount !== updatedMembershipDiscount.amount) {
+                (membershipDiscountRef.current = updatedMembershipDiscount);
+                setFare(parseInt(baseFareRef.current) - updatedFare + taxAmountref.current.amount);
+            }
         }
         else {
             const updatedTaxAmount = {
                 type:TaxAmount.type,
                 amount:updatedFare
             }
-          taxAmountref.current = updatedTaxAmount;
-          setFare(parseInt(baseFareRef.current) + updatedFare - membershipDiscountRef.current.amount);
+            if(taxAmountref.current.amount !== updatedTaxAmount.amount) {
+                taxAmountref.current = updatedTaxAmount;
+                setFare(parseInt(baseFareRef.current) + updatedFare - membershipDiscountRef.current.amount);
+            }
         }
     },[]);
 

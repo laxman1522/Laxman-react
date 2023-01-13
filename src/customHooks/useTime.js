@@ -3,12 +3,10 @@ import React, {useEffect, useState} from "react";
 /**
  * Custom Hooks for updating the IST & EST time
  */
-const useTime = (sessionTime,timeZone) => {
+const useTime = (sessionTime, timeZone) => {
 
-    const [istDate, setIstDate] = useState();
-    const [istTime, setIstTime] = useState();
-    const [estTime, setEstTime] = useState();
-    const [estDate, setEstDate] = useState();
+    const [istDateTime, setIstDateTime] = useState();
+    const [estDateTime, setEstDateTime] = useState();
 
     useEffect(() => {
         let time = timeZone === "IST" ?  new Date().toTimeString().split(" ")[0] : new Date().toLocaleString('en-US', {timeZone: 'America/New_York'}).split(" ")[1]; 
@@ -20,15 +18,14 @@ const useTime = (sessionTime,timeZone) => {
         const year = date[3];
         const istDate = date[2]+ " "+ date[1].toUpperCase()+ " " + year[2]+year[3] + " - IST";
         const estDate = date[2]+ " "+ date[1].toUpperCase()+ " " + year[2]+year[3] + " - EST";
-        timeZone === "IST" ? setIstDate(istDate) :  setEstDate(estDate);
-        timeZone === "IST" ? setIstTime(istTime) : setEstTime(estTime);
+        timeZone === "IST" ? setIstDateTime({istDate: istDate, istTime: istTime}) : setEstDateTime({estDate: estDate, estTime: estTime});
     }, [sessionTime])
 
 
     if(timeZone === "IST") {
-        return [istDate,istTime];
+        return [istDateTime];
     } else {
-        return [estDate,estTime];
+        return [estDateTime];
     }
 
 }
