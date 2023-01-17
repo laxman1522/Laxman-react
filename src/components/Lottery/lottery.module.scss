@@ -1,0 +1,26 @@
+@import '../../variable.scss';
+
+.lotteryContainer {
+    @include display-flex(row,space-between,center,wrap);
+    width: 82.5%;
+    margin: 0 auto;
+    font-size: 1.75rem;
+    color: #fff;
+    letter-spacing: 0.05rem;
+    .input {
+        padding: 1.33rem 15rem 1.33rem 1.33rem;
+        border: none;
+        &::placeholder {
+            color: #c5c5c5;
+        }
+    }
+    .btn {
+        padding: 1rem 1.75rem;
+        font-size: 1.5rem;
+        background-color: $btn-color;
+        letter-spacing: 0.05rem;
+    }
+    .lottoryWon {
+        margin: 0 auto;
+    }
+}

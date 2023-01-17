@@ -1,0 +1,10 @@
+$primary-color: #010000;
+$secondary-color: #bc971d;
+$btn-color: #c30016;
+
+@mixin display-flex($direction,$justify-content,$align-items,$flex-wrap) {
+    display: flex;
+    justify-content: $justify-content;
+    align-items: $align-items;
+    flex-wrap: $flex-wrap;
+}

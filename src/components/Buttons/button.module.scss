@@ -1,0 +1,11 @@
+.btn {
+    border: none;
+    color: #fff;
+    &:disabled {
+        opacity: 0.5;
+    }
+}
+
+// .btn:disabled {
+//     opacity: 0.5;
+// }

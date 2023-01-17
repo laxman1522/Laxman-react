@@ -1,0 +1,16 @@
+export const APPCONSTANTS = {
+    APP_TITLE: "CINEFLEX",
+    HOME: "HOME",
+    ALL_MOVIES: "ALL MOVIES",
+    LOGIN: "LOGIN",
+    LOGOUT: "Logout",
+    NOW_SHOWING: "NOW SHOWING",
+    SINDEL_IMAGE: "SINDEL IMAGE",
+    MOBILE_NUMBER_PRIZE: "Your Mobile Number can win you exciting prizes",
+    MOBILE_NUMBER_PLACEHOLDER: "Enter Mobile Number",
+    FEELING_LUCKY: "I'm Feeling Lucky",
+    MOBILE_MAX_LENGTH: "10",
+    NIL: "NIL",
+    ERROR_OCCURED: "Error occured",
+    LOTTORY_WON: "Hurray! You won a free ticket to Blind Date on Wednesday ",
+}

@@ -1,0 +1,18 @@
+@import '../../variable.scss';
+
+.coverImage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    object-position: top;
+}
+
+.lotteryContainer {
+    position: absolute;
+    top: 100%;
+    width: 100vw;
+    padding: 2rem;
+    box-sizing: border-box;
+    background-color: $secondary-color;
+}

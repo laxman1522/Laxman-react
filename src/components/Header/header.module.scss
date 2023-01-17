@@ -1,0 +1,23 @@
+@import '../../variable.scss';
+
+.headerContainer {
+    @include display-flex(row,space-between,center,wrap);
+    padding: 1.5rem 3rem;
+    background-color: $primary-color;
+    color: #fff;
+    .logo {
+        width: 12rem;
+    }
+    .options {
+        .home,.allMovies {
+            margin-right: 3.5rem;
+        }
+        .home,.allMovies,.nowShowing {
+            text-decoration: none;
+            color: #fff;
+        }
+    }
+    .userLogin,.options {
+        font-size: 1.6rem;
+    }
+}
