@@ -1,0 +1,60 @@
+@import '../../variable.scss';
+
+.trailerContainer {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    padding: 9rem 5rem;
+    color: #fff;
+}
+
+.trailerSignIn {
+    margin-bottom: 2rem;
+    .trailer {
+        margin-bottom: 0.5rem;
+    }
+    .signin {
+        font-size: 1.25rem;
+    }
+    .siginLink {
+        text-decoration: none;
+        color: #3d7adb ;
+    }
+}
+
+.description {
+    font-size: 1.5rem;
+}
+
+.trailer, .trailerTitle {
+    font-size: 2.25rem;
+}
+
+.imageDescription {
+
+    .trailerImage {
+        position: absolute;
+        left: 1%;
+        width: 35rem;
+        height: 17.5rem;
+        margin-right: 3rem;
+        object-fit: cover;
+        object-position: top left;
+        clip-path: inset(0px 65px);
+    }
+    .trailerDetails {
+        margin-left: 30rem;
+    }
+    .description {
+        margin: 2.25rem auto;
+        font-size: 1.4rem;
+        letter-spacing: 0.05rem;
+        line-height: 1.25;
+    }
+    .btn {
+        padding: 1rem 1.5rem;
+        font-size: 1.5rem;
+        letter-spacing: 0.05rem;
+        background-color: $secondary-color;
+    }
+}

@@ -1,15 +1,20 @@
 import React from 'react';
 import { forwardRef, useImperativeHandle, useRef } from 'react';
-// import { customInput } from '../../modal/commonModel';
+import PropTypes from "prop-types";
+import { customInput } from '../../modal/commonModel';
+import { APPCONSTANTS } from '../../constants/appConstants';
 
 
-const CustomInput = (props: any, ref : any) => {
+const CustomInput = (props: customInput, ref : any) => {
+
+    console.log("Custom Input", props);
 
     const inputRef = useRef(ref);
 
     useImperativeHandle(ref, () => {
         return { 
-                enteredValue: () => inputRef.current.value};
+                enteredValue: () => inputRef.current.value,
+                clearInput: () => inputRef.current.value = '' };
     },[props])
 
     return(
@@ -17,4 +22,15 @@ const CustomInput = (props: any, ref : any) => {
     )
 }
 
-export default React.forwardRef( CustomInput );
+
+// CustomInput.defaultProps = {
+//     type: APPCONSTANTS.DEFAULT_INPUT_TYPE,
+//     placeholder: APPCONSTANTS.NIL,
+//     maxLength: APPCONSTANTS.MOBILE_MAX_LENGTH ,
+//     onKeyUp: () => {},
+//     onKeyDown: () => {},
+//     className: APPCONSTANTS.NIL ,
+//     ref: undefined
+// }
+
+export default forwardRef(CustomInput );

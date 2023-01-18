@@ -27,8 +27,8 @@ const Header = () => {
             </div>
             <div className={`${styles.userLogin} d-flex`}>
                 {userDetails?.isUserLoggedIn && <div className={styles.user}>{userDetails?.userName}</div> }
-                {!(userDetails?.isUserLoggedIn) && <div className={styles.login}>{LOGIN}</div> }
-                {userDetails?.isUserLoggedIn && <div className={styles.logout}>{LOGOUT}</div> }
+                {!(userDetails?.isUserLoggedIn) && <NavLink to={ROUTE_CONSTANTS.LOGIN} className={styles.login}>{LOGIN}</NavLink> }
+                {userDetails?.isUserLoggedIn && <NavLink to={ROUTE_CONSTANTS.LOGIN}  className={styles.logout}>{LOGOUT}</NavLink> }
             </div>
         </div>
     )

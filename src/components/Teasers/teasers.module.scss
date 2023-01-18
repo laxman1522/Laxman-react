@@ -1,0 +1,24 @@
+@import '../../variable.scss';
+
+.teaserContainer {
+    @include display-flex(row, space-between, center, wrap);
+    width: 80%;
+    margin: 0 auto 6.5rem;
+    
+}
+
+.teaserName,.teaserTitle {
+    color: #fff;
+
+}
+
+.teaserTitle {
+    width: 80%;
+    margin: 0 auto 2rem;
+    font-size: 2.25rem;
+}
+
+.teaserName {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}

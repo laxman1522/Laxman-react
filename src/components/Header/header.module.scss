@@ -12,12 +12,12 @@
         .home,.allMovies {
             margin-right: 3.5rem;
         }
-        .home,.allMovies,.nowShowing {
-            text-decoration: none;
-            color: #fff;
-        }
     }
     .userLogin,.options {
         font-size: 1.6rem;
+    }
+    .home,.allMovies,.nowShowing,.login,.logout {
+        text-decoration: none;
+        color: #fff;
     }
 }

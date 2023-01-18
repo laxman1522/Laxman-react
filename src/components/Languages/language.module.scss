@@ -1,0 +1,23 @@
+@import '../../variable.scss';
+
+.languageContainer {
+    width: 80%;
+    margin: 0 auto ;
+    padding-bottom: 7.5rem;
+    .viewOtherLanguages {
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
+        color: #fff;
+    }
+    .language {
+        @include display-flex(row,center,center,wrap);
+        margin-right: 0.75rem;
+        width: 3.5rem;
+        height: 3.5rem;
+        border: 1.5px solid #3566bc;
+        color: #3566bc;
+        font-size: 2rem;
+        font-weight: 700;
+        cursor: pointer;
+    }
+}

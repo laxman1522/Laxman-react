@@ -1,12 +1,17 @@
 import styles from "./lottery.module.scss";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState, memo } from "react";
 import { APPCONSTANTS } from "../../constants/appConstants";
 import CustomInput from "../Input/customInput";
 import Button from "../Buttons/button";
+import { lotteryProps } from "../../modal/commonModel";
 
-const Lottery = () => {
+const Lottery = (props: lotteryProps) => {
 
     console.log("lottery container");
+
+    if(props.error === true) {
+        throw new Error(APPCONSTANTS.ERROR_OCCURED); 
+    }
 
     const inputRef: any = useRef();
     const mobileNumRef = useRef();
@@ -16,16 +21,15 @@ const Lottery = () => {
 
     const lotteryCheckHandler = useCallback((event: any) => {
             mobileNumRef.current = inputRef.current.enteredValue();
-            inputRef.current.enteredValue().length === 10 ? setDisableButton(false) : setDisableButton(true);
+            const mobileNumberValidation = /^[0-9\b]+$/;
+            (inputRef.current.enteredValue().length === 10 && mobileNumberValidation.test(event.target.value)) 
+            ? setDisableButton(false) : setDisableButton(true);
     },[]);
 
     const buttonClicked = useCallback(() => {
-        mobileNumRef.current && ((mobileNumRef.current)%2 === 0 ? setLotteryPrize(true) : throwError());
+        inputRef.current.clearInput();
+        mobileNumRef.current && ((mobileNumRef.current)%2 === 0 ? setLotteryPrize(true) : props.errorOccured(APPCONSTANTS.ERROR_OCCURED));
     },[])
-
-    const throwError = () => {
-        throw new Error(APPCONSTANTS.ERROR_OCCURED);  
-    }
 
     return (
         <React.Fragment>
@@ -43,8 +47,8 @@ const Lottery = () => {
                 {lotteryPrize && 
                 <div className={styles.lottoryWon}>{APPCONSTANTS.LOTTORY_WON}</div>}
             </div>  
-            </React.Fragment>     
+        </React.Fragment>    
     )
 }
 
-export default Lottery;
+export default memo(Lottery);
