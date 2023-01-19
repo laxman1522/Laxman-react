@@ -2,7 +2,7 @@ export const APPCONSTANTS = {
     APP_TITLE: "CINEFLEX",
     HOME: "HOME",
     ALL_MOVIES: "ALL MOVIES",
-    LOGIN: "LOGIN",
+    LOGIN: "Login",
     LOGOUT: "Logout",
     NOW_SHOWING: "NOW SHOWING",
     SINDEL_IMAGE: "SINDEL IMAGE",
@@ -24,5 +24,9 @@ export const APPCONSTANTS = {
     SHORT_TEASERS: "Short Teasers",
     OTHER_LANGUAGES: "View in Other Languages",
     LANGUAGES: ["E","தா","మ","ഹം"],
-    ADVERTISEMENT: "Advertisement in "
+    ADVERTISEMENT: "Advertisement in ",
+    VIDEO_RESUMES: "Video Resumes in ",
+    LOGIN_INFO: "Logging into CineFLEX will give you access to full videos and movies. You can sit back, relax and watch at your home",
+    EMAIL: "Email",
+    PASSWORD: "Password",
 }

@@ -1,0 +1,56 @@
+@import '../../variable.scss';
+
+.loginCard:not(.btn) {
+    opacity: 0.8;
+}
+
+.loginCard {
+    position: absolute;
+    top:20%;
+    right: 6.5%;
+    width: 25rem;
+    height: 32.5rem;
+    background-color: #010000;
+    border-top: 0.25rem solid #bc971d;
+    .loginContainer {
+        padding: 5rem 2.5rem 2.5rem;
+        color: #fff;
+        .login {
+            font-size: 2rem;
+            font-weight: 300;
+        }
+        .loginInfo {
+            margin: 2rem auto;
+            font-size: 0.9rem;
+            opacity: 0.5;
+            line-height: 1.5;
+        }
+        .email,.password {
+            margin-bottom: 2rem;
+            label {
+                display: block;
+            }
+            input {
+                margin-top: 0.5rem;
+                width: 100%;
+                border: none;
+                background-color: transparent;
+                border-bottom: 1px solid #fff;
+                color: #fff;
+                &:focus {
+                    outline: none;
+                }
+            } 
+        }
+        .btn {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            width: 100%;
+            padding: 1.25rem;
+            font-size: 1.5rem;
+            text-align: center;
+            background-color: $secondary-color;
+        }
+    }
+}

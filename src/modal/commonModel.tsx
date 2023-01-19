@@ -19,7 +19,8 @@ export interface customInput {
   maxLength?: number ,
   onKeyUp?: any,
   onKeyDown?: any,
-  className?: string 
+  className?: string ,
+  name?: string
 }
 
 export interface teaser {

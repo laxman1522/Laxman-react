@@ -13,12 +13,12 @@ const Trailer = () => {
     console.log("Trailer container");
 
     const navigate = useNavigate();
-    const userDetails = useContext(userDetailsContext);
+    const user = useContext(userDetailsContext);
 
     const {TRAILERS, NEED_TO_SIGN_IN, SIGN_IN, SINDEL_IMAGE, TRAILER_TITLE, TRAILER_DESCRIPTION, WATCH_NOW} = APPCONSTANTS;
 
     const watchNowHandler = useCallback(() => {
-            userDetails?.isUserLoggedIn ? navigate(ROUTE_CONSTANTS.NOW_SHOWING) : navigate(ROUTE_CONSTANTS.LOGIN);
+            user?.userDetails?.isUserLoggedIn ? navigate(ROUTE_CONSTANTS.NOW_SHOWING) : navigate(ROUTE_CONSTANTS.LOGIN);
     },[])
 
     return (
