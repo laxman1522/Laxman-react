@@ -1,16 +1,20 @@
 export const APPCONSTANTS = {
     APP_TITLE: "CINEFLEX",
     HOME: "HOME",
-    ALL_MOVIES: "ALL MOVIES",
+    ALL_MOVIES: "All Movies",
     LOGIN: "Login",
+    LIKES: "Likes",
+    ACTORS: "Actors",
+    LOAD_MORE: "LOAD MORE",
     LOGOUT: "Logout",
-    NOW_SHOWING: "NOW SHOWING",
+    NOW_SHOWING: "Now Showing",
     SINDEL_IMAGE: "SINDEL IMAGE",
     MOBILE_NUMBER_PRIZE: "Your Mobile Number can win you exciting prizes",
     MOBILE_NUMBER_PLACEHOLDER: "Enter Mobile Number",
     FEELING_LUCKY: "I'm Feeling Lucky",
     MOBILE_MAX_LENGTH: 10,
     NIL: "NIL",
+    RESUMES: "Resumes in ",
     ERROR_OCCURED: "Error occured",
     LOTTORY_WON: "Hurray! You won a free ticket to Blind Date on Wednesday ",
     DEFAULT_INPUT_TYPE: "text",
@@ -29,4 +33,9 @@ export const APPCONSTANTS = {
     LOGIN_INFO: "Logging into CineFLEX will give you access to full videos and movies. You can sit back, relax and watch at your home",
     EMAIL: "Email",
     PASSWORD: "Password",
+    NOW_SHOWING_MOVIE_DETAILS: {
+        NAME: "Sintel",
+        SRC: "https://www.youtube.com/embed/CaimKeDcudo",
+        DESCRIPTION: "Sintel tells the story of a friendship between a girl named Sintel, a baby dragon and the desperate lengths she will go to when that friendship is taken from her. Sintel is created by Blender in 2010 as a pet project to demonstrate Blender capabilities.",
+    }
 }

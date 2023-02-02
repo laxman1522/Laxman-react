@@ -1,0 +1,14 @@
+@import '../../variable.scss';
+
+.container {
+    background-color: rgb(17, 17, 17) ;
+    .mainContainer {
+        display: flex;
+    }
+    .movieContainer {
+        width: 58%;
+    }
+    .movieDetails {
+        width: 40%;
+    }
+}

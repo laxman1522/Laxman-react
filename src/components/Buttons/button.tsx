@@ -3,10 +3,10 @@ import React, {memo} from "react";
 import { button } from "../../modal/commonModel";
 import { APPCONSTANTS } from "../../constants/appConstants";
 
-
+/**
+ * Custom button component
+ */
 const Button = (props: button) => {
-
-    console.log("Button container");
 
     const buttonClickHandler = () => {
         props.buttonClickHandler();

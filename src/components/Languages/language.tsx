@@ -2,10 +2,10 @@ import React, {memo} from "react";
 import { APPCONSTANTS } from "../../constants/appConstants";
 import styles from './language.module.scss';
 
-const Language = () => {
+const Language: React.FC = () => {
 
 
-    const languageList = APPCONSTANTS.LANGUAGES.map((language) => {
+    const languageList = APPCONSTANTS.LANGUAGES.map((language: string) => {
             return (
                 <div key={language} className={styles.language}>
                     <span>{language}</span>

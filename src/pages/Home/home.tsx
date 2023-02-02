@@ -11,9 +11,7 @@ import Teasers from '../../components/Teasers/teasers';
 import Language from '../../components/Languages/language';
 
 
-const Home = () => {
-
-        console.log("Home Container");
+const Home: React.FC = () => {
 
         useEffect(() => {
 

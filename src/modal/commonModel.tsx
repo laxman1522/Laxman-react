@@ -32,6 +32,35 @@ export interface teaser {
 export interface teaserDetails {
   teaser: teaser,
   className?: string,
+  startedPlaying: Function,
+  message: string,
+  timer: number | string
+  showAd: boolean,
+  showAdImage: boolean,
+  showingAd: Function
+}
+
+export interface movieList {
+  updatedMovie: any
+}
+
+export interface movieDetails {
+  timer : number,
+  message: string,
+  startedPlaying?: any,
+  showAd: boolean, 
+  showAdImage: boolean, 
+  showingAd?:any,
+  updateLikes: any
+}
+
+export interface movieCard {
+  movieDetails: {
+    movie: string,
+    link: string
+  },
+  likes: string,
+  updateMovie?:any
 }
 
 export interface errorBoundaryState {

@@ -1,0 +1,63 @@
+@import '../../variable.scss';
+
+.spinner {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: $primary-color
+}
+
+
+.movieName {
+    @include display-flex(row,space-between,flex-start,wrap);
+    margin: 5.5rem 0 2rem;
+    color:#fff;
+    font-size: 2.5rem;
+    span {
+        display: block;
+        font-size: 1rem;
+        margin: 1rem 0;
+        font-weight: 700;
+        color: $secondary-color;
+    }
+    i{
+        @include display-flex(row,center,center,wrap);
+        width: 2rem;
+        height: 2rem;
+        border: 1px solid #fff;
+        font-size: 1.25rem;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+}
+
+.movieDetailsContainer {
+    color: #fff;
+    .adImage {
+        margin: 6rem 0 1rem;
+        width: 500px;
+        height: 600px;
+    }
+    .adMessage {
+        margin: 1rem 0;
+        color: #3d7adb;
+    }
+    img {
+        width: 200px;
+        height: 250px;
+        margin-bottom: 1.5rem;
+    }
+    .description {
+        font-size: 0.9rem;
+        line-height: 1.25;
+    }
+    .actors {
+        .title {
+            margin: 1rem 0;
+        }
+        .actor{
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+    }
+}

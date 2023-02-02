@@ -1,28 +1,31 @@
 import styles from './loginCard.module.scss';
-import React, {memo, useContext, useRef, useState} from 'react';
+import React, {memo, useRef} from 'react';
 import { APPCONSTANTS } from '../../constants/appConstants';
 import Button from '../Buttons/button';
 import CustomInput from '../Input/customInput';
 import { LoginService } from '../../services/loginService';
-import { userDetailsContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_CONSTANTS } from '../../constants/routeConstants';
 
-const LoginCard = () => {
+const LoginCard : React.FC = () => {
 
     const {LOGIN, LOGIN_INFO, EMAIL, PASSWORD} = APPCONSTANTS;
     const emailRef : any = useRef();
     const passwordRef: any = useRef();
     const navigate = useNavigate();
-    const {userDetails, setUserDetails} = useContext(userDetailsContext);
 
     const authenticateUser = () => {
         const email = emailRef?.current?.enteredValue();
         const password = passwordRef?.current?.enteredValue();
         const validUser = LoginService.authenticateUser(email,password);
-        validUser && localStorage.setItem("login","true");
-        validUser && setUserDetails({isUserLoggedIn: true,userName: email});
-        validUser && navigate(ROUTE_CONSTANTS.HOME);
+        if(validUser) {
+            const userDetails ={
+                username: email,
+                login: true
+            }
+            localStorage.setItem("user",JSON.stringify(userDetails));
+            navigate(ROUTE_CONSTANTS.HOME);
+        }
     }
 
     return (

@@ -1,24 +1,20 @@
 import styles from "./trailer.module.scss";
-import React, {memo, useCallback, useContext} from "react";
+import React, {memo, useCallback} from "react";
 import { APPCONSTANTS } from "../../constants/appConstants";
 import trailerImage from '../../assets/sindel-background.png';
 import Button from "../Buttons/button";
 import { NavLink, useNavigate } from "react-router-dom";
 import { ROUTE_CONSTANTS } from "../../constants/routeConstants";
-import { userDetailsContext } from "../../App";
 
-
-const Trailer = () => {
-
-    console.log("Trailer container");
+const Trailer: React.FC = () => {
 
     const navigate = useNavigate();
-    const user = useContext(userDetailsContext);
 
     const {TRAILERS, NEED_TO_SIGN_IN, SIGN_IN, SINDEL_IMAGE, TRAILER_TITLE, TRAILER_DESCRIPTION, WATCH_NOW} = APPCONSTANTS;
 
     const watchNowHandler = useCallback(() => {
-            user?.userDetails?.isUserLoggedIn ? navigate(ROUTE_CONSTANTS.NOW_SHOWING) : navigate(ROUTE_CONSTANTS.LOGIN);
+            let user : string | null = localStorage.getItem("user");
+            user ? navigate(ROUTE_CONSTANTS.NOW_SHOWING) : navigate(ROUTE_CONSTANTS.LOGIN);
     },[])
 
     return (

@@ -1,0 +1,23 @@
+@import '../../variable.scss';
+
+.movieList {
+    width: 75%;
+    margin: 0 auto ;
+    padding-bottom: 5rem;
+    .allMovies {
+        margin: 2rem auto;
+        font-size: 2rem;
+        color: #fff;
+    }
+    .movieContainer {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+        grid-gap: 2rem;
+    }
+    .btn {
+        margin: 4rem auto 5rem;
+        padding: 1rem 1.75rem;
+        background-color: $secondary-color;
+        font-size: 1.25rem;
+    }
+}

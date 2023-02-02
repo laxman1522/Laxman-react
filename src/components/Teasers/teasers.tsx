@@ -5,7 +5,7 @@ import { TeaserService } from "../../services/TeaserService";
 import TeaserCard from "../TeaserCard/teaserCard";
 import styles from './teasers.module.scss';
 
-const Teasers = () => {
+const Teasers: React.FC = () => {
 
     const [teasers, setTeasers] = useState([]);
 
@@ -17,7 +17,7 @@ const Teasers = () => {
         getTeasers();
     }, [])
 
-    const teaserList = teasers.map((teaser : teaser) => {
+    const teaserList = teasers.map((teaser: teaser) => {
         return <TeaserCard key={teaser?.title} className={styles.teaserName} teaser={teaser}></TeaserCard>
     })
 

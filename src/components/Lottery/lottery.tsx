@@ -5,11 +5,11 @@ import CustomInput from "../Input/customInput";
 import Button from "../Buttons/button";
 import { lotteryProps } from "../../modal/commonModel";
 
-const Lottery = (props: lotteryProps) => {
+const Lottery: React.FC<lotteryProps> = (props: lotteryProps) => {
 
-    console.log("lottery container");
+    const {error, errorOccured} = props
 
-    if(props.error === true) {
+    if(error === true) {
         throw new Error(APPCONSTANTS.ERROR_OCCURED); 
     }
 
@@ -28,7 +28,7 @@ const Lottery = (props: lotteryProps) => {
 
     const buttonClicked = useCallback(() => {
         inputRef.current.clearInput();
-        mobileNumRef.current && ((mobileNumRef.current)%2 === 0 ? setLotteryPrize(true) : props.errorOccured(APPCONSTANTS.ERROR_OCCURED));
+        mobileNumRef.current && ((mobileNumRef.current)%2 === 0 ? setLotteryPrize(true) : errorOccured(APPCONSTANTS.ERROR_OCCURED));
     },[])
 
     return (
@@ -49,6 +49,11 @@ const Lottery = (props: lotteryProps) => {
             </div>  
         </React.Fragment>    
     )
+}
+
+Lottery.defaultProps = {
+    error: false,
+    errorOccured: () => {}
 }
 
 export default memo(Lottery);

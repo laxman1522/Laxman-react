@@ -5,7 +5,7 @@ import styles from '../Home/home.module.scss';
 import { APPCONSTANTS } from "../../constants/appConstants";
 import LoginCard from "../../components/LoginCard/loginCard";
 
-const Login = () => {
+const Login: React.FC = () => {
 
     return(
         <React.Fragment>
