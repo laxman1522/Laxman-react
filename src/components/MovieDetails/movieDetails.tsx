@@ -6,16 +6,21 @@ import WithAdvertisement from '../HigherOrderComponent/withAdvertisement';
 import adImage from "../../assets/adv-2.png";
 import { movieDetails } from '../../modal/commonModel';
 
+//INFO: ad details
 const adDetails = {
     message: APPCONSTANTS.ADVERTISEMENT,
     timer: 15
 }
 
+//INFO: ad resume details
 const resumeDetails = {
     message: APPCONSTANTS.RESUMES,
     timer: 5
 }
 
+/**
+ * @description For showing the details of the selected moie along with description, actors and likes
+ */
 const MovieDetails: React.FC<movieDetails> = (props: movieDetails) => {
 
     const {currentMovie, setCurrentMovie} = useContext(movieDetailsContext);
@@ -29,19 +34,23 @@ const MovieDetails: React.FC<movieDetails> = (props: movieDetails) => {
         showingAd(resumeDetails);
     } 
 
+    //INFO: use effect for updating the movie details 
     useEffect(() => {
         setMovieDetails(currentMovie);
         setLikes(currentMovie.likes);
     }, [currentMovie])
 
+    //INFO: use effect for updating the ad details on selecting the movie
     useEffect(() => {
         (movieDetails?.movie ) && startedPlaying(adDetails);
     }, [movieDetails]);
 
+    //INFO: for iterating through the actors list
     const actorsList =  movieDetails?.actors?.map((actor: string) => {
         return <div key={actor} className={styles.actor}>{actor}</div>
     })
 
+    //INFO: minute converter for converting the seconds to the minute:seconds format
     const minuteConverter = (time : any) => {
         let minutes = Math.floor(time/ 60);
         let seconds: number | string = time- minutes * 60;
@@ -49,6 +58,7 @@ const MovieDetails: React.FC<movieDetails> = (props: movieDetails) => {
         return `0${minutes}:${seconds}`
     }
 
+    //INFO: for updating the likes globally on clicking the like icon
     const updateLikesHandler = () => {
         const updatedMovieDetails = currentMovie;
         let likes = parseInt(updatedMovieDetails.likes);

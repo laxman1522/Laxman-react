@@ -3,7 +3,9 @@ import React, {memo} from "react";
 import { APPCONSTANTS } from '../../constants/appConstants';
 import { movieCard } from '../../modal/commonModel';
 
-
+/**
+ * @description for showing every individual movie in a card format
+ */
 const MovieCard: React.FC<movieCard> = (props: movieCard) => {
 
     const {movie,link} = props?.movieDetails;

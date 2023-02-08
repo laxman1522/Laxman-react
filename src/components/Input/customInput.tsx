@@ -2,6 +2,12 @@ import React from 'react';
 import { forwardRef, useImperativeHandle, useRef } from 'react';
 import { customInput } from '../../modal/commonModel';
 
+/**
+ * 
+ * @param props 
+ * @param ref 
+ * @description for handling and showing the input field
+ */
 const CustomInput = (props: customInput, ref : any) => {
 
     const inputRef = useRef(ref);

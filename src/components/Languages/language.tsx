@@ -2,9 +2,12 @@ import React, {memo} from "react";
 import { APPCONSTANTS } from "../../constants/appConstants";
 import styles from './language.module.scss';
 
+/**
+ * @description For showing the available languages in the home page
+ */
 const Language: React.FC = () => {
 
-
+    //INFO: iterating through the available languages and retunrs the jsx for each language
     const languageList = APPCONSTANTS.LANGUAGES.map((language: string) => {
             return (
                 <div key={language} className={styles.language}>

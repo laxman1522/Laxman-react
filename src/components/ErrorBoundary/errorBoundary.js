@@ -2,6 +2,10 @@ import React from "react";
 import { APPCONSTANTS } from "../../constants/appConstants";
 import PropTypes from "prop-types";
 
+
+/**
+ * @description for showing Fall back UI if any error occured
+ */
 class ErrorBoundary extends React.Component {
     constructor(props) {
       super(props);
@@ -22,10 +26,12 @@ class ErrorBoundary extends React.Component {
     }
 }
 
+//INFO: prop types
 ErrorBoundary.propTypes = {
   className: PropTypes.string,
 }
 
+//INFO: default props
 ErrorBoundary.defaultProps = {
   className: APPCONSTANTS.NIL
 }

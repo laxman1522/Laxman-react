@@ -7,6 +7,10 @@ import { LoginService } from '../../services/loginService';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_CONSTANTS } from '../../constants/routeConstants';
 
+/**
+ * 
+ * @description For showing the login card including  email, password & submit button
+ */
 const LoginCard : React.FC = () => {
 
     const {LOGIN, LOGIN_INFO, EMAIL, PASSWORD} = APPCONSTANTS;
@@ -14,6 +18,7 @@ const LoginCard : React.FC = () => {
     const passwordRef: any = useRef();
     const navigate = useNavigate();
 
+    //INFO: to aunthenticate the user
     const authenticateUser = () => {
         const email = emailRef?.current?.enteredValue();
         const password = passwordRef?.current?.enteredValue();

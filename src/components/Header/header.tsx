@@ -6,20 +6,27 @@ import { memo } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { ROUTE_CONSTANTS } from '../../constants/routeConstants';
 
+//INFO: initial user details
 const user = {
     username: "",
     login: "false"
 }
 
-
+/**
+ * 
+ * @returns jsx responsible for showing header along with menu options
+ */
 const Header: React.FC = () => {
 
+    //using location to access the path name
     const location = useLocation();
 
+    //using state for maintaining the user details 
     const [userDetails, setUserDetails] = useState(user);
 
     const [loginPage, setLoginPage] = useState(false);
 
+    //use effect for conditionally remove or update user details
     useEffect(() => {
         location.pathname === ROUTE_CONSTANTS.LOGIN ? setLoginPage(true) : setLoginPage(false);
         location.pathname === ROUTE_CONSTANTS.LOGIN && localStorage.removeItem("user");
@@ -27,6 +34,7 @@ const Header: React.FC = () => {
         user &&  setUserDetails(JSON.parse(user));
     },[location])
 
+    //INFO:destructuring constants
     const {APP_TITLE, HOME, ALL_MOVIES, LOGIN, LOGOUT, NOW_SHOWING} = APPCONSTANTS;
 
     return (

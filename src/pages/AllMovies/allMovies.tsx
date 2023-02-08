@@ -7,7 +7,6 @@ import { loadingContext } from "../../App";
 import Loader from "../../components/Loader/loader";
 
 
-
 const AllMovies: React.FC = () => {
 
     const [updatedMovie, setUpdatedMovie] = useState({});

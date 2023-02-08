@@ -8,6 +8,7 @@ import { APPCONSTANTS } from "../../constants/appConstants";
  */
 const Button = (props: button) => {
 
+    //INFO: for indicating the parent component on button click
     const buttonClickHandler = () => {
         props.buttonClickHandler();
     }
