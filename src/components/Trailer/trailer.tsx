@@ -6,6 +6,9 @@ import Button from "../Buttons/button";
 import { NavLink, useNavigate } from "react-router-dom";
 import { ROUTE_CONSTANTS } from "../../constants/routeConstants";
 
+/**
+ * @description for showing the trailer section
+ */
 const Trailer: React.FC = () => {
 
     const navigate = useNavigate();

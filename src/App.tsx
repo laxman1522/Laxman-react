@@ -2,7 +2,7 @@ import React, { lazy, useState, Suspense, useEffect } from 'react';
 import './App.scss';
 import { userDetails } from './modal/commonModel';
 import { ROUTE_CONSTANTS } from './constants/routeConstants';
-import { BrowserRouter, Navigate, Route, Routes, useLocation} from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import Loader from './components/Loader/loader';
 
 const Home = lazy(() => import ('./pages/Home/home'));
