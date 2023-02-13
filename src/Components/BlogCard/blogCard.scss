@@ -1,0 +1,32 @@
+@import "../../variable.scss";
+
+.blog-card {
+    width: 80%;
+    height: 175px;
+    margin: 0 auto;
+    border-radius: 10px;
+    background-color: #fff;
+    .blog-card-container {
+        padding: 20px;
+        .heading {
+            font-size: 1.2rem;
+            font-family: Roboto slab;
+        }
+        .blog-type{
+            font-family: IBM Plex sans;
+            margin: 10px 0;
+            color: $primary-color;
+        }
+        .description {
+            display: -webkit-box;
+            max-height: 100px;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            font-family: IBM Plex sans;
+            font-weight: 400;
+            opacity: 0.8;
+            line-height: 1.5;
+            overflow: hidden;
+        }
+    }
+}

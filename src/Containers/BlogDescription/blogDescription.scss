@@ -1,0 +1,27 @@
+.blog-description-container {
+    width: 50%;
+    margin: 20px auto;
+    overflow: auto;
+    .content-container {
+        width: 80%;
+        margin: 20px auto;
+    }
+    img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    .heading {
+        margin: 20px auto;
+        font-size: 2rem;
+        font-family: Roboto Slab;
+    }
+    .description {
+        font-size: 1.1rem;
+        line-height: 1.5;
+        font-family: IBM Plex sans;
+        opacity: 0.8;
+
+    }
+}

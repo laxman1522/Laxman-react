@@ -1,0 +1,8 @@
+@mixin display-flex ($direction,$justify-content, $align-items) {
+    display: flex !important;
+    flex-direction: $direction;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}
+
+$primary-color: rgb(162,57,168);
