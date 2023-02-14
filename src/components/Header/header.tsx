@@ -3,7 +3,7 @@ import logo from '../../assets/logo.png';
 import React, {  useEffect, useState } from "react";
 import { APPCONSTANTS } from '../../constants/appConstants';
 import { memo } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTE_CONSTANTS } from '../../constants/routeConstants';
 
 //INFO: initial user details
@@ -21,6 +21,8 @@ const Header: React.FC = () => {
     //using location to access the path name
     const location = useLocation();
 
+    const navigate = useNavigate();
+
     //using state for maintaining the user details 
     const [userDetails, setUserDetails] = useState(user);
 
@@ -34,12 +36,16 @@ const Header: React.FC = () => {
         user &&  setUserDetails(JSON.parse(user));
     },[location])
 
+    const navigateToHomePage = () => {
+        navigate(ROUTE_CONSTANTS.HOME);
+    }
+
     //INFO:destructuring constants
     const {APP_TITLE, HOME, ALL_MOVIES, LOGIN, LOGOUT, NOW_SHOWING} = APPCONSTANTS;
 
     return (
         <div className={`${styles.headerContainer}`}>
-            <img className={styles.logo} src={logo} alt={APP_TITLE}></img>
+            <img className={styles.logo} src={logo} onClick={navigateToHomePage} alt={APP_TITLE}></img>
            {!loginPage && <React.Fragment>
                 <div className={`${styles.options} d-flex`}>
                     <NavLink to={ROUTE_CONSTANTS.HOME} className={styles.home}>{HOME}</NavLink>

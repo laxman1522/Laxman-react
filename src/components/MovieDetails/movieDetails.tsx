@@ -23,30 +23,32 @@ const resumeDetails = {
  */
 const MovieDetails: React.FC<movieDetails> = (props: movieDetails) => {
 
+    const {timer,message, startedPlaying, showAd, showAdImage, showingAd, updateLikes, updatedMovie } = props;
+
     const {currentMovie, setCurrentMovie} = useContext(movieDetailsContext);
     const {loading, setLoading} = useContext(loadingContext);
-    const [movieDetails, setMovieDetails] = useState(currentMovie);
-    const [likes, setLikes] = useState();
-
-    const {timer,message, startedPlaying, showAd, showAdImage, showingAd, updateLikes} = props;
+    const [likes, setLikes] = useState(updatedMovie.likes);
 
     if(message === APPCONSTANTS.ADVERTISEMENT && timer === 0) {
         showingAd(resumeDetails);
     } 
 
+    useEffect(() => {
+        setLikes(updatedMovie.likes)
+    },[updatedMovie])
+
     //INFO: use effect for updating the movie details 
     useEffect(() => {
-        setMovieDetails(currentMovie);
         setLikes(currentMovie.likes);
     }, [currentMovie])
 
     //INFO: use effect for updating the ad details on selecting the movie
     useEffect(() => {
-        (movieDetails?.movie ) && startedPlaying(adDetails);
-    }, [movieDetails]);
+        (currentMovie?.movie ) && startedPlaying(adDetails);
+    }, [currentMovie]);
 
     //INFO: for iterating through the actors list
-    const actorsList =  movieDetails?.actors?.map((actor: string) => {
+    const actorsList =  currentMovie?.actors?.map((actor: string) => {
         return <div key={actor} className={styles.actor}>{actor}</div>
     })
 
@@ -77,11 +79,11 @@ const MovieDetails: React.FC<movieDetails> = (props: movieDetails) => {
             {!showAdImage && 
             <React.Fragment>
                 <div className={styles.movieName}>
-                    <div className={styles.name}>{movieDetails?.movie}<span>{likes} {APPCONSTANTS.LIKES}</span></div>
+                    <div className={styles.name}>{currentMovie?.movie}<span>{likes} {APPCONSTANTS.LIKES}</span></div>
                     <div className={styles.likes} onClick={updateLikesHandler}><i className="fa fa-thumbs-o-up"></i></div>
                 </div>
-                <img src={movieDetails?.link} alt={movieDetails?.movie}></img>
-                <div className={styles.description}>{movieDetails?.description}</div>
+                <img src={currentMovie?.link} alt={currentMovie?.movie}></img>
+                <div className={styles.description}>{currentMovie?.description}</div>
                 <div className={styles.actors}> 
                     <div className={styles.title}>{APPCONSTANTS.ACTORS.toUpperCase()}</div>
                     {actorsList}

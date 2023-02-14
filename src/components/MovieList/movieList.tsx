@@ -19,7 +19,7 @@ const MovieList : React.FC<movieList>= (props: movieList) => {
     const {currentMovie, setCurrentMovie} = useContext(movieDetailsContext);
     const {loading, setLoading} = useContext(loadingContext);
 
-    const {updatedMovie} = props;
+    const {updatedMovie, updateLikes} = props;
 
     //INFO: use effect for fetching the movies 
     useEffect(() => {
@@ -47,10 +47,18 @@ const MovieList : React.FC<movieList>= (props: movieList) => {
         setCurrentMovie(movie);
     }, [])
 
+    const updateLikesHandler = useCallback((movie: any) => {
+        const updatedMovieDetails = movie;
+        let likes = parseInt(updatedMovieDetails.likes);
+        likes = likes + 1;
+        updatedMovieDetails.likes = likes;
+        updateLikes(updatedMovieDetails)
+    },[])
+
     //INFO: for iterating throught the movie list and returning jsx for individual moviess
     const movies = moviesList.map((movie : any, index) => {
        if(index < count) {
-        return <MovieCard updateMovie = {updateMovieHandler} movieDetails={movie} likes={movie.likes}
+        return <MovieCard updateMovie = {updateMovieHandler} updateLikes={updateLikesHandler} movieDetails={movie} likes={movie.likes}
                 key={index}></MovieCard>
        }
     })

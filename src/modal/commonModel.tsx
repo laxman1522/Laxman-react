@@ -26,7 +26,7 @@ export interface customInput {
 export interface teaser {
   title: string,
   videoSrc: string,
-  key?: string
+  key?: string,
 }
 
 export interface teaserDetails {
@@ -37,11 +37,13 @@ export interface teaserDetails {
   timer: number | string
   showAd: boolean,
   showAdImage: boolean,
-  showingAd: Function
+  showingAd: Function,
+  poster: string
 }
 
 export interface movieList {
-  updatedMovie: any
+  updatedMovie: any,
+  updateLikes:any
 }
 
 export interface movieDetails {
@@ -51,7 +53,8 @@ export interface movieDetails {
   showAd: boolean, 
   showAdImage: boolean, 
   showingAd?:any,
-  updateLikes: any
+  updateLikes: any,
+  updatedMovie: any
 }
 
 export interface movieCard {
@@ -60,7 +63,8 @@ export interface movieCard {
     link: string
   },
   likes: string,
-  updateMovie?:any
+  updateMovie?:any,
+  updateLikes?:any
 }
 
 export interface errorBoundaryState {

@@ -3,7 +3,7 @@ import React, {memo, useContext, useState} from "react";
 import Movielist from "../../components/MovieList/movieList";
 import Header from "../../components/Header/header";
 import MovieDetails from "../../components/MovieDetails/movieDetails";
-import { loadingContext } from "../../App";
+import { loadingContext, movieDetailsContext } from "../../App";
 import Loader from "../../components/Loader/loader";
 
 
@@ -23,10 +23,10 @@ const AllMovies: React.FC = () => {
             <div className={styles.mainContainer}>
                 {loading && <Loader></Loader>}
                 <div className={styles.movieContainer}>
-                    <Movielist updatedMovie={updatedMovie}></Movielist>
+                    <Movielist updatedMovie={updatedMovie} updateLikes = {updateLikesHandler}></Movielist>
                 </div>
                 <div className={styles.movieDetails}>
-                    <MovieDetails updateLikes = {updateLikesHandler}></MovieDetails>
+                    <MovieDetails updatedMovie={updatedMovie} updateLikes = {updateLikesHandler}></MovieDetails>
                 </div>
             </div>
         </div>

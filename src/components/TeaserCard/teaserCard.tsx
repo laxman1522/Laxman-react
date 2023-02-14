@@ -1,9 +1,11 @@
-import React, {useCallback, useRef} from "react";
+import React, {useCallback, useRef, useState} from "react";
 import { APPCONSTANTS } from "../../constants/appConstants";
 import {  teaserDetails } from "../../modal/commonModel";
 import styles from './teaserCard.module.scss';
 import adImage from '../../assets/Advertisement-Small-2.png';
 import WithAdvertisement from "../HigherOrderComponent/withAdvertisement";
+import play from "../../assets/Play.png";
+import pause from "../../assets/Pause.png";
 
 //INFO: Ad details 
 const adDetails = {
@@ -26,6 +28,7 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
 
     //INFO: using reference for handling video pause and play
     const teaserRef : any = useRef();
+    const imageRef: any = useRef();
 
     //INFO: destructuring props
     const {title, videoSrc} = props?.teaser;
@@ -35,6 +38,7 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
     if(message === APPCONSTANTS.ADVERTISEMENT && timer === 0) {
         teaserRef.current.pause();
         teaserRef.current.style.display = "none";
+        imageRef.current.style.display = "none";
         showingAd(resumeDetails);
     } else if (message === APPCONSTANTS.VIDEO_RESUMES && timer === 0){
         teaserRef.current.style.display = "block";
@@ -43,9 +47,11 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
 
     //INFO: to pass the ad details once the user start playing the video
     const videoStateChanged = useCallback(() => {
-            if(teaserRef.current.paused && teaserRef.current.currentTime === 0) {
-                startedPlaying(adDetails);
-            }
+        if(teaserRef.current.paused && teaserRef.current.currentTime === 0) {
+            startedPlaying(adDetails);
+        }
+        teaserRef.current.paused ? teaserRef?.current?.play() : teaserRef.current.pause();
+        imageRef.current.style.display = teaserRef.current.paused ? "" : "none";
     },[])
 
     //INFO: for converting the time duration to seconds 
@@ -60,9 +66,11 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
         <React.Fragment>
             <div className={styles.teaserCardContainer} >
                 {showAdImage && <img width="400" height="300" src={adImage} alt="adImage"></img>}
-                <video src={videoSrc} ref={teaserRef} width="400" height="300" onClick={videoStateChanged} controls ></video>
+                <video src={videoSrc} ref={teaserRef} width="400" height="300" onChange={videoStateChanged} onClick={videoStateChanged} controls
+                poster={props.poster} ></video>
                 <div className={props.className}>{title}</div>
                 {showAd && <div className={styles.adMessage}>{message}{minuteConverter(timer)}</div>}
+                <img className={styles.play} ref={imageRef} src={play} alt="play button" onClick={videoStateChanged}></img>
             </div>
         </React.Fragment>
     )

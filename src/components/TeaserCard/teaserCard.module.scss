@@ -1,8 +1,20 @@
 .teaserCardContainer {
     display: block;
     margin-bottom: 1.5rem;
+    position: relative;
     .adMessage {
         margin-top: 1rem;
         color: #3d7adb;
+    }
+    video{
+        object-fit: cover;
+    }
+    .play {
+        position: absolute;
+        top:125px;
+        left:162.5px;
+        width: 75px;
+        height: 50px;
+        cursor: pointer;
     }
 }

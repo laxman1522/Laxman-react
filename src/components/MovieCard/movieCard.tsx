@@ -9,10 +9,14 @@ import { movieCard } from '../../modal/commonModel';
 const MovieCard: React.FC<movieCard> = (props: movieCard) => {
 
     const {movie,link} = props?.movieDetails;
-    const {likes, updateMovie} = props
+    const {likes, updateMovie, updateLikes} = props
 
     const updateMovieHandler =  () => {
         updateMovie(props.movieDetails);
+    }
+
+    const updateLikesHandler = () => {
+        updateLikes(props.movieDetails)
     }
 
     return(
@@ -22,7 +26,7 @@ const MovieCard: React.FC<movieCard> = (props: movieCard) => {
                 <div className={styles.movieName}>{movie}</div>
                 <div className={styles.likesContainer}>
                     <div className={styles.likes}>{likes} {APPCONSTANTS.LIKES}</div>
-                    <div className={styles.likeLogo}><i className="fa fa-thumbs-o-up"></i></div>
+                    <div className={styles.likeLogo} onClick={updateLikesHandler}><i className="fa fa-thumbs-o-up"></i></div>
                 </div>
             </div>
         </div>
