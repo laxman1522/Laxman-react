@@ -19,6 +19,7 @@ const userLoginDetails : userDetails = {
 export const userDetailsContext = React.createContext<any>(userLoginDetails);
 export const movieDetailsContext = React.createContext<any>([]);
 export const loadingContext = React.createContext<any>(false);
+export const errorContext = React.createContext<any>(false);
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
   const [userDetails, setUserDetails] = useState(userLoginDetails);
   const [currentMovie, setCurrentMovie] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [errorOccured, setErrorOccured] = useState(false);
 
   let user = localStorage.getItem("user");
 
@@ -39,6 +41,7 @@ function App() {
       <userDetailsContext.Provider value={{userDetails, setUserDetails}}>
         <movieDetailsContext.Provider value={{currentMovie, setCurrentMovie}}>
           <loadingContext.Provider value={{loading, setLoading}}>
+            <errorContext.Provider value={{errorOccured, setErrorOccured}}>
           <BrowserRouter>
           <Suspense fallback={<Loader></Loader>}>
           <Routes>
@@ -50,6 +53,7 @@ function App() {
           </Routes>
           </Suspense>
           </BrowserRouter>
+          </errorContext.Provider>
           </loadingContext.Provider>
         </movieDetailsContext.Provider>
       </userDetailsContext.Provider> 

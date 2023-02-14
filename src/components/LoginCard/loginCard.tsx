@@ -1,17 +1,24 @@
 import styles from './loginCard.module.scss';
-import React, {memo, useRef} from 'react';
+import React, {memo, useContext, useEffect, useRef} from 'react';
 import { APPCONSTANTS } from '../../constants/appConstants';
 import Button from '../Buttons/button';
 import CustomInput from '../Input/customInput';
 import { LoginService } from '../../services/loginService';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_CONSTANTS } from '../../constants/routeConstants';
+import { errorContext } from '../../App';
 
 /**
  * 
  * @description For showing the login card including  email, password & submit button
  */
 const LoginCard : React.FC = () => {
+
+    const {errorOccured,setErrorOccured} = useContext(errorContext);
+
+    useEffect(() => {
+        setErrorOccured(false);
+    },[])
 
     const {LOGIN, LOGIN_INFO, EMAIL, PASSWORD} = APPCONSTANTS;
     const emailRef : any = useRef();

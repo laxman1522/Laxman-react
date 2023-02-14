@@ -38,7 +38,8 @@ export interface teaserDetails {
   showAd: boolean,
   showAdImage: boolean,
   showingAd: Function,
-  poster: string
+  poster: string,
+  teaserTime?: any
 }
 
 export interface movieList {

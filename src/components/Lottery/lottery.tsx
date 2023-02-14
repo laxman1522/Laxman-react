@@ -1,20 +1,19 @@
 import styles from "./lottery.module.scss";
-import React, { useCallback, useRef, useState, memo } from "react";
+import React, { useCallback, useRef, useState, memo, useContext } from "react";
 import { APPCONSTANTS } from "../../constants/appConstants";
 import CustomInput from "../Input/customInput";
 import Button from "../Buttons/button";
-import { lotteryProps } from "../../modal/commonModel";
+import { errorContext } from "../../App";
 
 
 /**
  * @description To show the lottery section field in the home page
  */
-const Lottery: React.FC<lotteryProps> = (props: lotteryProps) => {
+const Lottery: React.FC = () => {
 
+    const {errorOccured, setErrorOccured} = useContext(errorContext);
 
-    const {error, errorOccured} = props
-
-    if(error === true) {
+    if(errorOccured === true) {
         throw new Error(APPCONSTANTS.ERROR_OCCURED); 
     }
 
@@ -35,7 +34,7 @@ const Lottery: React.FC<lotteryProps> = (props: lotteryProps) => {
     //INFO: for checking whether the entered phone number won any lottery
     const buttonClicked = useCallback(() => {
         inputRef.current.clearInput();
-        mobileNumRef.current && ((mobileNumRef.current)%2 === 0 ? setLotteryPrize(true) : errorOccured(APPCONSTANTS.ERROR_OCCURED));
+        mobileNumRef.current && ((mobileNumRef.current)%2 === 0 ? setLotteryPrize(true) : setErrorOccured(true));
     },[])
 
     return (

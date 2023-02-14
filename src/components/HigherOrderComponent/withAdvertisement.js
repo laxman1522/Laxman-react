@@ -24,6 +24,12 @@ const WithAdvertisement = (OriginalComponent ) => {
             }  
         },[timer])
 
+        const teaserTime = (time, adDetails) => {
+                setTimer(adDetails.timer - time);
+                setMessage(adDetails.message);
+                setShowAd(true);
+        }
+
         //INFO: For showing the ad image once the timer reaches 0
         const showingAd = useCallback((adDetails) => {
             setTimer(adDetails.timer);
@@ -33,7 +39,11 @@ const WithAdvertisement = (OriginalComponent ) => {
 
         //INFO: useeffect for conditionally showing the ad & calling the update timer function
         useEffect(() => {
-            (showAdImage || showAd) && updateTimer();
+            if(props.teaser) {
+                (showAdImage) && updateTimer();
+            } else {
+                (showAdImage || showAd) && updateTimer();
+            }
         }, [showAdImage, showAd])
     
         //INFO: For updating the timer on every seconds
@@ -48,11 +58,11 @@ const WithAdvertisement = (OriginalComponent ) => {
                     showAdImage && setShowAd(false);
                 }
             }, 1000)
-        }    
+        }   
 
             return(
                 <OriginalComponent {...props} timer={timer} message={message} showAdImage={showAdImage} showAd={showAd}
-                 startedPlaying={startedPlaying} showingAd={showingAd}/>
+                 startedPlaying={startedPlaying} showingAd={showingAd} teaserTime={teaserTime}/>
             )
     }
 

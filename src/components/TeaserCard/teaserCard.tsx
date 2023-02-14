@@ -1,11 +1,10 @@
-import React, {useCallback, useRef, useState} from "react";
+import React, { useEffect, useRef} from "react";
 import { APPCONSTANTS } from "../../constants/appConstants";
 import {  teaserDetails } from "../../modal/commonModel";
 import styles from './teaserCard.module.scss';
 import adImage from '../../assets/Advertisement-Small-2.png';
 import WithAdvertisement from "../HigherOrderComponent/withAdvertisement";
 import play from "../../assets/Play.png";
-import pause from "../../assets/Pause.png";
 
 //INFO: Ad details 
 const adDetails = {
@@ -32,7 +31,7 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
 
     //INFO: destructuring props
     const {title, videoSrc} = props?.teaser;
-    const {timer,message, startedPlaying, showAd, showAdImage, showingAd} = props;
+    const {timer,message, startedPlaying, showAd, showAdImage, showingAd, teaserTime} = props;
 
     //INFO: logic for dynamically pause & play the video based on the ad details and timings
     if(message === APPCONSTANTS.ADVERTISEMENT && timer === 0) {
@@ -46,13 +45,27 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
     }
 
     //INFO: to pass the ad details once the user start playing the video
-    const videoStateChanged = useCallback(() => {
-        if(teaserRef.current.paused && teaserRef.current.currentTime === 0) {
-            startedPlaying(adDetails);
-        }
-        teaserRef.current.paused ? teaserRef?.current?.play() : teaserRef.current.pause();
-        imageRef.current.style.display = teaserRef.current.paused ? "" : "none";
-    },[])
+    const videoStateChanged = () => {
+        teaserRef.current.play();
+        // console.log(teaserRef.current.paused, teaserRef.current.currentTime)
+        // if(teaserRef.current.paused && teaserRef.current.currentTime === 0 ) {
+        //     teaserTime(Math.floor(teaserRef?.current?.currentTime), adDetails);
+        // }
+        // teaserRef.current.paused ? teaserRef?.current?.play() : teaserRef.current.pause();
+        // imageRef.current.style.display = teaserRef.current.paused ? "" : "none";
+    }
+
+    useEffect(()=>{
+        let interval:any;
+        if(message!==resumeDetails.message && (timer >= 0 ) && (teaserRef?.current?.currentTime < adDetails.timer)) {
+            interval = setInterval (() => {
+                teaserTime(Math.floor(teaserRef?.current?.currentTime), adDetails);
+            },1000)
+        } 
+        return(() => {
+            clearInterval(interval);
+        })
+    },[timer])
 
     //INFO: for converting the time duration to seconds 
     const minuteConverter = (time : any) => {
@@ -62,15 +75,26 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
         return `0${minutes}:${seconds}`
     }
 
+    const videoPlayed = () => {
+        imageRef.current.style.display = "none";
+        if( teaserRef.current.currentTime < adDetails.timer ) {
+            teaserTime(Math.floor(teaserRef?.current?.currentTime), adDetails);
+        }
+    }
+
+    const videoPaused = () => {
+        message!==resumeDetails.message && (imageRef.current.style.display = "");
+    }
+
     return (
         <React.Fragment>
             <div className={styles.teaserCardContainer} >
                 {showAdImage && <img width="400" height="300" src={adImage} alt="adImage"></img>}
-                <video src={videoSrc} ref={teaserRef} width="400" height="300" onChange={videoStateChanged} onClick={videoStateChanged} controls
+                <video src={videoSrc} ref={teaserRef} width="400" height="300" controls onPlay={videoPlayed} onChange={videoStateChanged} onPause={videoPaused}
                 poster={props.poster} ></video>
                 <div className={props.className}>{title}</div>
                 {showAd && <div className={styles.adMessage}>{message}{minuteConverter(timer)}</div>}
-                <img className={styles.play} ref={imageRef} src={play} alt="play button" onClick={videoStateChanged}></img>
+                <img className={styles.play} ref={imageRef} src={play} alt="play button" onClick={videoStateChanged} ></img>
             </div>
         </React.Fragment>
     )
