@@ -1,10 +1,31 @@
 import "./sideBar.scss";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { AppConstants } from "../../Constants/appConstants";
+import { useDispatch } from "react-redux";
+import { updateTypes } from "../../Stores";
 
 const SideBar: React.FC<any> = () => {
 
-    const {TITLE, FILTER, MENU_OPTIONS} = AppConstants
+    const {TITLE, FILTER, MENU_OPTIONS} = AppConstants;
+
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        const types = ["regional","national", "international"]
+        dispatch(updateTypes(types))
+    },[])
+
+    const regionalRef = useRef<any>();
+    const nationalRef = useRef<any>();
+    const internationalRef = useRef<any>();
+
+    const updateTypeHandler = () => {
+        const types = [];
+        regionalRef.current.checked && types.push("regional");
+        nationalRef.current.checked && types.push("national");
+        internationalRef.current.checked && types.push("international");
+        dispatch(updateTypes(types))
+    }
 
     return (
         <div className="side-bar-container">
@@ -14,18 +35,21 @@ const SideBar: React.FC<any> = () => {
                 <ul className="blogs">
                     <div className="regional">
                         <label htmlFor={FILTER.BLOGS.REGIONAL} className="container">{FILTER.BLOGS.REGIONAL}
-                        <input type="checkbox" id={FILTER.BLOGS.REGIONAL} value={FILTER.BLOGS.REGIONAL} checked></input>
+                        <input ref={regionalRef} type="checkbox" id={FILTER.BLOGS.REGIONAL} value={FILTER.BLOGS.REGIONAL} 
+                        onChange={updateTypeHandler} defaultChecked></input>
                         <span className="checkmark"></span></label>
                     </div>
                     <div className="national">
                         
                         <label htmlFor={FILTER.BLOGS.NATIONAL} className="container">{FILTER.BLOGS.NATIONAL}
-                        <input type="checkbox" id={FILTER.BLOGS.NATIONAL} value={FILTER.BLOGS.NATIONAL} checked></input>
+                        <input ref={nationalRef} type="checkbox" id={FILTER.BLOGS.NATIONAL} value={FILTER.BLOGS.NATIONAL} 
+                         onChange={updateTypeHandler} defaultChecked></input>
                         <span className="checkmark"></span></label>
                     </div>
                     <div className="international">   
                         <label htmlFor={FILTER.BLOGS.INTERNATIONAL} className="container">{FILTER.BLOGS.INTERNATIONAL}
-                        <input type="checkbox" id={FILTER.BLOGS.INTERNATIONAL} value={FILTER.BLOGS.INTERNATIONAL} checked></input>
+                        <input ref={internationalRef} type="checkbox" id={FILTER.BLOGS.INTERNATIONAL} value={FILTER.BLOGS.INTERNATIONAL} 
+                         onChange={updateTypeHandler} defaultChecked></input>
                         <span className="checkmark"></span></label>
                     </div>
                 </ul>

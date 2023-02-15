@@ -1,6 +1,7 @@
 @import "../../variable.scss";
 
 .blog-list-container {
+    position: relative;
     width: 35%;
     max-height: 100vh;
     overflow: scroll;
@@ -9,8 +10,8 @@
         display: grid;
         grid-template-columns: 3fr 1fr;
         grid-gap: 15px;
-        width: 80%;
-        margin: 20px auto;
+        width: 85%;
+        margin: 20px auto 50px;
         justify-content: space-between;
         input,button {
             padding: 17.5px;
@@ -32,4 +33,35 @@
             background-color: $primary-color;
         }
     }
+    .noTypes {
+        margin-top: 250px;
+        color: $primary-color;
+        text-align: center;
+        font-family: IBM Plex sans;
+        font-weight: 600;
+    }
+    .loader {
+        position: absolute;
+        top: 40%;
+        left:40%;
+        border: 16px solid rgb(235, 232, 238);
+        border-radius: 50%;
+        border-top: 16px solid $primary-color;
+        width: 75px;
+        height: 75px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+      }
+      
+      /* Safari */
+      @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
 }

@@ -42,7 +42,23 @@ table {
 	border-spacing: 0;
 }
 
+body {
+	background-color: var(--sideBarBackground);
+}
+
+:root {
+	--sideBarBackground: #fff;
+	--primary-color: #a239a8;
+	--color-black: #000;
+	--color-white: #fff;
+	--grey-100: #eee;
+}
+
 
 .d-flex {
 	display: flex;
+}
+
+button {
+	cursor: pointer;
 }

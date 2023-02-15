@@ -6,17 +6,17 @@
     height: 90vh;
     min-width: 150px;
     margin: 5vh 0 5vh 50px;
+    background-color: var(--sideBarBackground);
     .title {
         margin-left: 20px;
         font-family: Roboto slab;
-        color: $primary-color;
+        color: var(--primary-color);
         font-size: 1.75rem;
         opacity: 0.9;
     }
     span{
-        color: #000 !important;
+        color: var(--color-black) !important;
         font-weight: 500;
-        font-family: IBM Plex Sans;
     }
     .filter {
         .heading {
@@ -83,8 +83,8 @@
     left: 0;
     height: 20px;
     width: 20px;
-    background-color: #fff;
-    outline: 1px solid $primary-color;
+    background-color: var(--color-black);
+    outline: 1px solid var(--primary-color);
     border-radius: 2.5px;
   }
   
@@ -95,7 +95,7 @@
   
   /* When the checkbox is checked, add a blue background */
   .container input:checked ~ .checkmark {
-    background-color: $primary-color;
+    background-color: var(--primary-color);
   }
   
   /* Create the checkmark/indicator (hidden when not checked) */

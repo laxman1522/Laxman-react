@@ -1,19 +1,28 @@
 @import "../../variable.scss";
 
 .blog-card {
-    width: 80%;
+    width: 85%;
     height: 175px;
-    margin: 0 auto;
+    margin: 0 auto 25px;
     border-radius: 10px;
     background-color: #fff;
+    cursor: pointer;
     .blog-card-container {
         padding: 20px;
         .heading {
-            font-size: 1.2rem;
+            display: -webkit-box;
+            max-height: 100px;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.5;
+            font-size: 1.25rem;
             font-family: Roboto slab;
+            font-weight: 500;
         }
         .blog-type{
             font-family: IBM Plex sans;
+            font-weight: 500;
             margin: 10px 0;
             color: $primary-color;
         }
