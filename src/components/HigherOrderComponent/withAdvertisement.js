@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState,useEffect, useCallback } from "react";
 
 /**
@@ -9,20 +10,37 @@ const WithAdvertisement = (OriginalComponent ) => {
 
     const NewComponent = (props) => {
 
+        let timeout;
         //Maintaining state for message, timer, showAd and showAdImage
         const [timer, setTimer] = useState();
         const [message, setMessage] = useState();
         const [showAd, setShowAd] = useState(false);
         const [showAdImage, setShowAdImage] = useState(false);
+        const [count, setCount] = useState(0);
+        const [initialTime, setInitialTime] = useState();
     
         //INFO: For starting the timer once the video is started playing
         const startedPlaying = useCallback((adDetails) => {
-            if(timer === undefined || timer ===0) {
+            if(!showAdImage) {
+                setInitialTime(adDetails.timer);
                 setTimer(adDetails.timer);
                 setMessage(adDetails.message);
                 setShowAd(true);
-            }  
+                setCount(1);
+            }   
         },[timer])
+
+        useEffect(()=>{
+            if(timer >= 0 && !showAdImage) {
+                timeout = setTimeout(() => {
+                    setTimer(initialTime-(count));
+                    setCount(count+1)
+                },1000)
+            }  
+            return(() => {
+                clearTimeout(timeout);
+            }) 
+        },[timer, count, initialTime])
 
         const teaserTime = (time, adDetails) => {
                 setTimer(adDetails.timer - time);
@@ -42,7 +60,7 @@ const WithAdvertisement = (OriginalComponent ) => {
             if(props.teaser) {
                 (showAdImage) && updateTimer();
             } else {
-                (showAdImage || showAd) && updateTimer();
+                (showAdImage) && updateTimer();
             }
         }, [showAdImage, showAd])
     
