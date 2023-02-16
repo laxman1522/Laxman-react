@@ -1,16 +1,12 @@
 import styles from './header.module.scss'
 import logo from '../../assets/logo.png';
-import React, {  useEffect, useState } from "react";
+import React, {  useContext, useEffect, useState } from "react";
 import { APPCONSTANTS } from '../../constants/appConstants';
 import { memo } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTE_CONSTANTS } from '../../constants/routeConstants';
+import { userDetailsContext } from '../../App';
 
-//INFO: initial user details
-const user = {
-    username: "",
-    login: "false"
-}
 
 /**
  * 
@@ -24,7 +20,7 @@ const Header: React.FC = () => {
     const navigate = useNavigate();
 
     //using state for maintaining the user details 
-    const [userDetails, setUserDetails] = useState(user);
+    const {userDetails} = useContext(userDetailsContext);
 
     const [loginPage, setLoginPage] = useState(false);
 
@@ -32,8 +28,6 @@ const Header: React.FC = () => {
     useEffect(() => {
         location.pathname === ROUTE_CONSTANTS.LOGIN ? setLoginPage(true) : setLoginPage(false);
         location.pathname === ROUTE_CONSTANTS.LOGIN && localStorage.removeItem("user");
-        let user = localStorage.getItem("user");
-        user &&  setUserDetails(JSON.parse(user));
     },[location])
 
     const navigateToHomePage = () => {
@@ -50,13 +44,17 @@ const Header: React.FC = () => {
                 <div className={`${styles.options} d-flex`}>
                     <NavLink to={ROUTE_CONSTANTS.HOME} className={styles.home}>{HOME}</NavLink>
                     <NavLink to={ROUTE_CONSTANTS.ALL_MOVIES} className={styles.allMovies}>{ALL_MOVIES.toUpperCase()}</NavLink>
-                    {userDetails?.login!=='false' && <NavLink to={ROUTE_CONSTANTS.NOW_SHOWING} className={styles.nowShowing}>{NOW_SHOWING.toUpperCase()}</NavLink> }
+                    {userDetails!==null && <NavLink to={ROUTE_CONSTANTS.NOW_SHOWING} className={styles.nowShowing}>{NOW_SHOWING.toUpperCase()}</NavLink> }
                 </div>
                 <div className={`${styles.userLogin} d-flex`}>
-                    {userDetails?.login!=='false'  && <div className={styles.user}>{userDetails?.username}</div> }
-                    {userDetails?.login!=='false'  && <div className={styles.border}></div> }
-                    {userDetails?.login==='false'  && <NavLink to={ROUTE_CONSTANTS.LOGIN} className={styles.login}>{LOGIN.toUpperCase()}</NavLink> }
-                    {userDetails?.login!=='false'  && <NavLink to={ROUTE_CONSTANTS.LOGIN}  className={styles.logout}>{LOGOUT}</NavLink> }
+                    {userDetails!==null && 
+                        <React.Fragment>
+                        <div className={styles.user}>{JSON.parse(userDetails).username}</div>
+                        <div className={styles.border}></div>
+                        <NavLink to={ROUTE_CONSTANTS.LOGIN}  className={styles.logout}>{LOGOUT}</NavLink>
+                        </React.Fragment>
+                    }
+                    {userDetails===null  && <NavLink to={ROUTE_CONSTANTS.LOGIN} className={styles.login}>{LOGIN.toUpperCase()}</NavLink> }
                 </div>
             </React.Fragment>}
         </div>

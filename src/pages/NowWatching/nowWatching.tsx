@@ -1,6 +1,5 @@
 import styles from './nowWatching.module.scss';
 import React, {memo} from "react";
-import Header from "../../components/Header/header";
 import { APPCONSTANTS } from '../../constants/appConstants';
 
 const NowWatching: React.FC = () => {
@@ -9,7 +8,6 @@ const NowWatching: React.FC = () => {
 
     return (
         <React.Fragment>
-            <Header></Header>
             <div className={styles.nowShowingContainer}>
                 <div className={styles.content}>
                     <div className={styles.nowShowing}>{NOW_SHOWING}</div>

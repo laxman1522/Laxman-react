@@ -83,7 +83,7 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
     }
 
     const videoPaused = () => {
-        message!==resumeDetails.message && (imageRef.current.style.display = "");
+        (message!==resumeDetails.message || timer === 0) && (imageRef.current.style.display = "");
     }
 
     return (

@@ -1,9 +1,8 @@
 
 import styles from './home.module.scss';
-import Header from '../../components/Header/header';
 import coverImage from '../../assets/sindel-background.png';
 import { APPCONSTANTS } from '../../constants/appConstants';
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import Lottery from '../../components/Lottery/lottery';
 import ErrorBoundary from '../../components/ErrorBoundary/errorBoundary';
 import Trailer from '../../components/Trailer/trailer';
@@ -16,7 +15,6 @@ const Home: React.FC = () => {
 
         return(
         <React.Fragment>
-            <Header ></Header>
             <img className={styles.coverImage} src={coverImage} alt={APPCONSTANTS.SINDEL_IMAGE}></img>
             <div className={styles.lotteryContainer}>
                 <ErrorBoundary className = {styles.error}>

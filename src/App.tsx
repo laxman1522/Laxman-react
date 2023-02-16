@@ -1,9 +1,9 @@
-import React, { lazy, useState, Suspense, useEffect } from 'react';
-import './App.scss';
+import React, { lazy, useState, Suspense} from 'react';
 import { userDetails } from './modal/commonModel';
 import { ROUTE_CONSTANTS } from './constants/routeConstants';
 import { BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import Loader from './components/Loader/loader';
+import Header from './components/Header/header';
 
 const Home = lazy(() => import ('./pages/Home/home'));
 const AllMovies = lazy(() => import ('./pages/AllMovies/allMovies'));
@@ -12,7 +12,7 @@ const NowWatching = lazy(() => import('./pages/NowWatching/nowWatching'));
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 const userLoginDetails : userDetails = {
-  isUserLoggedIn: false,
+  login: false,
   userName: '',
 }
 
@@ -24,16 +24,10 @@ export const errorContext = React.createContext<any>(false);
 
 function App() {
 
-  const [userDetails, setUserDetails] = useState(userLoginDetails);
+  const [userDetails, setUserDetails] = useState<any>(localStorage.getItem("user"));
   const [currentMovie, setCurrentMovie] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errorOccured, setErrorOccured] = useState(false);
-
-  let user = localStorage.getItem("user");
-
-  useEffect(() => {
-      user = localStorage.getItem("user");
-  })
   
 
   return (
@@ -43,11 +37,12 @@ function App() {
           <loadingContext.Provider value={{loading, setLoading}}>
             <errorContext.Provider value={{errorOccured, setErrorOccured}}>
           <BrowserRouter>
+          <Header></Header>
           <Suspense fallback={<Loader></Loader>}>
           <Routes>
               <Route path={ROUTE_CONSTANTS.HOME} element={<Home/>}/>
               <Route path={ROUTE_CONSTANTS.ALL_MOVIES} element={<AllMovies/>}/>
-              <Route path={ROUTE_CONSTANTS.NOW_SHOWING} element={ user!==null ? <NowWatching/> : <Navigate to={ROUTE_CONSTANTS.HOME} replace />}/>
+              <Route path={ROUTE_CONSTANTS.NOW_SHOWING} element={ userDetails!==null ? <NowWatching/> : <Navigate to={ROUTE_CONSTANTS.HOME} replace />}/>
               <Route path={ROUTE_CONSTANTS.LOGIN} element={<Login/>}/>
               <Route path="*" element={<Navigate to={ROUTE_CONSTANTS.HOME} replace />}/>
           </Routes>

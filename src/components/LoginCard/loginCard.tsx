@@ -6,7 +6,7 @@ import CustomInput from '../Input/customInput';
 import { LoginService } from '../../services/loginService';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_CONSTANTS } from '../../constants/routeConstants';
-import { errorContext } from '../../App';
+import { errorContext, userDetailsContext } from '../../App';
 
 /**
  * 
@@ -15,6 +15,7 @@ import { errorContext } from '../../App';
 const LoginCard : React.FC = () => {
 
     const {errorOccured,setErrorOccured} = useContext(errorContext);
+    const {userDetails, setUserDetails} = useContext(userDetailsContext);
 
     useEffect(() => {
         setErrorOccured(false);
@@ -36,6 +37,7 @@ const LoginCard : React.FC = () => {
                 login: true
             }
             localStorage.setItem("user",JSON.stringify(userDetails));
+            setUserDetails(JSON.stringify(userDetails));
             navigate(ROUTE_CONSTANTS.HOME);
         }
     }

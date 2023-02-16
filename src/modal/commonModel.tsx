@@ -1,7 +1,7 @@
 import teasers from "../components/Teasers/teasers"
 
 export interface userDetails {
-    isUserLoggedIn: boolean,
+    login: boolean,
     userName: string
   }
 
