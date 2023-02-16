@@ -3,12 +3,13 @@ import React, { useEffect, useRef } from "react";
 import { AppConstants } from "../../Constants/appConstants";
 import { useDispatch } from "react-redux";
 import { updateTypes } from "../../Stores";
+import { fetchUsers } from "../../Stores/thunks/fetchUsers";
 
 const SideBar: React.FC<any> = () => {
 
     const {TITLE, FILTER, MENU_OPTIONS} = AppConstants;
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
 
     useEffect(()=>{
         const types = ["regional","national", "international"]
@@ -27,6 +28,10 @@ const SideBar: React.FC<any> = () => {
         dispatch(updateTypes(types))
     }
 
+    const toggleModal = () => {
+        dispatch(fetchUsers());
+    }
+
     return (
         <div className="side-bar-container">
             <div className="title">{TITLE.FIRST_PART}<span className="second-part"> {TITLE.SECOND_PART}</span></div>
@@ -39,8 +44,7 @@ const SideBar: React.FC<any> = () => {
                         onChange={updateTypeHandler} defaultChecked></input>
                         <span className="checkmark"></span></label>
                     </div>
-                    <div className="national">
-                        
+                    <div className="national">     
                         <label htmlFor={FILTER.BLOGS.NATIONAL} className="container">{FILTER.BLOGS.NATIONAL}
                         <input ref={nationalRef} type="checkbox" id={FILTER.BLOGS.NATIONAL} value={FILTER.BLOGS.NATIONAL} 
                          onChange={updateTypeHandler} defaultChecked></input>
@@ -55,7 +59,7 @@ const SideBar: React.FC<any> = () => {
                 </ul>
             </div>
             <div className="options">
-                <div className="view-members">{MENU_OPTIONS.VIEW_MEMBERS}</div>
+                <div className="view-members" onClick={toggleModal}>{MENU_OPTIONS.VIEW_MEMBERS}</div>
                 <div className="dark-mode">{MENU_OPTIONS.DARK_MODE}</div>
             </div>
         </div>
