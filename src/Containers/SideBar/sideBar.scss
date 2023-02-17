@@ -1,7 +1,7 @@
 @import "../../variable.scss";
 
 .side-bar-container {
-    @include display-flex(column,space-between,flex-start);
+    @include display-flex(column,space-between,flex-start," ");
     width: 15%;
     height: 90vh;
     min-width: 150px;
@@ -20,14 +20,14 @@
     }
     .filter {
         .heading {
-            @include display-flex(row,space-between,center);
+            @include display-flex(row,space-between,center," ");
             margin-bottom: 20px;
             font-family: IBM Plex Sans;
             font-weight: 500;
             font-size: 1.25rem;
         }
         .blogs {
-            @include display-flex(column,space-between,flex-start);
+            @include display-flex(column,space-between,flex-start," ");
             font-family: Roboto slab;
             font-size: 0.9rem;
             padding: 0;
@@ -83,7 +83,6 @@
     left: 0;
     height: 20px;
     width: 20px;
-    background-color: var(--color-black);
     outline: 1px solid var(--primary-color);
     border-radius: 2.5px;
   }

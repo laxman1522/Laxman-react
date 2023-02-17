@@ -1,6 +1,6 @@
 @import "../../variable.scss";
 
-.blog-card {
+.blog-card,.selected {
     width: 85%;
     height: 175px;
     margin: 0 auto 25px;
@@ -16,14 +16,16 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
             line-height: 1.5;
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-family: Roboto slab;
             font-weight: 500;
+            opacity: 0.9;
         }
         .blog-type{
+            margin: 10px 0;
+            font-size: 0.8rem;
             font-family: IBM Plex sans;
             font-weight: 500;
-            margin: 10px 0;
             color: $primary-color;
         }
         .description {
@@ -38,4 +40,8 @@
             overflow: hidden;
         }
     }
+}
+
+.selected {
+    background-color: $card-color !important;
 }

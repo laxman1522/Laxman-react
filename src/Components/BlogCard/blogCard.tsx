@@ -1,5 +1,5 @@
 import "./blogCard.scss";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { blog } from "../../model/common.model";
 import { useDispatch, useSelector } from "react-redux";
 import { updateblogDetails } from "../../Stores";
@@ -7,9 +7,11 @@ import { updateblogDetails } from "../../Stores";
 
 const BlogCard: React.FC<blog> = (props: blog) => {
 
-    const {title, type, details} = props;
+    const {title, type, details, id} = props;
+    const [selectedBlog, setSelectedBlog] = useState<any>();
 
     const dispatch = useDispatch();
+    const cardRef = useRef<any>();
 
     const blogDetails = useSelector((state: any) =>{
         return state.blogDetails
@@ -17,16 +19,22 @@ const BlogCard: React.FC<blog> = (props: blog) => {
 
     useEffect(() => { 
         if(!blogDetails.data?.title && props.id === 0) {
+            cardRef.current = props.id;
             dispatch(updateblogDetails(props))
         }
     }, [])
 
     const updateBlogDetailsHandler = () => {
+        cardRef.current = "";
         dispatch(updateblogDetails(props))
     }
 
+    const checkCardStatusHandler = () => {
+        return ((blogDetails.data.id === id && cardRef.current ==="") ? "selected" : "blog-card")
+    }
+
     return (
-        <div className="blog-card" onClick={updateBlogDetailsHandler}>
+        <div className={checkCardStatusHandler()} onClick={updateBlogDetailsHandler}>
             <div className="blog-card-container">
             <div className="heading">{title}</div>
             <div className="blog-type">{type.toLocaleUpperCase()}</div>

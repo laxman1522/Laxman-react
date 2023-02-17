@@ -1,8 +1,8 @@
 import "./sideBar.scss";
 import React, { useEffect, useRef } from "react";
 import { AppConstants } from "../../Constants/appConstants";
-import { useDispatch } from "react-redux";
-import { updateTypes } from "../../Stores";
+import { useDispatch, useSelector } from "react-redux";
+import { updateModalState, updateTypes, updateViewMembers } from "../../Stores";
 import { fetchUsers } from "../../Stores/thunks/fetchUsers";
 
 const SideBar: React.FC<any> = () => {
@@ -10,6 +10,10 @@ const SideBar: React.FC<any> = () => {
     const {TITLE, FILTER, MENU_OPTIONS} = AppConstants;
 
     const dispatch = useDispatch<any>();
+
+    const { data} = useSelector((state: any) => {
+        return state.userDetails;
+    })
 
     useEffect(()=>{
         const types = ["regional","national", "international"]
@@ -29,7 +33,7 @@ const SideBar: React.FC<any> = () => {
     }
 
     const toggleModal = () => {
-        dispatch(fetchUsers());
+       data.length===0 ? dispatch(fetchUsers()) : dispatch(updateViewMembers(true));
     }
 
     return (

@@ -1,14 +1,31 @@
+@import "../../variable.scss";
 
 .user-image {
     width: 150px;
     height: 150px;
 }
 
+.image {
+    img {
+        border-radius: 20px 20px 20px 0;
+    }
+}
+
 .user-container {
-    text-align: center;
     max-width: 150px;
     height: 200px;
+    font-family: IBM PLex sans;
     .name{
         color: var(--primary-color);
+        font-size: 0.9rem;
+        font-weight: 500;
+        opacity: 0.8;
+    }
+    .company {
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+    .name,.company {
+        margin-top: 5px;
     }
 }

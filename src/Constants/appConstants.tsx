@@ -16,5 +16,6 @@ export const AppConstants ={
         DARK_MODE: "Switch to Dark Mode"
     },
     PLACEHOLDER: "Search Blogs",
-    NEW: "NEW"
+    NEW: "NEW",
+    CUSTOM_TYPE: "local"
 }

@@ -14,8 +14,8 @@ const UserCard = (props: any) => {
 
     return(
         <div className="user-container">
-            <img  ref={imageRef} className="user-image" src={`https://jsonmockserver.vercel.app/${photo}` || oops}
-            onError={errorHandler} alt={name}></img>
+            <div className="image"><img  ref={imageRef} className="user-image" src={`https://jsonmockserver.vercel.app/${photo}` || oops}
+            onError={errorHandler} alt={name}></img></div>
             <div className="name">{name}</div>
             <div className="company">{company}</div>
         </div>

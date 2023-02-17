@@ -6,7 +6,7 @@ const blogSlice = createSlice({
     name:"blog",
     initialState: {
         isLoading: false,
-        data: [],
+        blogData: [],
         error:null,
         searchTerm:"",
         types: []
@@ -17,12 +17,15 @@ const blogSlice = createSlice({
         },
         updateTypes(state, action) {
             state.types = action.payload
+        },
+        addBlogDetails(state, action) {
+            state.blogData = action.payload;
         }
     },
     extraReducers(builder) {
         builder.addCase(fetchBlogs.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.data = action.payload;
+            state.blogData = action.payload;
         });
         builder.addCase(fetchBlogs.pending, (state, action) => {
             state.isLoading = true;
@@ -37,4 +40,4 @@ const blogSlice = createSlice({
 
 export const blogReducer = blogSlice.reducer;
 
-export const {updateSearch, updateTypes} = blogSlice.actions;
+export const {updateSearch, updateTypes, addBlogDetails} = blogSlice.actions;

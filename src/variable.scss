@@ -1,8 +1,11 @@
-@mixin display-flex ($direction,$justify-content, $align-items) {
+@mixin display-flex ($direction,$justify-content, $align-items, $flex-wrap) {
     display: flex !important;
     flex-direction: $direction;
     justify-content: $justify-content;
     align-items: $align-items;
+    flex-wrap: $flex-wrap;
 }
 
 $primary-color: rgb(162,57,168);
+$secondary-color: #5ef9f7;
+$card-color: rgb(135,220,242);
