@@ -18,7 +18,7 @@ const Home = () => {
 
     const dispatch = useDispatch<any>();
 
-    const { data, isModalOpen, viewMembers, showBlogInputs} = useSelector((state: any) => {
+    const { data, isModalOpen, showBlogInputs} = useSelector((state: any) => {
         return state.userDetails;
     })
 
@@ -63,7 +63,7 @@ const Home = () => {
                     <input ref={blogTitleRef} type="text" id="title" name="title" placeholder="Name Your Blog"></input>
                     <textarea ref={blogDescriptionRef} id="description" name="description" rows={3} cols={7} placeholder="Write your content here..."></textarea>
                 </div>
-                <Button buttonName={AppConstants.NEW} className={"add"} buttonClicked={addBlogHandler}></Button>
+                <Button buttonName={AppConstants.ADD} className={"add"} buttonClicked={addBlogHandler}></Button>
                 </div>
             </Modal> }
         </div>

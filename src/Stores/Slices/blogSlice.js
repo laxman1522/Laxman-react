@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import { fetchBlogs } from "../thunks/fetchBlogs";
+import { updateBlogInputs } from "./userDetails";
 
 
 const blogSlice = createSlice({
@@ -20,6 +21,9 @@ const blogSlice = createSlice({
         },
         addBlogDetails(state, action) {
             state.blogData = action.payload;
+        },
+        updateBlogData(state,action) {
+            state.blogData = action.payload;
         }
     },
     extraReducers(builder) {
@@ -34,10 +38,13 @@ const blogSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         });
+        builder.addCase(updateBlogInputs, (state, action) => {
+            state.searchTerm = ""
+        });
     }
 })
 
 
 export const blogReducer = blogSlice.reducer;
 
-export const {updateSearch, updateTypes, addBlogDetails} = blogSlice.actions;
+export const {updateSearch, updateTypes, addBlogDetails, updateBlogData} = blogSlice.actions;

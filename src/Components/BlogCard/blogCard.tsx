@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import "./blogCard.scss";
 import React, { useEffect, useRef, useState } from "react";
 import { blog } from "../../model/common.model";
@@ -8,10 +9,13 @@ import { updateblogDetails } from "../../Stores";
 const BlogCard: React.FC<blog> = (props: blog) => {
 
     const {title, type, details, id} = props;
-    const [selectedBlog, setSelectedBlog] = useState<any>();
 
     const dispatch = useDispatch();
     const cardRef = useRef<any>();
+
+    const allowEdit = useSelector((state: any) => {
+        return state.blogDetails.allowEdit;
+    })
 
     const blogDetails = useSelector((state: any) =>{
         return state.blogDetails
@@ -26,7 +30,11 @@ const BlogCard: React.FC<blog> = (props: blog) => {
 
     const updateBlogDetailsHandler = () => {
         cardRef.current = "";
-        dispatch(updateblogDetails(props))
+        if(allowEdit) {
+            confirm("This will kick you out of the edit mode. Do u still want to continue ?") && dispatch(updateblogDetails(props))
+        } else {
+            dispatch(updateblogDetails(props));
+        }
     }
 
     const checkCardStatusHandler = () => {

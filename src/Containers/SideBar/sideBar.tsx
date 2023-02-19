@@ -1,15 +1,17 @@
 import "./sideBar.scss";
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { AppConstants } from "../../Constants/appConstants";
 import { useDispatch, useSelector } from "react-redux";
 import { updateModalState, updateTypes, updateViewMembers } from "../../Stores";
 import { fetchUsers } from "../../Stores/thunks/fetchUsers";
+import { ThemeContext } from "../../App";
 
 const SideBar: React.FC<any> = () => {
 
     const {TITLE, FILTER, MENU_OPTIONS} = AppConstants;
 
     const dispatch = useDispatch<any>();
+    const {theme, toggleTheme} = useContext(ThemeContext);
 
     const { data} = useSelector((state: any) => {
         return state.userDetails;
@@ -64,7 +66,7 @@ const SideBar: React.FC<any> = () => {
             </div>
             <div className="options">
                 <div className="view-members" onClick={toggleModal}>{MENU_OPTIONS.VIEW_MEMBERS}</div>
-                <div className="dark-mode">{MENU_OPTIONS.DARK_MODE}</div>
+                <div className="dark-mode" onClick={toggleTheme}>{MENU_OPTIONS.DARK_MODE}</div>
             </div>
         </div>
     )

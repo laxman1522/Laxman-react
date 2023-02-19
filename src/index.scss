@@ -47,11 +47,39 @@ body {
 }
 
 :root {
+	--black: #000;
+	--white: #fff;
+}
+
+#light {
 	--sideBarBackground: #fff;
 	--primary-color: #a239a8;
+	--secondary-color: #5ef9f7;
+	--card-color: #87dcf2;
 	--color-black: #000;
 	--color-white: #fff;
 	--grey-100: #eee;
+	--blog-list-background: #f4f3f9;
+	--blog-input: #e6e7ef;
+	--loader: #ebe8ee;
+	--blog-input-field: #747375;
+	--card-background: #fff;
+	--company-color:#fff;
+}
+
+#dark {
+	--side-bar-background: #051523;
+	--primary-color: #a239a8;
+	--secondary-color: #5ef9f7;
+	--card-background: #071f36;
+	--card-color: #05131f;
+	--color-black: #fff;
+	--color-white: #000;
+	--grey-100: #05131f;
+	--blog-list-background: #000;
+	--blog-input: #051523;
+	--loader: #ebe8ee;
+	--company-color:#656c6e;
 }
 
 

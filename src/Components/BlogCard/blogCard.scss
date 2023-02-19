@@ -5,7 +5,7 @@
     height: 175px;
     margin: 0 auto 25px;
     border-radius: 10px;
-    background-color: #fff;
+    background-color: var(--card-background);
     cursor: pointer;
     .blog-card-container {
         padding: 20px;
@@ -20,13 +20,14 @@
             font-family: Roboto slab;
             font-weight: 500;
             opacity: 0.9;
+            color: var(--color-black);
         }
         .blog-type{
             margin: 10px 0;
             font-size: 0.8rem;
             font-family: IBM Plex sans;
             font-weight: 500;
-            color: $primary-color;
+            color: var(--primary-color);
         }
         .description {
             display: -webkit-box;
@@ -38,10 +39,11 @@
             opacity: 0.8;
             line-height: 1.5;
             overflow: hidden;
+            color: var(--color-black);
         }
     }
 }
 
 .selected {
-    background-color: $card-color !important;
+    background-color: var(--card-color) !important;
 }

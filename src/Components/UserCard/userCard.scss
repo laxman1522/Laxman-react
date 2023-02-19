@@ -24,8 +24,16 @@
     .company {
         font-size: 0.75rem;
         font-weight: 500;
+        color: var(--company-color);
     }
     .name,.company {
         margin-top: 5px;
+    }
+}
+
+#dark {
+    .name{
+        color: var(--color-black);
+        opacity: 1;
     }
 }

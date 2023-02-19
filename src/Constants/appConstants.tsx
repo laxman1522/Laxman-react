@@ -17,5 +17,6 @@ export const AppConstants ={
     },
     PLACEHOLDER: "Search Blogs",
     NEW: "NEW",
+    ADD: "ADD",
     CUSTOM_TYPE: "local"
 }

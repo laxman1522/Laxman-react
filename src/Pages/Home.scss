@@ -16,6 +16,7 @@
     font-size: 1.5rem;
     font-weight: 500;
     font-family: Roboto slab;
+    color: var(--color-black);
 }
 
 button {
@@ -27,7 +28,7 @@ button {
 
 .add {
     color: #fff;
-    background-color: $primary-color;
+    background-color: var(--primary-color);
 }
 
 .blog-input-content {
@@ -41,15 +42,18 @@ button {
             width: 100%;
             border: none;
             outline: none;
+            background-color: var(--color-white);
         }
         #title {
             margin-bottom: 30px;
             font-family: roboto slab;
             font-size: 1.5rem;
-            color: $primary-color;
+            color: var(--primary-color);
         }
         #description {
             font-family: IBM Plex sans;
+            font-size: 1.1rem;
+            color: var(--color-black);
         }
         input::placeholder,textarea::placeholder {
             opacity: 0.6;
