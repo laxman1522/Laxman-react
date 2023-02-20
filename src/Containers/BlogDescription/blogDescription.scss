@@ -57,7 +57,9 @@
       font-family: Roboto Slab;
     }
   
-    .bar-loader,
+
+/* Custom bar loader styling */
+.bar-loader,
 .bar-loader:before,
 .bar-loader:after {
   background: var(--primary-color);

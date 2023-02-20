@@ -1,15 +1,34 @@
-import React from "react";
+import React, { memo } from "react";
+import PropTypes from "prop-types";
+import { buttonProps } from "../../model/common.model";
 
+/**
+ * @description Component responsible for returning jsx for button compoennt
+ */
+const Button = (props: buttonProps) => {
 
-const Button = (props: any) => {
+    const {className, buttonName, buttonClicked} = props;
 
+    //INFO: for passing the props to parent component on button click
     const buttonClickHandler = () => {
-        props.buttonClicked();
+        buttonClicked();
     }
 
     return (
-        <button onClick={buttonClickHandler} className={props.className}> {props.buttonName}</button>
+        <button onClick={buttonClickHandler} className={className}> {buttonName}</button>
     )
 }
 
-export default Button;
+Button.propTypes = {
+    className: PropTypes.string,
+    buttonName: PropTypes.string,
+    buttonClicked: PropTypes.func
+}
+
+Button.defaultProps = {
+    className: "",
+    buttonName: "",
+    buttonClicked: ()=>{}
+}
+
+export default memo(Button);

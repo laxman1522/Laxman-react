@@ -1,26 +1,37 @@
 /* eslint-disable no-restricted-globals */
 import "./blogCard.scss";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { blog } from "../../model/common.model";
 import { useDispatch, useSelector } from "react-redux";
 import { updateblogDetails } from "../../Stores";
+import { AppConstants } from "../../Constants/appConstants";
+import PropTypes from "prop-types";
 
 
-const BlogCard: React.FC<blog> = (props: blog) => {
+const BlogCard = (props: blog) => {
 
+    //INFO: destructuring props
     const {title, type, details, id} = props;
+    const {CONFIRM} = AppConstants;
+    const [updateBlog, setUpdateBlog] = useState<any>();
 
+    //INFO: using useDispatch to dispatch actions to redux stores
     const dispatch = useDispatch();
+
+    //INFO: maintaining useRef for checking the blog is selected or not
     const cardRef = useRef<any>();
 
+    //INFO: Checking whether the user is allowed to edit or not based on the user button click - edit content
     const allowEdit = useSelector((state: any) => {
         return state.blogDetails.allowEdit;
     })
 
+    //INFO: updated blog details from redux store/blogDetails
     const blogDetails = useSelector((state: any) =>{
         return state.blogDetails
     })
 
+    //INFO: useEffect for updating blog details in the redux store
     useEffect(() => { 
         if(!blogDetails.data?.title && props.id === 0) {
             cardRef.current = props.id;
@@ -28,15 +39,18 @@ const BlogCard: React.FC<blog> = (props: blog) => {
         }
     }, [])
 
+    //INFO: for updating the blog details in the redux store/blogDetails once the user edits the blog details
     const updateBlogDetailsHandler = () => {
         cardRef.current = "";
+        props.id === 0 && setUpdateBlog("");
         if(allowEdit) {
-            confirm("This will kick you out of the edit mode. Do u still want to continue ?") && dispatch(updateblogDetails(props))
+            confirm(CONFIRM) && dispatch(updateblogDetails(props))
         } else {
             dispatch(updateblogDetails(props));
         }
     }
 
+    //INFO: To check whether the card is selected or not
     const checkCardStatusHandler = () => {
         return ((blogDetails.data.id === id && cardRef.current ==="") ? "selected" : "blog-card")
     }
@@ -52,4 +66,19 @@ const BlogCard: React.FC<blog> = (props: blog) => {
     )
 }
 
-export default BlogCard;
+BlogCard.propTypes = {
+    title: PropTypes.string,
+    type: PropTypes.string,
+    details: PropTypes.string,
+    id: PropTypes.number || undefined
+}
+
+BlogCard.defaultProps = {
+    title: "",
+    type: "",
+    details: "",
+    id: undefined
+}
+
+
+export default memo(BlogCard);

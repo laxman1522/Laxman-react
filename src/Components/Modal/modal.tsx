@@ -6,12 +6,14 @@ import { ElementAsChildren } from "../../model/common.model";
 
 const Modal = ({children}: ElementAsChildren) => {
 
+     //INFO: using useDispatch to dispatch actions to redux stores
     const dispatch = useDispatch<any>();
 
     const {isLoading} = useSelector((state: any) => {
         return state.userDetails;
     })
 
+    //INFO: for toggling the modal state 
     const toggleModal = (event: any) => {
         event.target === document.querySelector(".modal") && dispatch(updateModalState(false));
     }

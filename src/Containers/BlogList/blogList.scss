@@ -18,13 +18,14 @@
             border-radius: 50px;
         }
         input {
-            color: var(--blog-input-field);
+            color: var(--color-black);
             background-color: var(--blog-input);
             &::placeholder {
                 padding-left: 5px;
                 opacity: 0.7;
                 letter-spacing: 0.02rem;
                 font-family: roboto slab;
+                color: var(--blog-input-field);
             }
         }
         .button {
