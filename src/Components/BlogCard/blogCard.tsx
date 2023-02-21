@@ -13,7 +13,6 @@ const BlogCard = (props: blog) => {
     //INFO: destructuring props
     const {title, type, details, id} = props;
     const {CONFIRM} = AppConstants;
-    const [updateBlog, setUpdateBlog] = useState<any>();
 
     //INFO: using useDispatch to dispatch actions to redux stores
     const dispatch = useDispatch();
@@ -41,13 +40,15 @@ const BlogCard = (props: blog) => {
 
     //INFO: for updating the blog details in the redux store/blogDetails once the user edits the blog details
     const updateBlogDetailsHandler = () => {
-        cardRef.current = "";
-        props.id === 0 && setUpdateBlog("");
-        if(allowEdit) {
-            confirm(CONFIRM) && dispatch(updateblogDetails(props))
-        } else {
-            dispatch(updateblogDetails(props));
+        if(checkCardStatusHandler() !=="selected") {
+            cardRef.current = "";
+            if(allowEdit) {
+                confirm(CONFIRM) && dispatch(updateblogDetails(props))
+            } else {
+                dispatch(updateblogDetails(props));
+            }
         }
+        
     }
 
     //INFO: To check whether the card is selected or not

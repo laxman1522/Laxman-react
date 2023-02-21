@@ -5,8 +5,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import BlogCard from "../blogCard";
 
-
-
 afterEach(cleanup);
 
 it("renders without crashing", () => {
