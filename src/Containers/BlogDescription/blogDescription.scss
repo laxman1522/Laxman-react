@@ -3,7 +3,7 @@
 .blog-description-container {
     position: relative;
     width: 50%;
-    padding: 20px 0 100px;
+    padding: 20px 0 75px;
     overflow: auto;
     background-color: var(--side-bar-background);
     .content-container {
@@ -24,6 +24,14 @@
         resize: none;
         color: var(--color-black);
         background-color: var(--side-bar-background);
+    }
+    .description {
+      height: 27.5vh;
+      max-height: 30vh;
+      overflow: auto;
+      overflow-x: hidden;
+      word-wrap: break-word;
+      word-break:normal;
     }
     .blog-details-description {
         font-size: 1.1rem;

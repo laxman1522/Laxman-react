@@ -10,15 +10,23 @@ import PropTypes from "prop-types";
 
 const BlogCard = (props: blog) => {
 
+    
     //INFO: destructuring props
     const {title, type, details, id} = props;
     const {CONFIRM} = AppConstants;
+     //INFO: using useDispatch to dispatch actions to redux stores
+     const dispatch = useDispatch();
 
-    //INFO: using useDispatch to dispatch actions to redux stores
-    const dispatch = useDispatch();
+     //INFO: maintaining useRef for checking the blog is selected or not
+     const cardRef = useRef<any>();
 
-    //INFO: maintaining useRef for checking the blog is selected or not
-    const cardRef = useRef<any>();
+    useEffect(() => {
+        if(id===1) {
+            dispatch(updateblogDetails(props));
+            cardRef.current = "";
+        }
+    },[props])
+
 
     //INFO: Checking whether the user is allowed to edit or not based on the user button click - edit content
     const allowEdit = useSelector((state: any) => {
@@ -29,14 +37,6 @@ const BlogCard = (props: blog) => {
     const blogDetails = useSelector((state: any) =>{
         return state.blogDetails
     })
-
-    //INFO: useEffect for updating blog details in the redux store
-    useEffect(() => { 
-        if(!blogDetails.data?.title && props.id === 0) {
-            cardRef.current = props.id;
-            dispatch(updateblogDetails(props))
-        }
-    }, [])
 
     //INFO: for updating the blog details in the redux store/blogDetails once the user edits the blog details
     const updateBlogDetailsHandler = () => {
@@ -82,4 +82,4 @@ BlogCard.defaultProps = {
 }
 
 
-export default memo(BlogCard);
+export default BlogCard;

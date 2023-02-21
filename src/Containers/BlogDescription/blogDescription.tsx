@@ -36,10 +36,12 @@ const BlogDescription: React.FC = () => {
 
     //INFO: useEffect for updating the text area height based on the content during the first rendering
     useEffect(() => {
-        titleRef.current.style.height = "5px";
-        titleRef.current.style.height = (titleRef.current.scrollHeight)+"px";
-        descriptionRef.current.style.height = "5px";
-        descriptionRef.current.style.height = (descriptionRef.current.scrollHeight)+"px";
+        if(titleRef.current && descriptionRef.current) {
+            titleRef.current.style.height = "5px";
+            titleRef.current.style.height = (titleRef.current.scrollHeight)+"px";
+            descriptionRef.current.style.height = "5px";
+            descriptionRef.current.style.height = (descriptionRef.current.scrollHeight)+"px";
+        }
     },[blogDetails])
 
     //INFO: To disatch the action to redux store/blogDetails to update the user edit status
@@ -62,7 +64,7 @@ const BlogDescription: React.FC = () => {
                     title: titleRef.current.value,
                     photo: blogs.photo,
                     details: descriptionRef.current.value,
-                    type: blogs.type
+                    type: blogs.type,
                 }
                 updatedBlogData.push(updatedBlogDetails)
             } else {
@@ -89,8 +91,10 @@ const BlogDescription: React.FC = () => {
                 <img ref={imageRef} src={blogDetails?.photo || oops} alt={blogDetails?.title} onError={errorHandler}></img>
                 <textarea ref={titleRef} className="blog-details-title" value={!allowEdit ? blogDetails.title : undefined} defaultValue={blogDetails.title} 
                 readOnly={allowEdit ? false : true}></textarea>
-                <textarea ref={descriptionRef} className="blog-details-description" defaultValue={blogDetails.details} 
-                value={!allowEdit ? blogDetails.details : undefined} readOnly={allowEdit ? false : true}></textarea>
+                <div className="description">
+                    <textarea ref={descriptionRef} className="blog-details-description" defaultValue={blogDetails.details} 
+                    value={!allowEdit ? blogDetails.details : undefined} readOnly={allowEdit ? false : true}></textarea>
+                </div>
                 {!allowEdit && <Button buttonName={"EDIT CONTENT"} className={"edit-content"} buttonClicked={buttonClickHandler}></Button>}
                 {allowEdit && 
                     <React.Fragment>

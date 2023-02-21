@@ -7,8 +7,6 @@ import Button from "../Button/button";
 
 const AddBlogs = () => {
 
-    console.log("add Blogs");
-
      //INFO: using use ref for maintaining the user input in the modal - blog title & blog description 
      const blogTitleRef = useRef<any>();
      const blogDescriptionRef = useRef<any>();
@@ -36,7 +34,7 @@ const AddBlogs = () => {
                  photo: CUSTOM_IMAGE,
                  details: blogDescriptionRef.current.value,
               };
-              const blogs = [...blogData, blogDetails];
+              const blogs = [ blogDetails, ...blogData];
               dispatch(addBlogDetails(blogs));
          } else {
              alert(ALERT)

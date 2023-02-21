@@ -7,7 +7,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: baseline;
-    background-color: rgba($color: var(--color-black), $alpha: 0.5);
+    background-color: rgba($color: #3e3e3e, $alpha: 0.5);
     .modal-container {
         position: relative;
         width: 35%;
@@ -15,6 +15,12 @@
         padding: 75px 50px ;
         background-color: var(--color-white);
         box-sizing: border-box;
-        box-shadow: -1px 0px 2.5px 0px var(--grey-100);
+        opacity: 1;
+    }
+}
+
+#dark {
+    .modal {
+        background-color: rgba($color: #213a4f, $alpha: 0.5);
     }
 }
