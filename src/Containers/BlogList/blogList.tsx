@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import "./blogList.scss";
 import React, { useCallback, useEffect, useRef} from "react";
 import { AppConstants } from "../../Constants/appConstants";
@@ -12,11 +13,12 @@ const BlogList: React.FC = () => {
 
     //INFO: using useDispatch to dispatch actions to redux stores
     const dispatch = useDispatch<any>();
+
     //INFO:using Ref for capturing user inputs - search blogs 
     const searchInputRef = useRef<any>();
     let i = 0;
     //INFO: destructuring constants
-    const {PLACEHOLDER, NEW, CUSTOM_TYPE} = AppConstants;
+    const {PLACEHOLDER, NEW, CUSTOM_TYPE, CONFIRM} = AppConstants;
 
     //INFO: destructuring the available blog details from the redux store/blogs
     const {isLoading, blogData, error, searchTerm, types} = useSelector((state: any) => {
@@ -50,6 +52,7 @@ const BlogList: React.FC = () => {
     const openModalHandler = useCallback(() => {
         searchInputRef.current.value = ""
         dispatch( updateBlogInputs(true));
+        
     },[dispatch])
 
     //INFO: To check whether the blog list is empty or not

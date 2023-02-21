@@ -25,6 +25,6 @@ export const AppConstants ={
     CUSTOM_DESCRIPTION_PLACEHOLDER: "Write your content here...",
     TYPES: ["regional","national", "international"],
     ALERT: "Please enter the title and description...",
-    CONFIRM: "This will kick you out of the edit mode. Do u still want to continue ?",
+    CONFIRM: "This will get you out of the edit mode. Do u still want to continue ?",
     SRC_PREFIX: "https://jsonmockserver.vercel.app/"
 }

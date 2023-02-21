@@ -53,7 +53,7 @@ const BlogDescription: React.FC = () => {
      * @description For updating the blog list with updated blog details
      */
     const saveContent = useCallback(() => {
-        let index = 0;
+        let index = 1;
         let updatedBlogDetails ;
         let updatedBlogData: any = [];
         for (let blogs of blogData)
@@ -72,6 +72,7 @@ const BlogDescription: React.FC = () => {
             }
             index++;
         }
+        console.log(updatedBlogData)
         if(updatedBlogDetails) {
             dispatch(updateblogDetails(updatedBlogDetails));
             dispatch(updateBlogData(updatedBlogData))
