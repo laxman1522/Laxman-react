@@ -72,7 +72,6 @@ const BlogDescription: React.FC = () => {
             }
             index++;
         }
-        console.log(updatedBlogData)
         if(updatedBlogDetails) {
             dispatch(updateblogDetails(updatedBlogDetails));
             dispatch(updateBlogData(updatedBlogData))

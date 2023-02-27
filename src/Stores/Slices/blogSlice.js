@@ -10,20 +10,25 @@ const blogSlice = createSlice({
         blogData: [],
         error:null,
         searchTerm:"",
-        types: []
+        types: [],
+        blogAdded: false
     },
     reducers: {
         updateSearch(state, action) {
             state.searchTerm = action.payload
+            state.blogAdded = false
         },
         updateTypes(state, action) {
             state.types = action.payload
+            state.blogAdded = false
         },
         addBlogDetails(state, action) {
             state.blogData = action.payload;
+            state.blogAdded = true
         },
         updateBlogData(state,action) {
             state.blogData = action.payload;
+            state.blogAdded = false
         }
     },
     extraReducers(builder) {

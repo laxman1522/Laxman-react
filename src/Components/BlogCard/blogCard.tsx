@@ -13,20 +13,17 @@ const BlogCard = (props: blog) => {
     
     //INFO: destructuring props
     const {title, type, details, id} = props;
-    const {CONFIRM} = AppConstants;
+    const {CONFIRM, CUSTOM_TYPE} = AppConstants;
      //INFO: using useDispatch to dispatch actions to redux stores
      const dispatch = useDispatch();
 
      //INFO: maintaining useRef for checking the blog is selected or not
      const cardRef = useRef<any>();
 
-    useEffect(() => {
-        if(id===1) {
-            dispatch(updateblogDetails(props));
-            cardRef.current = "";
-        }
-    },[props])
-
+      //INFO: destructuring the available blog details from the redux store/blogs
+    const {isLoading, blogData, blogAdded, searchTerm, types} = useSelector((state: any) => {
+        return state.blogs;
+    })
 
     //INFO: Checking whether the user is allowed to edit or not based on the user button click - edit content
     const allowEdit = useSelector((state: any) => {
@@ -37,6 +34,31 @@ const BlogCard = (props: blog) => {
     const blogDetails = useSelector((state: any) =>{
         return state.blogDetails
     })
+
+    useEffect(() => {
+        if(blogAdded && type === CUSTOM_TYPE) {
+            dispatch(updateblogDetails(props));
+            cardRef.current = "";
+        }
+        else if(searchTerm !=="" && title.toLowerCase().includes(searchTerm)) {
+            if(id === 1) {
+                dispatch(updateblogDetails(props));
+                cardRef.current = "";
+            }
+        } else {
+            if(blogDetails.data.title && types.includes(blogDetails.data.type.toLocaleLowerCase())) { 
+                if(blogDetails.data.title === title) {
+                    dispatch(updateblogDetails(props));
+                    cardRef.current = "";
+                }
+            }
+            else if(id===1){
+                dispatch(updateblogDetails(props));
+                cardRef.current = "";
+            }
+        }
+    },[props, searchTerm])
+
 
     //INFO: for updating the blog details in the redux store/blogDetails once the user edits the blog details
     const updateBlogDetailsHandler = () => {
