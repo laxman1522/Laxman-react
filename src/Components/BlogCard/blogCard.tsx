@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import "./blogCard.scss";
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { blog } from "../../model/common.model";
 import { useDispatch, useSelector } from "react-redux";
 import { updateblogDetails } from "../../Stores";
@@ -21,7 +21,7 @@ const BlogCard = (props: blog) => {
      const cardRef = useRef<any>();
 
       //INFO: destructuring the available blog details from the redux store/blogs
-    const {isLoading, blogData, blogAdded, searchTerm, types} = useSelector((state: any) => {
+    const { blogAdded, searchTerm, types} = useSelector((state: any) => {
         return state.blogs;
     })
 

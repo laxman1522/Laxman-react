@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useRef} from "react";
 import { AppConstants } from "../../Constants/appConstants";
 import BlogCard from "../../Components/BlogCard/blogCard";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBlogs, updateSearch, updateBlogInputs, updateblogDetails } from "../../Stores";
+import { fetchBlogs, updateSearch, updateBlogInputs } from "../../Stores";
 import { blog } from "../../model/common.model";
 import Loader from "../../Components/Loader/loader";
 import Button from "../../Components/Button/button";
@@ -18,7 +18,7 @@ const BlogList: React.FC = () => {
     const searchInputRef = useRef<any>();
     let i = 0;
     //INFO: destructuring constants
-    const {PLACEHOLDER, NEW, CUSTOM_TYPE, CONFIRM} = AppConstants;
+    const {PLACEHOLDER, NEW, CUSTOM_TYPE} = AppConstants;
 
     //INFO: destructuring the available blog details from the redux store/blogs
     const {isLoading, blogData, error, searchTerm, types} = useSelector((state: any) => {
