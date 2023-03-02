@@ -55,7 +55,7 @@ const BlogCard = (props: blog) => {
             else if(id===1){
                 dispatch(updateblogDetails(props));
                 cardRef.current = "";
-            }
+            } 
         }
     },[props, searchTerm])
 

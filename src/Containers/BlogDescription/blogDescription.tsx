@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import oops from "../../assets/oops.png";
 import Button from "../../Components/Button/button";
 import { updateBlogData, updateblogDetails, updateEditStatus } from "../../Stores";
+import { AppConstants } from "../../Constants/appConstants";
 
 const BlogDescription: React.FC = () => {
 
@@ -31,7 +32,7 @@ const BlogDescription: React.FC = () => {
 
     //INFO: for updating the image with dummy image incase any error happens during the image rendering 
     const errorHandler = () => {
-        imageRef.current.src = oops;
+       (imageRef.current.src = oops);
     }
 
     //INFO: useEffect for updating the text area height based on the content during the first rendering
@@ -86,7 +87,7 @@ const BlogDescription: React.FC = () => {
 
     return (
         <div className="blog-description-container">
-            {!isLoading &&
+            {(!isLoading && blogDetails.title) &&
             <div className="content-container">
                 <img ref={imageRef} src={blogDetails?.photo || oops} alt={blogDetails?.title} onError={errorHandler}></img>
                 <textarea ref={titleRef} className="blog-details-title" value={!allowEdit ? blogDetails.title : undefined} defaultValue={blogDetails.title} 
@@ -104,6 +105,7 @@ const BlogDescription: React.FC = () => {
                 }
             </div>}
             {isLoading && <div className="bar-loader"></div>}
+            {!blogDetails.title && <div className="no-blogs">{AppConstants.NO_BLOGS}</div>}
         </div>
     )
 }

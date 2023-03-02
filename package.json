@@ -52,7 +52,8 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.21.0",
-    "@types/react-test-renderer": "^18.0.0"
+    "@types/react-test-renderer": "^18.0.0",
+    "msw": "^1.1.0"
   },
   "jest": {
     "moduleNameMapper": {

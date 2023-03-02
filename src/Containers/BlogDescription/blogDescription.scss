@@ -64,6 +64,13 @@
       font-size: 2rem;
       font-family: Roboto Slab;
     }
+    .no-blogs {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      color: var(--primary-color);
+    }
   
 
 /* Custom bar loader styling */

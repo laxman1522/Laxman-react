@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useRef} from "react";
 import { AppConstants } from "../../Constants/appConstants";
 import BlogCard from "../../Components/BlogCard/blogCard";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBlogs, updateSearch, updateBlogInputs } from "../../Stores";
+import { fetchBlogs, updateSearch, updateBlogInputs, updateblogDetails } from "../../Stores";
 import { blog } from "../../model/common.model";
 import Loader from "../../Components/Loader/loader";
 import Button from "../../Components/Button/button";
@@ -18,7 +18,7 @@ const BlogList: React.FC = () => {
     const searchInputRef = useRef<any>();
     let i = 0;
     //INFO: destructuring constants
-    const {PLACEHOLDER, NEW, CUSTOM_TYPE} = AppConstants;
+    const {PLACEHOLDER, NEW, CUSTOM_TYPE, NO_BLOGS} = AppConstants;
 
     //INFO: destructuring the available blog details from the redux store/blogs
     const {isLoading, blogData, error, searchTerm, types} = useSelector((state: any) => {
@@ -61,6 +61,7 @@ const BlogList: React.FC = () => {
         for (let blog of blogList) {
             blog !==undefined && (isBlogEmpty = false)
         }
+        isBlogEmpty && dispatch(updateblogDetails([]))
         return isBlogEmpty;
     }
 
@@ -76,7 +77,7 @@ const BlogList: React.FC = () => {
             </div>
             {isLoading && <Loader></Loader>}
             {error && <div className="error">Error Occured</div>}
-            {(isBlogListEmpty()) && <div className="noBlogs">No Blogs available....</div>}
+            {(isBlogListEmpty()) && <div className="noBlogs">{NO_BLOGS}</div>}
         </div>
         </React.Fragment>
     )
