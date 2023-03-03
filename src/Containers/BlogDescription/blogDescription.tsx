@@ -105,7 +105,7 @@ const BlogDescription: React.FC = () => {
                 }
             </div>}
             {isLoading && <div className="bar-loader"></div>}
-            {!blogDetails.title && <div className="no-blogs">{AppConstants.NO_BLOGS}</div>}
+            {(!blogDetails.title && !isLoading) && <div className="no-blogs">{AppConstants.NO_BLOGS}</div>}
         </div>
     )
 }
