@@ -12,7 +12,7 @@ const AddBlogs = () => {
      const blogDescriptionRef = useRef<any>();
  
      //INFO: destructuring constants
-     const { CUSTOM_TYPE, CUSTOM_IMAGE, CUSTOM_TITLE_PLACEHOLDER, CUSTOM_DESCRIPTION_PLACEHOLDER, ALERT} = AppConstants;
+     const { CUSTOM_TYPE, CUSTOM_IMAGE, CUSTOM_TITLE_PLACEHOLDER, CUSTOM_DESCRIPTION_PLACEHOLDER, ALERT, NEW_BLOG} = AppConstants;
      
      //INFO: using useDispatch to dispatch actions to redux stores
      const dispatch = useDispatch<any>();
@@ -44,7 +44,7 @@ const AddBlogs = () => {
 
     return(
         <React.Fragment>
-        <div className="modal-title">Add New Blog</div>
+        <div className="modal-title">{NEW_BLOG}</div>
         <div className="blog-input-content">
             <div className="blog-inputs">
                 <input ref={blogTitleRef} type="text" id="title" name="title" placeholder={CUSTOM_TITLE_PLACEHOLDER}></input>
