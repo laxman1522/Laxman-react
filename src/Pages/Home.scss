@@ -38,19 +38,19 @@ button {
     .blog-inputs {
         width: 100%;
         margin-top: 20px;
-        #title,#description {
+        .title,.description {
             width: 100%;
             border: none;
             outline: none;
             background-color: var(--color-white);
         }
-        #title {
+        .title {
             margin-bottom: 30px;
             font-family: roboto slab;
             font-size: 1.5rem;
             color: var(--primary-color);
         }
-        #description {
+        .description {
             font-family: IBM Plex sans;
             font-size: 1.1rem;
             color: var(--color-black);

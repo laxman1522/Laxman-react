@@ -47,8 +47,8 @@ const AddBlogs = () => {
         <div className="modal-title">{NEW_BLOG}</div>
         <div className="blog-input-content">
             <div className="blog-inputs">
-                <input ref={blogTitleRef} type="text" id="title" name="title" placeholder={CUSTOM_TITLE_PLACEHOLDER}></input>
-                <textarea ref={blogDescriptionRef} id="description" name="description" cols={7} placeholder={CUSTOM_DESCRIPTION_PLACEHOLDER}></textarea>
+                <input ref={blogTitleRef} type="text" id="title" className="title" name="title" placeholder={CUSTOM_TITLE_PLACEHOLDER}></input>
+                <textarea ref={blogDescriptionRef} id="description" className="description" name="description" cols={7} placeholder={CUSTOM_DESCRIPTION_PLACEHOLDER}></textarea>
             </div>
             <Button buttonName={AppConstants.ADD} className={"add"} buttonClicked={addBlogHandler}></Button>
         </div>
