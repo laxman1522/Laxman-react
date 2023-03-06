@@ -57,7 +57,7 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "\\.(css|less)$": "identity-obj-proxy"
+      "axios": "axios/dist/node/axios.cjs"
     }
   }
 }

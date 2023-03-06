@@ -74,24 +74,6 @@ const SideBar: React.FC = () => {
                     {checkBoxInputs("regional",FILTER.BLOGS.REGIONAL,regionalRef)}
                     {checkBoxInputs("national",FILTER.BLOGS.NATIONAL,nationalRef)}
                     {checkBoxInputs("international",FILTER.BLOGS.INTERNATIONAL,internationalRef)}
-                    {/* <div className="regional">
-                        <label htmlFor={FILTER.BLOGS.REGIONAL} className="container">{FILTER.BLOGS.REGIONAL}
-                        <input ref={regionalRef} type="checkbox" id={FILTER.BLOGS.REGIONAL} value={FILTER.BLOGS.REGIONAL} 
-                        onChange={updateTypeHandler} defaultChecked></input>
-                        <span className="checkmark"></span></label>
-                    </div> */}
-                    {/* <div className="national">     
-                        <label htmlFor={FILTER.BLOGS.NATIONAL} className="container">{FILTER.BLOGS.NATIONAL}
-                        <input ref={nationalRef} type="checkbox" id={FILTER.BLOGS.NATIONAL} value={FILTER.BLOGS.NATIONAL} 
-                         onChange={updateTypeHandler} defaultChecked></input>
-                        <span className="checkmark"></span></label>
-                    </div> 
-                    <div className="international">   
-                        <label htmlFor={FILTER.BLOGS.INTERNATIONAL} className="container">{FILTER.BLOGS.INTERNATIONAL}
-                        <input ref={internationalRef} type="checkbox" id={FILTER.BLOGS.INTERNATIONAL} value={FILTER.BLOGS.INTERNATIONAL} 
-                         onChange={updateTypeHandler} defaultChecked></input>
-                        <span className="checkmark"></span></label>
-                    </div> */}
                 </ul>
             </div>
             <div className="options">

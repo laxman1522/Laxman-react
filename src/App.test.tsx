@@ -1,27 +1,12 @@
-// import React from 'react';
-// import { render, screen } from '@testing-library/react';
-// import App from './App';
-// import AxiosMock from "axios";
-// import * as axios from "./Stores/thunks/fetchBlogs"
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import App from './App';
+import AxiosMock from "axios";
+import * as axios from "./Stores/thunks/fetchBlogs"
+import { renderWithProviders } from "./utils/test-utils";
+import { setupServer } from 'msw/lib/node';
+import { rest } from 'msw';
 
-// jest.mock("./Stores/thunks/fetchBlogs", () => {
-//   return {
-//     async fetchBlogs() {
-//       return [];
-//     }
-//   }
-// })
-
-// jest.mock("./Stores/thunks/fetchUsers", () => {
-//   return {
-//     async fetchUsers() {
-//       return [];
-//     }
-//   }
-// })
-
-// test('renders learn react link', () => {
-//   render(<App />);
-//   const linkElement = screen.getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
+test('renders learn react link', () => {
+  renderWithProviders(<App />);
+});
