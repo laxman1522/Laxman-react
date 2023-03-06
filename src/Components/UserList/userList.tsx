@@ -2,6 +2,7 @@ import "./userList.scss";
 import React from "react";
 import { useSelector } from "react-redux";
 import UserCard from "../UserCard/userCard";
+import { AppConstants } from "../../Constants/appConstants";
 
 
 const UserList = () => {
@@ -18,7 +19,7 @@ const UserList = () => {
 
     return (
         <React.Fragment>
-            <div className="modal-title">Members</div>
+            <div className="modal-title">{AppConstants.MEMBERS}</div>
                 <div className="users-container">
                 {userList}
             </div>

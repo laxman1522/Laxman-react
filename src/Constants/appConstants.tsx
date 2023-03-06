@@ -28,5 +28,6 @@ export const AppConstants ={
     CONFIRM: "This will get you out of the edit mode. Do u still want to continue ?",
     SRC_PREFIX: "https://jsonmockserver.vercel.app/",
     NO_BLOGS: "No Blogs available...",
-    NEW_BLOG: "Add New Blog"
+    NEW_BLOG: "Add New Blog",
+    MEMBERS: "Members"
 }

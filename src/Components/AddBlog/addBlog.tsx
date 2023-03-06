@@ -48,7 +48,7 @@ const AddBlogs = () => {
         <div className="blog-input-content">
             <div className="blog-inputs">
                 <input ref={blogTitleRef} type="text" id="title" name="title" placeholder={CUSTOM_TITLE_PLACEHOLDER}></input>
-                <textarea ref={blogDescriptionRef} id="description" name="description" rows={30} cols={7} placeholder={CUSTOM_DESCRIPTION_PLACEHOLDER}></textarea>
+                <textarea ref={blogDescriptionRef} id="description" name="description" cols={7} placeholder={CUSTOM_DESCRIPTION_PLACEHOLDER}></textarea>
             </div>
             <Button buttonName={AppConstants.ADD} className={"add"} buttonClicked={addBlogHandler}></Button>
         </div>
