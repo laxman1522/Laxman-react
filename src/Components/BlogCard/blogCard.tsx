@@ -40,17 +40,13 @@ const BlogCard = (props: blog) => {
             dispatch(updateblogDetails(props));
             cardRef.current = "";
         }
-        else if(searchTerm !=="" && title.toLowerCase().includes(searchTerm)) {
-            if(id === 1) {
+        else if(searchTerm !=="" && title.toLowerCase().includes(searchTerm) && (id===1)) {
                 dispatch(updateblogDetails(props));
                 cardRef.current = "";
-            }
         } else {
-            if(blogDetails.data.title && types.includes(blogDetails.data.type.toLocaleLowerCase())) { 
-                if(blogDetails.data.title === title) {
+            if(blogDetails.data.title && types.includes(blogDetails.data.type.toLocaleLowerCase()) && (blogDetails.data.title === title)) { 
                     dispatch(updateblogDetails(props));
                     cardRef.current = "";
-                }
             }
             else if(id===1){
                 dispatch(updateblogDetails(props));
