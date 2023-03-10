@@ -4,6 +4,8 @@ export interface blog {
     details: string,
     type: string,
     id?: number
+    selected?: boolean,
+    updateBlogList: any
 }
 
 //When a component receives only children in the prop

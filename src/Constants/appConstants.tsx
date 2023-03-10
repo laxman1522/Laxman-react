@@ -8,7 +8,8 @@ export const AppConstants ={
         BLOGS: {
             REGIONAL: "Regional Blogs",
             NATIONAL: "National Blogs",
-            INTERNATIONAL: "International Blogs"
+            INTERNATIONAL: "International Blogs",
+            LOCAL: "Local Blogs"
         }
     },
     MENU_OPTIONS: {

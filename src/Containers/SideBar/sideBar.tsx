@@ -1,10 +1,11 @@
 import "./sideBar.scss";
-import React, { Ref, useContext, useEffect, useRef } from "react";
+import React, { Ref, useContext, useEffect, useRef, useState } from "react";
 import { AppConstants } from "../../Constants/appConstants";
 import { useDispatch, useSelector } from "react-redux";
 import {  updateTypes, updateViewMembers } from "../../Stores";
 import { fetchUsers } from "../../Stores/thunks/fetchUsers";
 import { ThemeContext } from "../../App";
+import { type } from "@testing-library/user-event/dist/type";
 
 /**
  * @description Component responsible for showing the APP title and available filters and menu options
@@ -18,11 +19,20 @@ const SideBar: React.FC = () => {
     const dispatch = useDispatch<any>();
     //INFO: destructuring function from context provider to call the function when user wants to toggle the theme
     const { theme, toggleTheme} = useContext(ThemeContext);
+    const [type, setType] = useState<any>();
 
     //INFO: destructuring the user details from the redux store/userDetails
     const { data} = useSelector((state: any) => {
         return state.userDetails;
     })
+
+    const { types} = useSelector((state: any) => {
+        return state.blogs;
+    })
+
+    useEffect(() => {
+        types.includes("local") && setType("local")
+    },[types])
 
     //INFO: useEffect for updating blog types
     useEffect(()=>{
@@ -34,6 +44,7 @@ const SideBar: React.FC = () => {
     const regionalRef = useRef<any>();
     const nationalRef = useRef<any>();
     const internationalRef = useRef<any>();
+    const localRef = useRef<any>();
 
     /**
      * @description To update the blog list based on the blog types selection
@@ -43,6 +54,7 @@ const SideBar: React.FC = () => {
         regionalRef.current.checked && types.push("regional");
         nationalRef.current.checked && types.push("national");
         internationalRef.current.checked && types.push("international");
+        localRef?.current?.checked && types.push("local");
         dispatch(updateTypes(types))
     }
 
@@ -74,6 +86,7 @@ const SideBar: React.FC = () => {
                     {checkBoxInputs("regional",FILTER.BLOGS.REGIONAL,regionalRef)}
                     {checkBoxInputs("national",FILTER.BLOGS.NATIONAL,nationalRef)}
                     {checkBoxInputs("international",FILTER.BLOGS.INTERNATIONAL,internationalRef)}
+                    {type === "local" && checkBoxInputs("local",FILTER.BLOGS.LOCAL,localRef)}
                 </ul>
             </div>
             <div className="options">

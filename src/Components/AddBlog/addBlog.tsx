@@ -2,7 +2,7 @@ import "./addBlogs.scss";
 import React, { useCallback, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppConstants } from "../../Constants/appConstants";
-import { addBlogDetails } from "../../Stores";
+import { addBlogDetails, updateblogDetails, updateTypes } from "../../Stores";
 import Button from "../Button/button";
 
 const AddBlogs = () => {
@@ -19,7 +19,7 @@ const AddBlogs = () => {
  
  
      //INFO: destructuring the blog list from the redux store/blogs
-     const { blogData} = useSelector((state: any) => {
+     const { blogData, types} = useSelector((state: any) => {
          return state.blogs;
      })
  
@@ -28,14 +28,22 @@ const AddBlogs = () => {
       */
      const addBlogHandler = useCallback(() => {
          if(blogTitleRef.current.value && blogDescriptionRef.current.value) {
+            const updatedBlogData = [];
+            const updatedTypes = [...types,"local"]
              const blogDetails = {
                  type: CUSTOM_TYPE,
                  title: blogTitleRef.current.value,
                  photo: CUSTOM_IMAGE,
+                 selected: true,
                  details: blogDescriptionRef.current.value,
               };
-              const blogs = [ blogDetails, ...blogData];
-              dispatch(addBlogDetails(blogs));
+              updatedBlogData.push(blogDetails);
+              for(let blogs of blogData) {
+                    updatedBlogData.push({...blogs, selected: false})
+              }
+              dispatch(addBlogDetails(updatedBlogData));
+              dispatch(updateblogDetails(blogDetails));
+              dispatch(updateTypes(updatedTypes));
          } else {
              alert(ALERT)
          }

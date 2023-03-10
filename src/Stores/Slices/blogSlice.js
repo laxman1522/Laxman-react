@@ -16,11 +16,13 @@ const blogSlice = createSlice({
     reducers: {
         updateSearch(state, action) {
             state.searchTerm = action.payload
-            state.blogAdded = false
         },
         updateTypes(state, action) {
             state.types = action.payload
-            state.blogAdded = false
+            const blogData = state.blogData.map((blog, index) => {
+                return {...blog, selected: false}
+            })
+            state.blogData = blogData;
         },
         addBlogDetails(state, action) {
             state.blogData = action.payload;
@@ -28,13 +30,15 @@ const blogSlice = createSlice({
         },
         updateBlogData(state,action) {
             state.blogData = action.payload;
-            state.blogAdded = false
         }
     },
     extraReducers(builder) {
         builder.addCase(fetchBlogs.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.blogData = action.payload;
+            const blogData = action.payload.map((blog, index) => {
+                return index === 0 ? {...blog, selected:true} : {...blog, selected: false}
+            })
+            state.blogData = blogData
         });
         builder.addCase(fetchBlogs.pending, (state, action) => {
             state.isLoading = true;

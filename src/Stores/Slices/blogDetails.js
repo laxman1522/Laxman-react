@@ -1,6 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-
 const blogDetails = createSlice({
     name:"blogDetails",
     initialState: {
@@ -14,8 +13,8 @@ const blogDetails = createSlice({
         },
         updateEditStatus(state,action) {
             state.allowEdit = action.payload
-        }
-    },
+        },
+    }
 })
 
 
