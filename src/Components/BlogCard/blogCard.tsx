@@ -1,10 +1,7 @@
 /* eslint-disable no-restricted-globals */
 import "./blogCard.scss";
-import React, { useRef } from "react";
+import React, { memo } from "react";
 import { blog } from "../../model/common.model";
-import { useDispatch, useSelector } from "react-redux";
-import { updateblogDetails } from "../../Stores";
-import { AppConstants } from "../../Constants/appConstants";
 import PropTypes from "prop-types";
 
 
@@ -12,13 +9,13 @@ const BlogCard = (props: blog) => {
 
     
     //INFO: destructuring props
-    const {title, type, details, selected, updateBlogList} = props;
+    const { selected, updateBlogList} = props;
 
-    const dispatch = useDispatch()
+    const {title,type,details} = props.blogData;
 
     //INFO: for updating the blog details in the redux store/blogDetails once the user edits the blog details
     const updateBlogDetailsHandler = () => {
-            updateBlogList(props);
+            updateBlogList(props.blogData);
     }
 
     return (
@@ -33,18 +30,16 @@ const BlogCard = (props: blog) => {
 }
 
 BlogCard.propTypes = {
-    title: PropTypes.string,
-    type: PropTypes.string,
-    details: PropTypes.string,
+    updateBlogList: PropTypes.func,
+    blogData: PropTypes.object,
     id: PropTypes.number || undefined
 }
 
 BlogCard.defaultProps = {
-    title: "",
-    type: "",
-    details: "",
+    updateBlogList: () => {},
+    blogData: {},
     id: undefined
 }
 
 
-export default BlogCard;
+export default memo(BlogCard);

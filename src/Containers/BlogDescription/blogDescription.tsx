@@ -21,8 +21,8 @@ const BlogDescription: React.FC = () => {
     })
 
     //INFO: Checking whether the user is allowed to edit or not based on the user button click - edit content
-    const allowEdit = useSelector((state: any) => {
-        return state.blogDetails.allowEdit;
+    const {allowEdit} = useSelector((state: any) => {
+        return state.blogDetails;
     })
 
     //INFO: updated blog Data from redux store/blogs
@@ -37,12 +37,12 @@ const BlogDescription: React.FC = () => {
 
     //INFO: useEffect for updating the text area height based on the content during the first rendering
     useEffect(() => {
-        if(titleRef.current && descriptionRef.current) {
-            titleRef.current.style.height = "5px";
-            titleRef.current.style.height = (titleRef.current.scrollHeight)+"px";
-            descriptionRef.current.style.height = "5px";
-            descriptionRef.current.style.height = (descriptionRef.current.scrollHeight)+"px";
-        }
+        // if(titleRef.current && descriptionRef.current) {
+        //     titleRef.current.style.height = "5px";
+        //     titleRef.current.style.height = (titleRef.current.scrollHeight)+"px";
+        //     descriptionRef.current.style.height = "5px";
+        //     descriptionRef.current.style.height = (descriptionRef.current.scrollHeight)+"px";
+        // }
     },[blogDetails])
 
     //INFO: To disatch the action to redux store/blogDetails to update the user edit status
@@ -59,17 +59,18 @@ const BlogDescription: React.FC = () => {
         let updatedBlogData: any = [];
         for (let blogs of blogData)
         {
-            if((index === blogDetails.id) && ((titleRef.current.value !== blogDetails.title) || (descriptionRef.current.value !== blogDetails.details))) {
+            if((blogs.title === titleRef.current.defaultValue) && ((titleRef.current.value !== blogDetails.title) || (descriptionRef.current.value !== blogDetails.details))) {
                 updatedBlogDetails = {
                     id: index,
                     title: titleRef.current.value,
                     photo: blogs.photo,
                     details: descriptionRef.current.value,
+                    selected: true,
                     type: blogs.type,
                 }
                 updatedBlogData.push(updatedBlogDetails)
             } else {
-                updatedBlogData.push(blogs);
+                updatedBlogData.push({...blogs, selected: false});
             }
             index++;
         }
@@ -90,10 +91,10 @@ const BlogDescription: React.FC = () => {
             {(!isLoading && blogDetails.title) &&
             <div className="content-container">
                 <img ref={imageRef} src={blogDetails?.photo || oops} alt={blogDetails?.title} onError={errorHandler}></img>
-                <textarea ref={titleRef} className="blog-details-title" value={!allowEdit ? blogDetails.title : undefined} defaultValue={blogDetails.title} 
+                <textarea ref={titleRef} className="blog-details-title" value={!allowEdit ? blogDetails.title : undefined}  
                 readOnly={allowEdit ? false : true}></textarea>
                 <div className="description">
-                    <textarea ref={descriptionRef} className="blog-details-description" defaultValue={blogDetails.details} 
+                    <textarea ref={descriptionRef} className="blog-details-description" 
                     value={!allowEdit ? blogDetails.details : undefined} readOnly={allowEdit ? false : true}></textarea>
                 </div>
                 {!allowEdit && <Button buttonName={"EDIT CONTENT"} className={"edit-content"} buttonClicked={buttonClickHandler}></Button>}

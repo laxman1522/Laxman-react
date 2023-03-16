@@ -1,8 +1,5 @@
 export interface blog {
-    title: string,
-    photo: string,
-    details: string,
-    type: string,
+    blogData: any
     id?: number
     selected?: boolean,
     updateBlogList: any

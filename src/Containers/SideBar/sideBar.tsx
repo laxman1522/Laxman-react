@@ -2,29 +2,24 @@ import "./sideBar.scss";
 import React, { Ref, useContext, useEffect, useRef, useState } from "react";
 import { AppConstants } from "../../Constants/appConstants";
 import { useDispatch, useSelector } from "react-redux";
-import {  updateTypes, updateViewMembers } from "../../Stores";
-import { fetchUsers } from "../../Stores/thunks/fetchUsers";
+import {  updateTypes } from "../../Stores";
 import { ThemeContext } from "../../App";
-import { type } from "@testing-library/user-event/dist/type";
 
 /**
  * @description Component responsible for showing the APP title and available filters and menu options
  */
-const SideBar: React.FC = () => {
+const SideBar: React.FC<any> = (props: any) => {
 
     //INFO: destructuring constants
     const {TITLE, FILTER, MENU_OPTIONS, TYPES} = AppConstants;
+
+    const {showMembersModal} = props;
 
     //INFO: using useDispatch to dispatch actions to redux stores
     const dispatch = useDispatch<any>();
     //INFO: destructuring function from context provider to call the function when user wants to toggle the theme
     const { theme, toggleTheme} = useContext(ThemeContext);
     const [type, setType] = useState<any>();
-
-    //INFO: destructuring the user details from the redux store/userDetails
-    const { data} = useSelector((state: any) => {
-        return state.userDetails;
-    })
 
     const { types} = useSelector((state: any) => {
         return state.blogs;
@@ -60,7 +55,7 @@ const SideBar: React.FC = () => {
 
     //INFO: To update the modal state (open/close) based on the user action
     const toggleModal = () => {
-       data.length===0 ? dispatch(fetchUsers()) : dispatch(updateViewMembers(true));
+       showMembersModal();
     }
 
     /**

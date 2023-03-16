@@ -5,7 +5,7 @@ import { AppConstants } from "../../Constants/appConstants";
 import { addBlogDetails, updateblogDetails, updateTypes } from "../../Stores";
 import Button from "../Button/button";
 
-const AddBlogs = () => {
+const AddBlogs: React.FC<any> = (props: any) => {
 
      //INFO: using use ref for maintaining the user input in the modal - blog title & blog description 
      const blogTitleRef = useRef<any>();
@@ -44,6 +44,7 @@ const AddBlogs = () => {
               dispatch(addBlogDetails(updatedBlogData));
               dispatch(updateblogDetails(blogDetails));
               dispatch(updateTypes(updatedTypes));
+              props.toggleModal();
          } else {
              alert(ALERT)
          }
