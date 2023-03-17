@@ -76,7 +76,7 @@ const BlogList: React.FC<any> = (props: any) => {
                     selected = true;
             }  
         }
-        return <BlogCard key={blog.title} blogData={blog} updateBlogList={updateBlogList} id={index + 1} selected={selected || blog?.selected} ></BlogCard>
+        return <BlogCard key={blog.title} blogData={blog} updateBlogList={updateBlogList} selected={selected || blog?.selected} ></BlogCard>
     })
 
     //INFO: using useEffect for fetching blogs during the first render

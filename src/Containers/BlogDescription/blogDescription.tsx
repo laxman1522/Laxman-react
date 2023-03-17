@@ -35,16 +35,6 @@ const BlogDescription: React.FC = () => {
        (imageRef.current.src = oops);
     }
 
-    //INFO: useEffect for updating the text area height based on the content during the first rendering
-    useEffect(() => {
-        // if(titleRef.current && descriptionRef.current) {
-        //     titleRef.current.style.height = "5px";
-        //     titleRef.current.style.height = (titleRef.current.scrollHeight)+"px";
-        //     descriptionRef.current.style.height = "5px";
-        //     descriptionRef.current.style.height = (descriptionRef.current.scrollHeight)+"px";
-        // }
-    },[blogDetails])
-
     //INFO: To disatch the action to redux store/blogDetails to update the user edit status
     const buttonClickHandler = useCallback(() => {
         dispatch(updateEditStatus(true));
@@ -54,14 +44,12 @@ const BlogDescription: React.FC = () => {
      * @description For updating the blog list with updated blog details
      */
     const saveContent = useCallback(() => {
-        let index = 1;
         let updatedBlogDetails ;
         let updatedBlogData: any = [];
         for (let blogs of blogData)
         {
             if((blogs.title === titleRef.current.defaultValue) && ((titleRef.current.value !== blogDetails.title) || (descriptionRef.current.value !== blogDetails.details))) {
                 updatedBlogDetails = {
-                    id: index,
                     title: titleRef.current.value,
                     photo: blogs.photo,
                     details: descriptionRef.current.value,
@@ -72,7 +60,6 @@ const BlogDescription: React.FC = () => {
             } else {
                 updatedBlogData.push({...blogs, selected: false});
             }
-            index++;
         }
         if(updatedBlogDetails) {
             dispatch(updateblogDetails(updatedBlogDetails));
