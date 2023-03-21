@@ -114,7 +114,7 @@ const BlogList: React.FC<any> = (props: any) => {
                 <input ref={searchInputRef} type="text" id="blog" name="blog" onChange={searchHandler} placeholder={PLACEHOLDER}></input>
                 <Button buttonName={NEW} className={"button"} buttonClicked={openModalHandler}></Button>
             </div>
-            <div className="list-container">
+            <div className="list-container" id="blogList">
                 {blogList}
             </div>
             {isLoading && <Loader></Loader>}

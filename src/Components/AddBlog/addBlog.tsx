@@ -10,6 +10,7 @@ const AddBlogs: React.FC<any> = (props: any) => {
      //INFO: using use ref for maintaining the user input in the modal - blog title & blog description 
      const blogTitleRef = useRef<any>();
      const blogDescriptionRef = useRef<any>();
+     const {toggleModal} = props;
  
      //INFO: destructuring constants
      const { CUSTOM_TYPE, CUSTOM_IMAGE, CUSTOM_TITLE_PLACEHOLDER, CUSTOM_DESCRIPTION_PLACEHOLDER, ALERT, NEW_BLOG} = AppConstants;
@@ -44,13 +45,12 @@ const AddBlogs: React.FC<any> = (props: any) => {
               dispatch(addBlogDetails(updatedBlogData));
               dispatch(updateblogDetails(blogDetails));
               dispatch(updateTypes(updatedTypes));
-              props.toggleModal();
-              document.getElementsByClassName('list-container')[0].scrollTop = 0;
-
+              toggleModal();
+              document.getElementById('blogList')?.scrollTo(0,0)
          } else {
              alert(ALERT)
          }
-     },[ALERT, CUSTOM_IMAGE, CUSTOM_TYPE, blogData, dispatch])
+     },[ALERT, CUSTOM_IMAGE, CUSTOM_TYPE, blogData, dispatch, toggleModal, types])
  
 
     return(
