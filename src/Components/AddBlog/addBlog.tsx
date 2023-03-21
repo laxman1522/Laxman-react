@@ -45,6 +45,8 @@ const AddBlogs: React.FC<any> = (props: any) => {
               dispatch(updateblogDetails(blogDetails));
               dispatch(updateTypes(updatedTypes));
               props.toggleModal();
+              document.getElementsByClassName('list-container')[0].scrollTop = 0;
+
          } else {
              alert(ALERT)
          }
