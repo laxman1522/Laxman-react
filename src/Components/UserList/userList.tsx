@@ -9,7 +9,6 @@ let updatedUsersList: any = [];
 
 const UserList = () => {
 
-    const [usersList, setUsersList] = useState<any>([])
     const [loading, setLoading] = useState<any>(false);
 
     useEffect(() => {
@@ -17,12 +16,11 @@ const UserList = () => {
             setLoading(true);
             const response = await axios.get(ApiConstants.users);
             updatedUsersList = response.data;
-            setUsersList(response.data);
             setLoading(false);
         }
 
        updatedUsersList.length === 0 && fetchUsers();
-    },[usersList])
+    },[])
 
     //Mapping through the available users and returning the jsx for individual user in a card format 
     const userList = updatedUsersList.map((data:any) => {
