@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../Components/Button/button";
 import { updateBlogDetails } from "../Stores";
 import { AppConstants } from "../Constants/appConstants";
+import { ApiConstants } from "../Constants/apiConstants";
+import axios from "axios";
 
 const Home = () => {
 
@@ -17,6 +19,8 @@ const Home = () => {
     const [membersModal, setMembersModal] = useState<any>(false);
     const [addBlogModal, setAddBlogModal] = useState<any>(false);
     const [selectedBlog, setSelectedBlog] = useState<any>();
+    const [loading, setLoading] = useState<any>(false);
+    const [userList, setUserList] = useState<any>([]);
      //INFO: using useDispatch to dispatch actions to redux stores
      const dispatch = useDispatch<any>();
 
@@ -45,9 +49,15 @@ const Home = () => {
     }
 
     //INFO: For showing the user modal once the user clicks the view members button
-    const showMembersModal = useCallback(() => {
-        setMembersModal(true);
-    },[])
+    const showMembersModal = useCallback(async () => {
+            setMembersModal(true);
+            if( userList.length ===0 ) {
+                setLoading(true);
+                const response = await axios.get(ApiConstants.users);
+                setUserList(response.data);
+                setLoading(false);
+            }
+    },[userList])
 
     //INFO: For showing the Add Blog form to the user once the user clicks the new button in the blog list container
     const addBlogModalHandler = useCallback(() => {
@@ -61,7 +71,8 @@ const Home = () => {
             <BlogDescription></BlogDescription>
             <div className="user-modal">
             {membersModal && <Modal toggleModal={toggleModal}>
-                <UserList></UserList>
+                {loading && <div className="loader"></div>}
+                {!loading && <UserList userData = {userList}></UserList>}
             </Modal> }
             </div>
             <div className="new-blog-modal">

@@ -1,9 +1,9 @@
 import "./blogDescription.scss";
-import React,{ useCallback, useEffect, useRef} from "react";
+import React,{ useCallback, useRef} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import oops from "../../assets/oops.png";
 import Button from "../../Components/Button/button";
-import { updateBlogData, updateblogDetails, updateEditedBlogDetails, updateEditStatus } from "../../Stores";
+import {   updateEditedBlogDetails, updateEditStatus } from "../../Stores";
 import { AppConstants } from "../../Constants/appConstants";
 
 const BlogDescription: React.FC = () => {
