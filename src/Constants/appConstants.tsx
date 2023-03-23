@@ -30,5 +30,7 @@ export const AppConstants ={
     SRC_PREFIX: "https://jsonmockserver.vercel.app/",
     NO_BLOGS: "No Blogs available...",
     NEW_BLOG: "Add New Blog",
-    MEMBERS: "Members"
+    MEMBERS: "Members",
+    PRIMARY_BUTTON: "Yes",
+    SECONDARY_BUTTON: "No"
 }

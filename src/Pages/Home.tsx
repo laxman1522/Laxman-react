@@ -6,12 +6,12 @@ import BlogDescription from "../Containers/BlogDescription/blogDescription";
 import Modal from "../Components/Modal/modal";
 import UserList from "../Components/UserList/userList";
 import AddBlogs from "../Components/AddBlog/addBlog";
-import { useDispatch, useSelector } from "react-redux";
-import Button from "../Components/Button/button";
+import { useDispatch } from "react-redux";
 import { updateBlogDetails } from "../Stores";
 import { AppConstants } from "../Constants/appConstants";
 import { ApiConstants } from "../Constants/apiConstants";
 import axios from "axios";
+import ModalWarning from "../Components/modalWarning/modalWarning";
 
 const Home = () => {
 
@@ -23,6 +23,8 @@ const Home = () => {
     const [userList, setUserList] = useState<any>([]);
      //INFO: using useDispatch to dispatch actions to redux stores
      const dispatch = useDispatch<any>();
+
+     const {CONFIRM, PRIMARY_BUTTON, SECONDARY_BUTTON} = AppConstants;
 
      //INFO: For showing the warning modal if user tries to update the different blog details while editing the blog details
     const warningModalHandler = (selectedBlog: any) => {
@@ -71,8 +73,8 @@ const Home = () => {
             <BlogDescription></BlogDescription>
             <div className="user-modal">
             {membersModal && <Modal toggleModal={toggleModal}>
-                {loading && <div className="loader"></div>}
-                {!loading && <UserList userData = {userList}></UserList>}
+                {loading ? <div className="loader"></div> : 
+                <UserList userData = {userList}></UserList>}
             </Modal> }
             </div>
             <div className="new-blog-modal">
@@ -82,14 +84,8 @@ const Home = () => {
             </div>
             <div className="warning-pop-up">
                 {showWarningModal && <Modal toggleModal={toggleModal}>
-                        <div className="warning">
-                            <div className="message">{AppConstants.CONFIRM} </div>
-                            <div className="button">
-                                <Button buttonName="No" buttonClicked={editHandler} className={"no"}></Button>
-                                <Button buttonName="Yes" buttonClicked={continueHandler} className={"yes"}></Button>
-                            </div>
-
-                        </div>
+                        <ModalWarning message={CONFIRM} allow={continueHandler} edit={editHandler} primaryButton={PRIMARY_BUTTON}
+                        secondaryButton={SECONDARY_BUTTON}></ModalWarning>
                     </Modal>}
             </div>
         </div>
