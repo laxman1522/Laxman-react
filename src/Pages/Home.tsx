@@ -8,7 +8,7 @@ import UserList from "../Components/UserList/userList";
 import AddBlogs from "../Components/AddBlog/addBlog";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../Components/Button/button";
-import { updateblogDetails, updateBlogData, updateBlogDetails } from "../Stores";
+import { updateBlogDetails } from "../Stores";
 import { AppConstants } from "../Constants/appConstants";
 
 const Home = () => {
@@ -19,11 +19,6 @@ const Home = () => {
     const [selectedBlog, setSelectedBlog] = useState<any>();
      //INFO: using useDispatch to dispatch actions to redux stores
      const dispatch = useDispatch<any>();
- 
-     //INFO: destructuring the available blog details from the redux store/blogs
-     const { blogData} = useSelector((state: any) => {
-         return state.blogs;
-     })
 
      //INFO: For showing the warning modal if user tries to update the different blog details while editing the blog details
     const warningModalHandler = (selectedBlog: any) => {

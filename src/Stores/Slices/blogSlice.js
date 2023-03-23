@@ -44,9 +44,6 @@ const blogSlice = createSlice({
               state.blogAdded = true;
               state.types = updatedTypes;
         },
-        updateBlogData(state,action) {
-            state.blogData = action.payload;
-        },
         updateblogDetails(state, action) {
             state.blogDetails = action.payload
             state.allowEdit = false
@@ -117,4 +114,4 @@ const blogSlice = createSlice({
 
 export const blogReducer = blogSlice.reducer;
 
-export const {updateSearch, updateTypes, addBlogDetails,updateBlogDetails, updateBlogData, updateblogDetails, updateEditStatus, updateEditedBlogDetails} = blogSlice.actions;
+export const {updateSearch, updateTypes, addBlogDetails,updateBlogDetails, updateblogDetails, updateEditStatus, updateEditedBlogDetails} = blogSlice.actions;

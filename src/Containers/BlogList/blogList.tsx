@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useRef} from "react";
 import { AppConstants } from "../../Constants/appConstants";
 import BlogCard from "../../Components/BlogCard/blogCard";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBlogs, updateSearch, updateblogDetails, updateBlogData, updateBlogDetails } from "../../Stores";
+import { fetchBlogs, updateSearch, updateblogDetails, updateBlogDetails } from "../../Stores";
 import Loader from "../../Components/Loader/loader";
 import Button from "../../Components/Button/button";
 
@@ -17,7 +17,7 @@ const BlogList: React.FC<any> = (props: any) => {
 
     //INFO:using Ref for capturing user inputs - search blogs 
     const searchInputRef = useRef<any>();
-    const filteredBlogTitle: any = [];
+    const filteredBlogTitle = useRef<any>([]);
     //INFO: destructuring constants
     const {PLACEHOLDER, NEW, NO_BLOGS} = AppConstants;
 
@@ -37,11 +37,12 @@ const BlogList: React.FC<any> = (props: any) => {
 
     //INFO: Mapping through the available blog list and returning the jsx for individual blog in a card format 
     const blogList = blogData.filter((blog: any, index: number) => {
+        index === 0 && (filteredBlogTitle.current = [])
         //INFO: (checking whether the blog is included in the user selected types or a part of custom type) and matches the user search term
         if((types.includes(blog.type.toLocaleLowerCase()))  && blog.title.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()))
         {
             //Saving only the filtered blog title which mets all the conditions
-            filteredBlogTitle.push(blog.title)
+            filteredBlogTitle.current.push(blog.title)
             return blog;
         }
     }).map((blog:any, index: number) => {
@@ -57,7 +58,7 @@ const BlogList: React.FC<any> = (props: any) => {
             else if(blog.title === blogDetails.title) {
                 selected = true;
             }
-             else if(index===0 && ( types.length !== blogAdded ? 4 : 3 ) && !filteredBlogTitle.includes(blogDetails.title)) {
+             else if(index===0 && ( types.length !== blogAdded ? 4 : 3 ) && !filteredBlogTitle.current.includes(blogDetails.title)) {
                     dispatch(updateblogDetails(blog))
                     selected = true;
             }  
