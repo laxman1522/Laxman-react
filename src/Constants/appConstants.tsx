@@ -32,5 +32,10 @@ export const AppConstants ={
     NEW_BLOG: "Add New Blog",
     MEMBERS: "Members",
     PRIMARY_BUTTON: "Yes",
-    SECONDARY_BUTTON: "No"
+    SECONDARY_BUTTON: "No",
+    MODALS: {
+        USER_MODAL: "userModal",
+        NEW_BLOG: "newBlog",
+        WARNING_MODAL: "warningModal"
+    }
 }

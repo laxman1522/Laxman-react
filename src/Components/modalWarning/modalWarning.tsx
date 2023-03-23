@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const ModalWarning = (props: any) => {
 
-    const {message, allow, edit, primaryButton, secondaryButton} = props;
+    const {message, allow, cancel, primaryButton, secondaryButton} = props;
 
     //INFO: For closing the warning modal and updating the blog details if the user clicks continue in the warning pop up
     const continueHandler = () => {
@@ -13,7 +13,7 @@ const ModalWarning = (props: any) => {
 
     //INFO: For taking the user back to the edit mode once the user clicks cancel in the warning pop up
     const editHandler = () => {
-        edit();
+        cancel();
     }
 
     return (
@@ -30,7 +30,7 @@ const ModalWarning = (props: any) => {
 ModalWarning.propTypes = {
     message: PropTypes.string,
     allow: PropTypes.func,
-    edit: PropTypes.func,
+    cancel: PropTypes.func,
     primaryButton: PropTypes.string,
     secondaryButton: PropTypes.string
 }
@@ -38,7 +38,7 @@ ModalWarning.propTypes = {
 ModalWarning.defaultProps = {
     message: '',
     allow: () => {},
-    edit: () => {},
+    cancel: () => {},
     primaryButton: '',
     secondaryButton: ''
 }
