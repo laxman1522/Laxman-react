@@ -9,7 +9,9 @@ const blogSlice = createSlice({
         error:null,
         searchTerm:"",
         types: [],
-        blogAdded: false
+        blogAdded: false,
+        blogDetails: {},
+        allowEdit: false
     },
     reducers: {
         updateSearch(state, action) {
@@ -23,11 +25,75 @@ const blogSlice = createSlice({
             state.blogData = blogData;
         },
         addBlogDetails(state, action) {
-            state.blogData = action.payload;
-            state.blogAdded = true
+            const {updatedTypes, CUSTOM_TYPE, blogTitle, blogDescription, CUSTOM_IMAGE} = action.payload;
+            const blogData = state.blogData;
+            const updatedBlogData = [];
+             const blogDetails = {
+                 type: CUSTOM_TYPE,
+                 title: blogTitle,
+                 photo: CUSTOM_IMAGE,
+                 selected: true,
+                 details: blogDescription,
+              };
+              updatedBlogData.push(blogDetails);
+              for(let blogs of blogData) {
+                    updatedBlogData.push({...blogs, selected: false})
+              }
+              state.blogData = updatedBlogData;
+              state.blogDetails = blogDetails;
+              state.blogAdded = true;
+              state.types = updatedTypes;
         },
         updateBlogData(state,action) {
             state.blogData = action.payload;
+        },
+        updateblogDetails(state, action) {
+            state.blogDetails = action.payload
+            state.allowEdit = false
+        },
+        updateBlogDetails(state, action) {
+            const title = action.payload
+            const updatedBlogData = [];
+            const blogData = state.blogData;
+            for(let blog of blogData) {
+                if(blog.title === title) {
+                    state.blogDetails = blog;
+                    updatedBlogData.push({...blog, selected: true});
+                } else {
+                    updatedBlogData.push({...blog, selected: false});
+                }
+            }
+            state.blogData = updatedBlogData;
+            state.allowEdit = false;
+        },
+        updateEditStatus(state,action) {
+            state.allowEdit = action.payload
+        },
+        updateEditedBlogDetails(state,action) {
+            const blogData = state.blogData;
+            const {title,titleDefaultValue,description } = action.payload;
+            const blogDetails = state.blogDetails;
+            let updatedBlogDetails = {};
+            let updatedBlogData = [];
+            for(let blogs of blogData ) {
+                if((blogs.title === titleDefaultValue) && ((title !== blogDetails.title) || (description !== blogDetails.details))) {
+                    updatedBlogDetails = {
+                        title: title,
+                        photo: blogs.photo,
+                        details: description,
+                        selected: true,
+                        type: blogs.type,
+                    }
+                    updatedBlogData.push(updatedBlogDetails)
+                } else {
+                    updatedBlogData.push({...blogs, selected: false});
+                }
+            }
+            if(updatedBlogDetails) {
+                state.blogDetails = updatedBlogDetails;
+                state.blogData = updatedBlogData;
+            }
+            state.allowEdit = false; 
         }
     },
     extraReducers(builder) {
@@ -51,4 +117,4 @@ const blogSlice = createSlice({
 
 export const blogReducer = blogSlice.reducer;
 
-export const {updateSearch, updateTypes, addBlogDetails, updateBlogData} = blogSlice.actions;
+export const {updateSearch, updateTypes, addBlogDetails,updateBlogDetails, updateBlogData, updateblogDetails, updateEditStatus, updateEditedBlogDetails} = blogSlice.actions;

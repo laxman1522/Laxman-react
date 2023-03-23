@@ -29,28 +29,20 @@ const AddBlogs: React.FC<any> = (props: any) => {
       */
      const addBlogHandler = useCallback(() => {
          if(blogTitleRef.current.value && blogDescriptionRef.current.value) {
-            const updatedBlogData = [];
             const updatedTypes = [...types,"local"]
-             const blogDetails = {
-                 type: CUSTOM_TYPE,
-                 title: blogTitleRef.current.value,
-                 photo: CUSTOM_IMAGE,
-                 selected: true,
-                 details: blogDescriptionRef.current.value,
-              };
-              updatedBlogData.push(blogDetails);
-              for(let blogs of blogData) {
-                    updatedBlogData.push({...blogs, selected: false})
-              }
-              dispatch(addBlogDetails(updatedBlogData));
-              dispatch(updateblogDetails(blogDetails));
-              dispatch(updateTypes(updatedTypes));
+              dispatch(addBlogDetails({
+                updatedTypes: updatedTypes,
+                CUSTOM_TYPE: CUSTOM_TYPE,
+                CUSTOM_IMAGE: CUSTOM_IMAGE,
+                blogTitle: blogTitleRef.current.value,
+                blogDescription: blogDescriptionRef.current.value
+              }));
               toggleModal();
               document.getElementById('blogList')?.scrollTo(0,0)
          } else {
              alert(ALERT)
          }
-     },[ALERT, CUSTOM_IMAGE, CUSTOM_TYPE, blogData, dispatch, toggleModal, types])
+     },[ALERT, CUSTOM_IMAGE, CUSTOM_TYPE, dispatch, toggleModal, types])
  
 
     return(

@@ -1,17 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { blogDetailsReducer } from "./Slices/blogDetails";
 import { blogReducer } from "./Slices/blogSlice";
-import {updateSearch, updateTypes, addBlogDetails, updateBlogData} from "./Slices/blogSlice";
-import { updateblogDetails, updateEditStatus } from "./Slices/blogDetails";
+import {updateSearch, updateTypes, addBlogDetails,updateBlogDetails, updateBlogData, updateblogDetails, updateEditStatus, updateEditedBlogDetails} from "./Slices/blogSlice";
 
 
 export const store = configureStore({
     reducer: {
-        blogs:  blogReducer,
-        blogDetails: blogDetailsReducer,
+        blogs:  blogReducer
     }
 })
 
 
 export * from "./thunks/fetchBlogs"
-export {updateSearch, updateblogDetails, updateTypes,addBlogDetails, updateBlogData , updateEditStatus}
+export {updateSearch, updateblogDetails,updateBlogDetails, updateTypes,addBlogDetails, updateBlogData , updateEditStatus, updateEditedBlogDetails}

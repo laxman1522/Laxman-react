@@ -8,7 +8,7 @@ import UserList from "../Components/UserList/userList";
 import AddBlogs from "../Components/AddBlog/addBlog";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../Components/Button/button";
-import { updateblogDetails, updateBlogData } from "../Stores";
+import { updateblogDetails, updateBlogData, updateBlogDetails } from "../Stores";
 import { AppConstants } from "../Constants/appConstants";
 
 const Home = () => {
@@ -40,16 +40,7 @@ const Home = () => {
 
     //INFO: For closing the warning modal and updating the blog details if the user clicks continue in the warning pop up
     const continueHandler = () => {
-        const updatedBlogData: any = []
-            for(let blog of blogData) {
-                if(blog.title === selectedBlog.title) {
-                    dispatch(updateblogDetails(blog))
-                    updatedBlogData.push({...blog, selected: true});
-                } else {
-                    updatedBlogData.push({...blog, selected: false});
-                }
-            }
-            dispatch(updateBlogData(updatedBlogData));
+        dispatch(updateBlogDetails(selectedBlog.title))
         setShowWarningModal(false);
     }
 
