@@ -37,5 +37,6 @@ export const AppConstants ={
         USER_MODAL: "userModal",
         NEW_BLOG: "newBlog",
         WARNING_MODAL: "warningModal"
-    }
+    },
+    BLOGS: "Blogs"
 }

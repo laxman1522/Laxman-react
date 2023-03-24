@@ -4,6 +4,8 @@ import { AppConstants } from "../../Constants/appConstants";
 import { useDispatch, useSelector } from "react-redux";
 import {  updateTypes } from "../../Stores";
 import { ThemeContext } from "../../App";
+import CustomCheckBox from "../../Components/customCheckBox/CustomCheckBox";
+import { IndexType } from "typescript";
 
 /**
  * @description Component responsible for showing the APP title and available filters and menu options
@@ -11,7 +13,9 @@ import { ThemeContext } from "../../App";
 const SideBar: React.FC<any> = (props: any) => {
 
     //INFO: destructuring constants
-    const {TITLE, FILTER, MENU_OPTIONS, TYPES} = AppConstants;
+    const {TITLE, FILTER, MENU_OPTIONS, TYPES, BLOGS, CUSTOM_TYPE} = AppConstants;
+
+    const [availableTypes, setAvailableTypes] = useState<any>(TYPES);
 
     const {showMembersModal} = props;
 
@@ -19,14 +23,15 @@ const SideBar: React.FC<any> = (props: any) => {
     const dispatch = useDispatch<any>();
     //INFO: destructuring function from context provider to call the function when user wants to toggle the theme
     const { theme, toggleTheme} = useContext(ThemeContext);
-    const [type, setType] = useState<any>();
 
     const { types} = useSelector((state: any) => {
         return state.blogs;
     })
 
     useEffect(() => {
-        types.includes("local") && setType("local")
+        if(types.includes(CUSTOM_TYPE.toLowerCase()) && !availableTypes.includes(CUSTOM_TYPE.toLowerCase())) {
+             setAvailableTypes([...availableTypes, CUSTOM_TYPE.toLowerCase()])
+        } 
     },[types])
 
     //INFO: useEffect for updating blog types
@@ -35,22 +40,18 @@ const SideBar: React.FC<any> = (props: any) => {
         dispatch(updateTypes(types))
     },[TYPES, dispatch])
 
-    //INFO:using Ref for capturing user inputs - selected Blog types 
-    const regionalRef = useRef<any>();
-    const nationalRef = useRef<any>();
-    const internationalRef = useRef<any>();
-    const localRef = useRef<any>();
-
     /**
      * @description To update the blog list based on the blog types selection
      */
-    const updateTypeHandler = () => {
-        const types = [];
-        regionalRef.current.checked && types.push("regional");
-        nationalRef.current.checked && types.push("national");
-        internationalRef.current.checked && types.push("international");
-        localRef?.current?.checked && types.push("local");
-        dispatch(updateTypes(types))
+    const updateTypeHandler = (value: string, status: boolean) => {
+        let updatedTypes: Array<any> = [...types];
+        if(status) {
+           !updatedTypes.includes(value) && (updatedTypes = [...updatedTypes, value])
+        } else {
+            const index = updatedTypes.indexOf(value);
+            updatedTypes.splice(index);
+        }
+        dispatch(updateTypes(updatedTypes))
     }
 
     //INFO: To update the modal state (open/close) based on the user action
@@ -58,19 +59,13 @@ const SideBar: React.FC<any> = (props: any) => {
        showMembersModal();
     }
 
-    /**
-     * 
-     * @description Function that takes classname,value & ref as a parameter and returns the jsx for custom checkbox inputs along with label
-     */
-    const checkBoxInputs = (className: string, value: string, ref: Ref<any>) => {
-        return (
-            <div className={className}>
-                <label htmlFor={value} className="container">{value}
-                <input ref={ref} type="checkbox" id={value} value={value} onChange={updateTypeHandler} defaultChecked></input>
-                <span className="checkmark"></span></label>
-            </div> 
+
+    const typesList = availableTypes.map((list: any, index: any) => {
+        return(
+            <CustomCheckBox key={index} className={list} value={list.charAt(0).toUpperCase() + list.slice(1) + " " + BLOGS} onchange={updateTypeHandler}></CustomCheckBox>
         )
-    }
+    })
+
 
     return (
         <div className="side-bar-container">
@@ -78,10 +73,7 @@ const SideBar: React.FC<any> = (props: any) => {
             <div className="filter">
                 <div className="heading">{FILTER.HEADING.toLocaleUpperCase()}</div>
                 <ul className="blogs">
-                    {checkBoxInputs("regional",FILTER.BLOGS.REGIONAL,regionalRef)}
-                    {checkBoxInputs("national",FILTER.BLOGS.NATIONAL,nationalRef)}
-                    {checkBoxInputs("international",FILTER.BLOGS.INTERNATIONAL,internationalRef)}
-                    {type === "local" && checkBoxInputs("local",FILTER.BLOGS.LOCAL,localRef)}
+                    {typesList}
                 </ul>
             </div>
             <div className="options">
