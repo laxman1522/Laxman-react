@@ -1,28 +1,20 @@
 import "./addBlogs.scss";
 import React, { useCallback, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { AppConstants } from "../../Constants/appConstants";
-import { addBlogDetails, updateblogDetails, updateTypes } from "../../Stores";
+import { addBlogDetails } from "../../Stores";
 import Button from "../Button/button";
+import PropTypes from "prop-types";
 
 const AddBlogs: React.FC<any> = (props: any) => {
 
      //INFO: using use ref for maintaining the user input in the modal - blog title & blog description 
      const blogTitleRef = useRef<any>();
      const blogDescriptionRef = useRef<any>();
-     const {toggleModal} = props;
+     const {toggleModal, types, addBlog} = props;
  
      //INFO: destructuring constants
      const { CUSTOM_TYPE, CUSTOM_IMAGE, CUSTOM_TITLE_PLACEHOLDER, CUSTOM_DESCRIPTION_PLACEHOLDER, ALERT, NEW_BLOG} = AppConstants;
-     
-     //INFO: using useDispatch to dispatch actions to redux stores
-     const dispatch = useDispatch<any>();
- 
- 
-     //INFO: destructuring the blog list from the redux store/blogs
-     const { blogData, types} = useSelector((state: any) => {
-         return state.blogs;
-     })
  
      /**
       * @description To update the blog list with the provided user details in the add new blog modal.
@@ -30,19 +22,19 @@ const AddBlogs: React.FC<any> = (props: any) => {
      const addBlogHandler = useCallback(() => {
          if(blogTitleRef.current.value && blogDescriptionRef.current.value) {
             const updatedTypes = [...types,"local"]
-              dispatch(addBlogDetails({
+              addBlog({
                 updatedTypes: updatedTypes,
                 CUSTOM_TYPE: CUSTOM_TYPE,
                 CUSTOM_IMAGE: CUSTOM_IMAGE,
                 blogTitle: blogTitleRef.current.value,
                 blogDescription: blogDescriptionRef.current.value
-              }));
+              });
               toggleModal();
               document.getElementById('blogList')?.scrollTo(0,0)
          } else {
              alert(ALERT)
          }
-     },[ALERT, CUSTOM_IMAGE, CUSTOM_TYPE, dispatch, toggleModal, types])
+     },[ALERT, CUSTOM_IMAGE, CUSTOM_TYPE, addBlog, toggleModal, types])
  
 
     return(
@@ -59,4 +51,31 @@ const AddBlogs: React.FC<any> = (props: any) => {
     )
 }
 
-export default AddBlogs;
+AddBlogs.propTypes = {
+    toggleModal: PropTypes.func,
+    types: PropTypes.array,
+    addBlog: PropTypes.func
+}
+
+AddBlogs.defaultProps = {
+    toggleModal: () => {},
+    types: [],
+    addBlog: ()=>{}
+}
+
+const mapStateToProps = (state: any, ownProps: any) => {
+    return {
+        types: state.blogs.types,
+        toggleModal: ownProps.toggleModal
+    }
+ }
+
+ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
+    return {
+        addBlog: (blogDetails: any) => {
+            dispatch(addBlogDetails(blogDetails));
+        }
+    }
+ }
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddBlogs);
