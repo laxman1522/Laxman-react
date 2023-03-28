@@ -49,8 +49,9 @@ const SideBar: React.FC<any> = (props: any) => {
            !updatedTypes.includes(value) && (updatedTypes = [...updatedTypes, value])
         } else {
             const index = updatedTypes.indexOf(value);
-            updatedTypes.splice(index);
+            updatedTypes.splice(index,1);
         }
+        console.log(updatedTypes)
         dispatch(updateTypes(updatedTypes))
     }
 

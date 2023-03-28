@@ -15,6 +15,8 @@ const BlogList: React.FC<any> = (props: any) => {
 
     const {showAddBlogModal, showWarningModal} = props;
 
+    const selectedIndex = useRef<any>(0);
+
     //INFO:using Ref for capturing user inputs - search blogs 
     const searchInputRef = useRef<any>();
     const filteredBlogTitle = useRef<any>([]);
@@ -46,24 +48,23 @@ const BlogList: React.FC<any> = (props: any) => {
             return blog;
         }
     }).map((blog:any, index: number) => {
-        let selected = false;
          if(searchTerm !=="" && blog.title.toLowerCase().includes(searchTerm) && (index===0)) {
             dispatch(updateblogDetails(blog))
-            selected = true;
+            selectedIndex.current = index;
         } else {
             if(blogDetails.title && (blogDetails.title !== blog.title) && types.includes(blogDetails.type.toLocaleLowerCase()) && (blogDetails.title === blog.title) && (index===0)) {
                     dispatch(updateblogDetails(blog)) 
-                    selected = true;
+                    selectedIndex.current = index;
             }
             else if(blog.title === blogDetails.title) {
-                selected = true;
+                selectedIndex.current = index;
             }
              else if(index===0 && ( types.length !== blogAdded ? 4 : 3 ) && !filteredBlogTitle.current.includes(blogDetails.title)) {
                     dispatch(updateblogDetails(blog))
-                    selected = true;
+                    selectedIndex.current = index;
             }  
         }
-        return <BlogCard key={blog.title} blogData={blog} updateBlogList={updateBlogList} selected={selected || blog?.selected} ></BlogCard>
+        return <BlogCard key={blog.title} blogData={blog} updateBlogList={updateBlogList} selected={selectedIndex.current === index} ></BlogCard>
     })
 
     //INFO: using useEffect for fetching blogs during the first render
