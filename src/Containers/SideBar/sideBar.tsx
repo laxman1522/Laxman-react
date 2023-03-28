@@ -51,7 +51,6 @@ const SideBar: React.FC<any> = (props: any) => {
             const index = updatedTypes.indexOf(value);
             updatedTypes.splice(index,1);
         }
-        console.log(updatedTypes)
         dispatch(updateTypes(updatedTypes))
     }
 

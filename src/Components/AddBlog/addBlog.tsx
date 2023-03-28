@@ -21,7 +21,7 @@ const AddBlogs: React.FC<any> = (props: any) => {
       */
      const addBlogHandler = useCallback(() => {
          if(blogTitleRef.current.value && blogDescriptionRef.current.value) {
-            const updatedTypes = [...types,"local"]
+            const updatedTypes =  !types.includes(CUSTOM_TYPE.toLowerCase()) ? [...types,CUSTOM_TYPE.toLowerCase()] : [...types];
               addBlog({
                 updatedTypes: updatedTypes,
                 CUSTOM_TYPE: CUSTOM_TYPE,
