@@ -28,14 +28,14 @@ const BlogList: React.FC<any> = (props: any) => {
         return state.blogs;
     })
 
-    const updateBlogList = (selectedBlog: any) => {
+    const updateBlogList = useCallback((selectedBlog: any) => {
         if(allowEdit) {
             showWarningModal(selectedBlog)
         }
         else {
             dispatch(updateBlogDetails(selectedBlog.title))
         }
-    }
+    },[allowEdit, dispatch, showWarningModal])
 
     //INFO: Mapping through the available blog list and returning the jsx for individual blog in a card format 
     const blogList = blogData.filter((blog: any, index: number) => {
