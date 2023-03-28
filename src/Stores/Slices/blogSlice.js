@@ -50,17 +50,12 @@ const blogSlice = createSlice({
         },
         updateBlogDetails(state, action) {
             const title = action.payload
-            const updatedBlogData = [];
             const blogData = state.blogData;
             for(let blog of blogData) {
                 if(blog.title === title) {
                     state.blogDetails = blog;
-                    updatedBlogData.push({...blog, selected: true});
-                } else {
-                    updatedBlogData.push({...blog, selected: false});
                 }
             }
-            state.blogData = updatedBlogData;
             state.allowEdit = false;
         },
         updateEditStatus(state,action) {
