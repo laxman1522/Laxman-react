@@ -18,11 +18,11 @@ const ModalWarning = (props: any) => {
 
     return (
         <div className="warning">
-                            <div className="message">{message} </div>
-                            <div className="button">
-                                <Button buttonName={secondaryButton} buttonClicked={editHandler} className={secondaryButton.toLowerCase()}></Button>
-                                <Button buttonName={primaryButton} buttonClicked={continueHandler} className={primaryButton.toLowerCase()}></Button>
-                            </div>
+            <div className="message">{message} </div>
+            <div className="button">
+                <Button buttonName={secondaryButton} buttonClicked={editHandler} className={secondaryButton.toLowerCase()}></Button>
+                <Button buttonName={primaryButton} buttonClicked={continueHandler} className={primaryButton.toLowerCase()}></Button>
+            </div>
         </div>
     )
 }

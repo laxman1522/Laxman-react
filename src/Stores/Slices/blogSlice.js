@@ -94,6 +94,8 @@ const blogSlice = createSlice({
             const blogData = action.payload.map((blog, index) => {
                 return index === 0 ? {...blog, selected:true} : {...blog, selected: false}
             })
+            const uniqueTypes = action.payload.map((data) => data.type.toLowerCase()).filter((value,index,array) => array.indexOf(value) === index);
+            state.types = uniqueTypes;
             state.blogData = blogData
         });
         builder.addCase(fetchBlogs.pending, (state, action) => {

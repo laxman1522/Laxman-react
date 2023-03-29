@@ -13,9 +13,9 @@ import { IndexType } from "typescript";
 const SideBar: React.FC<any> = (props: any) => {
 
     //INFO: destructuring constants
-    const {TITLE, FILTER, MENU_OPTIONS, TYPES, BLOGS, CUSTOM_TYPE} = AppConstants;
+    const {TITLE, FILTER, MENU_OPTIONS, BLOGS, CUSTOM_TYPE} = AppConstants;
 
-    const [availableTypes, setAvailableTypes] = useState<any>(TYPES);
+    const [availableTypes, setAvailableTypes] = useState<any>([]);
 
     const {showMembersModal} = props;
 
@@ -29,17 +29,12 @@ const SideBar: React.FC<any> = (props: any) => {
     })
 
     useEffect(() => {
+        availableTypes.length === 0 && setAvailableTypes(types);
         if(types.includes(CUSTOM_TYPE.toLowerCase()) && !availableTypes.includes(CUSTOM_TYPE.toLowerCase())) {
              setAvailableTypes([...availableTypes, CUSTOM_TYPE.toLowerCase()])
         } 
-    },[types])
-
-    //INFO: useEffect for updating blog types
-    useEffect(()=>{
-        const types = TYPES;
-        dispatch(updateTypes(types))
-    },[TYPES, dispatch])
-
+    },[types, availableTypes])
+    
     /**
      * @description To update the blog list based on the blog types selection
      */
