@@ -46,7 +46,6 @@ const blogSlice = createSlice({
         },
         updateblogDetails(state, action) {
             state.blogDetails = action.payload
-            state.allowEdit = false
         },
         updateBlogDetails(state, action) {
             const title = action.payload

@@ -7,7 +7,7 @@ import Modal from "../Components/Modal/modal";
 import UserList from "../Components/UserList/userList";
 import AddBlogs from "../Components/AddBlog/addBlog";
 import { useDispatch } from "react-redux";
-import { updateBlogDetails } from "../Stores";
+import { updateBlogDetails, updateEditStatus, updateSearch, updateTypes } from "../Stores";
 import { AppConstants } from "../Constants/appConstants";
 import { ApiConstants } from "../Constants/apiConstants";
 import axios from "axios";
@@ -15,7 +15,7 @@ import ModalWarning from "../Components/modalWarning/modalWarning";
 
 const Home = () => {
 
-    const [selectedBlog, setSelectedBlog] = useState<any>();
+    const [interactionData, setInteractionData] = useState<any>();
     const [modal, setModal] = useState<any>('');
     const [loading, setLoading] = useState<any>(false);
     const [userList, setUserList] = useState<any>([]);
@@ -25,8 +25,8 @@ const Home = () => {
      const {CONFIRM, PRIMARY_BUTTON, SECONDARY_BUTTON, MODALS} = AppConstants;
 
      //INFO: For showing the warning modal if user tries to update the different blog details while editing the blog details
-    const warningModalHandler = (selectedBlog: any) => {
-        setSelectedBlog(selectedBlog);
+    const warningModalHandler = (info: any) => {
+        setInteractionData(info);
         setModal(MODALS.WARNING_MODAL)
     }
 
@@ -37,8 +37,20 @@ const Home = () => {
 
     //INFO: For closing the warning modal and updating the blog details if the user clicks continue in the warning pop up
     const continueHandler = () => {
-        dispatch(updateBlogDetails(selectedBlog.title))
-        setModal('');
+        if(interactionData.interaction === "blogUpdate") {
+            dispatch(updateBlogDetails(interactionData.data.title))
+            setModal('');
+        } else if(interactionData.interaction === "blogTypes") {
+            dispatch(updateTypes(interactionData.data))
+            setModal('');
+        } else if(interactionData.interaction === "newBlogModal") {
+            dispatch(updateEditStatus(false));
+            setModal(MODALS.NEW_BLOG)
+        } else if(interactionData.interaction === "search") {
+            dispatch(updateSearch(interactionData.data));
+            setModal('');
+        }
+        
     }
 
     //INFO: For taking the user back to the edit mode once the user clicks cancel in the warning pop up
@@ -64,7 +76,7 @@ const Home = () => {
 
     return (
         <div className="home-container d-flex">
-            <SideBar showMembersModal={showMembersModal}></SideBar>
+            <SideBar showMembersModal={showMembersModal} showWarningModal={warningModalHandler}></SideBar>
             <BlogList showWarningModal={warningModalHandler} showAddBlogModal={addBlogModalHandler}></BlogList>
             <BlogDescription></BlogDescription>
             <div className="user-modal">
@@ -80,7 +92,7 @@ const Home = () => {
             </div>
             <div className="warning-pop-up">
                 {modal === MODALS.WARNING_MODAL && <Modal toggleModal={toggleModal}>
-                        <ModalWarning message={CONFIRM} allow={continueHandler} cancel={cancelHandler} primaryButton={PRIMARY_BUTTON}
+                        <ModalWarning message={CONFIRM} allow={continueHandler} interactionData={interactionData} cancel={cancelHandler} primaryButton={PRIMARY_BUTTON}
                         secondaryButton={SECONDARY_BUTTON}></ModalWarning>
                     </Modal>}
             </div>

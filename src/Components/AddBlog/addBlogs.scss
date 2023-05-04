@@ -7,4 +7,7 @@ textarea {
     display: flex;
     flex-direction: column;
     height: 85%;
+    .description, .title {
+        background-color: #fafafa;
+    }
 }

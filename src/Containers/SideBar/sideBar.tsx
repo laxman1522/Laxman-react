@@ -17,14 +17,14 @@ const SideBar: React.FC<any> = (props: any) => {
 
     const [availableTypes, setAvailableTypes] = useState<any>([]);
 
-    const {showMembersModal} = props;
+    const {showMembersModal, showWarningModal} = props;
 
     //INFO: using useDispatch to dispatch actions to redux stores
     const dispatch = useDispatch<any>();
     //INFO: destructuring function from context provider to call the function when user wants to toggle the theme
     const { theme, toggleTheme} = useContext(ThemeContext);
 
-    const { types} = useSelector((state: any) => {
+    const { types, allowEdit} = useSelector((state: any) => {
         return state.blogs;
     })
 
@@ -38,7 +38,7 @@ const SideBar: React.FC<any> = (props: any) => {
     /**
      * @description To update the blog list based on the blog types selection
      */
-    const updateTypeHandler = (value: string, status: boolean) => {
+    const updateTypeHandler = (value: string, status: boolean) => {     
         let updatedTypes: Array<any> = [...types];
         if(status) {
            !updatedTypes.includes(value) && (updatedTypes = [...updatedTypes, value])
@@ -46,7 +46,14 @@ const SideBar: React.FC<any> = (props: any) => {
             const index = updatedTypes.indexOf(value);
             updatedTypes.splice(index,1);
         }
+    if(!allowEdit) {
         dispatch(updateTypes(updatedTypes))
+    } else {
+        showWarningModal({
+            interaction: "blogTypes",
+            data: updatedTypes
+        })
+    }
     }
 
     //INFO: To update the modal state (open/close) based on the user action

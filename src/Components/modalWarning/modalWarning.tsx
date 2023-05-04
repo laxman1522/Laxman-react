@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const ModalWarning = (props: any) => {
 
-    const {message, allow, cancel, primaryButton, secondaryButton} = props;
+    const {message, allow, cancel, primaryButton, secondaryButton, interactionData} = props;
 
     //INFO: For closing the warning modal and updating the blog details if the user clicks continue in the warning pop up
     const continueHandler = () => {
@@ -32,7 +32,8 @@ ModalWarning.propTypes = {
     allow: PropTypes.func,
     cancel: PropTypes.func,
     primaryButton: PropTypes.string,
-    secondaryButton: PropTypes.string
+    secondaryButton: PropTypes.string,
+    interactionData: PropTypes.object
 }
 
 ModalWarning.defaultProps = {
@@ -40,7 +41,8 @@ ModalWarning.defaultProps = {
     allow: () => {},
     cancel: () => {},
     primaryButton: '',
-    secondaryButton: ''
+    secondaryButton: '',
+    interactionData: {}
 }
 
 export default ModalWarning;
