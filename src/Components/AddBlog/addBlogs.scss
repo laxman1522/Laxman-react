@@ -1,6 +1,5 @@
 textarea {
     max-height: 600px;
-    height: 100%;
 }
 
 .blog-inputs {
@@ -10,4 +9,12 @@ textarea {
     .description, .title {
         background-color: #fafafa;
     }
+    .error {
+        color: #ff0000;
+        font-size: 1.1rem;
+        font-weight: 600;
+        padding-bottom: 20px;
+        font-family: Roboto slab;
+    }
 }
+

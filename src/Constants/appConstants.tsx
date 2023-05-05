@@ -38,5 +38,9 @@ export const AppConstants ={
         NEW_BLOG: "newBlog",
         WARNING_MODAL: "warningModal"
     },
-    BLOGS: "Blogs"
+    BLOGS: "Blogs",
+    TITLE_ERROR: "Please enter the title",
+    DESC_ERROR: "Please enter the description",
+    TITLE_LIMIT: "Please enter less than 60 characters",
+    DESC_LIMIT: "Please enter less than 250 charcters"
 }

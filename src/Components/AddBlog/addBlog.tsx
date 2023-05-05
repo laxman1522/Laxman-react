@@ -1,5 +1,5 @@
 import "./addBlogs.scss";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { AppConstants } from "../../Constants/appConstants";
 import { addBlogDetails } from "../../Stores";
@@ -12,9 +12,12 @@ const AddBlogs: React.FC<any> = (props: any) => {
      const blogTitleRef = useRef<any>();
      const blogDescriptionRef = useRef<any>();
      const {toggleModal, types, addBlog} = props;
+
+     const [titleError, setTitleError] = useState<any>();
+     const [descError,setDescError] = useState<any>();
  
      //INFO: destructuring constants
-     const { CUSTOM_TYPE, CUSTOM_IMAGE, CUSTOM_TITLE_PLACEHOLDER, CUSTOM_DESCRIPTION_PLACEHOLDER, ALERT, NEW_BLOG} = AppConstants;
+     const { CUSTOM_TYPE, CUSTOM_IMAGE, CUSTOM_TITLE_PLACEHOLDER, CUSTOM_DESCRIPTION_PLACEHOLDER, ALERT, NEW_BLOG, TITLE_ERROR, TITLE_LIMIT, DESC_ERROR, DESC_LIMIT} = AppConstants;
  
      /**
       * @description To update the blog list with the provided user details in the add new blog modal.
@@ -32,9 +35,23 @@ const AddBlogs: React.FC<any> = (props: any) => {
               toggleModal();
               document.getElementById('blogList')?.scrollTo(0,0)
          } else {
-             alert(ALERT)
+            (blogTitleRef.current.value !== "" && blogTitleRef.current.value !== undefined ) ? setTitleError({error: TITLE_ERROR,status: false}) : setTitleError({error: TITLE_ERROR,status:true});
+            (blogDescriptionRef.current.value !== "" && blogDescriptionRef.current.value !== undefined) ? setDescError({error: DESC_ERROR,status:false}) : setDescError({error: DESC_ERROR,status:true});
          }
      },[ALERT, CUSTOM_IMAGE, CUSTOM_TYPE, addBlog, toggleModal, types])
+
+     const onTitleChange = () => {
+        ( blogTitleRef.current.value !== "" && blogTitleRef.current.value !== undefined ) ? setTitleError({error: TITLE_ERROR,status: false}) : setTitleError({error: TITLE_ERROR,status:true});
+        blogTitleRef.current.value.length > 60 && setTitleError({error: TITLE_LIMIT, status: true});
+     }
+
+     const onDescChange = () => {
+        ( blogDescriptionRef.current.value !== "" && blogDescriptionRef.current.value !== undefined) ? setDescError({error: DESC_ERROR,status: false}) : setDescError({error: DESC_ERROR,status:true});
+        if(blogDescriptionRef.current.offsetHeight < blogDescriptionRef.current.scrollHeight) {
+            blogDescriptionRef.current.style.height = (blogDescriptionRef.current.scrollHeight + 30) + "px";
+        }
+        blogDescriptionRef.current.value.length > 250 && setDescError({error: DESC_LIMIT, status: true})
+     }
  
 
     return(
@@ -42,8 +59,10 @@ const AddBlogs: React.FC<any> = (props: any) => {
         <div className="modal-title">{NEW_BLOG}</div>
         <div className="blog-input-content">
             <div className="blog-inputs">
-                <input ref={blogTitleRef} type="text" id="title" className="title" name="title" placeholder={CUSTOM_TITLE_PLACEHOLDER}></input>
-                <textarea ref={blogDescriptionRef} id="description" className="description" name="description" cols={7} placeholder={CUSTOM_DESCRIPTION_PLACEHOLDER}></textarea>
+                <input ref={blogTitleRef} type="text" id="title" className="title" name="title" onChange={onTitleChange} placeholder={CUSTOM_TITLE_PLACEHOLDER}></input>
+                {titleError?.status && <div className="error">{titleError.error}</div>}
+                <textarea ref={blogDescriptionRef} id="description" className="description" onChange={onDescChange} name="description" cols={7} placeholder={CUSTOM_DESCRIPTION_PLACEHOLDER}></textarea>
+                {descError?.status && <div className="error">{descError.error}</div>}
             </div>
             <Button buttonName={AppConstants.ADD} className={"add"} buttonClicked={addBlogHandler}></Button>
         </div>
