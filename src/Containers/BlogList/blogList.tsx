@@ -98,10 +98,7 @@ const BlogList: React.FC<any> = (props: any) => {
             dispatch( updateSearch(""));
             showAddBlogModal();
         } else {
-            showWarningModal({
-                interaction: "newBlogModal",
-                data: ""
-            })
+            setModal(MODALS.WARNING_MODAL)
         }
         
     },[dispatch, showAddBlogModal, allowEdit])
@@ -118,6 +115,7 @@ const BlogList: React.FC<any> = (props: any) => {
 
     //INFO: For closing the modal on backdrop
     const toggleModal = useCallback(() => {
+        searchInputRef.current.value = searchTerm;
         setModal('');
     },[])
 
@@ -130,7 +128,7 @@ const BlogList: React.FC<any> = (props: any) => {
 
      //INFO: For taking the user back to the edit mode once the user clicks cancel in the warning pop up
      const cancelHandler = () => {
-        searchInputRef.current.value = "";
+        searchInputRef.current.value = searchTerm;
         setModal('');
     }
 
