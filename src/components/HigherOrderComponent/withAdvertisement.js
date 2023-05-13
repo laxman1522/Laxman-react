@@ -31,7 +31,7 @@ const WithAdvertisement = (OriginalComponent ) => {
         },[timer])
 
         useEffect(()=>{
-            if(timer >= 0 && !showAdImage) {
+            if(timer >= 0 && !showAdImage && initialTime!==undefined) {
                 timeout = setTimeout(() => {
                     setTimer(initialTime-(count));
                     setCount(count+1)
@@ -57,11 +57,7 @@ const WithAdvertisement = (OriginalComponent ) => {
 
         //INFO: useeffect for conditionally showing the ad & calling the update timer function
         useEffect(() => {
-            if(props.teaser) {
                 (showAdImage) && updateTimer();
-            } else {
-                (showAdImage) && updateTimer();
-            }
         }, [showAdImage, showAd])
     
         //INFO: For updating the timer on every seconds

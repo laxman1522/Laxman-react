@@ -26,9 +26,9 @@ const Trailer: React.FC = () => {
             <div className={styles.trailerContainer}>
                     <div className={styles.trailerSignIn}>
                         <div className={styles.trailer}>{TRAILERS}</div>
-                        <div className={styles.signin}>{NEED_TO_SIGN_IN}. 
+                        {!userDetails && <div className={styles.signin}>{NEED_TO_SIGN_IN}. 
                             <NavLink className={styles.siginLink} to={ROUTE_CONSTANTS.LOGIN}>{SIGN_IN}</NavLink>
-                        </div>
+                        </div>}
                     </div>
                     <div className={`${styles.imageDescription} d-flex`}>
                         <div className={styles.trailerImageContainer}></div>

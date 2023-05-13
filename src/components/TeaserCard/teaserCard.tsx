@@ -5,6 +5,7 @@ import styles from './teaserCard.module.scss';
 import adImage from '../../assets/Advertisement-Small-2.png';
 import WithAdvertisement from "../HigherOrderComponent/withAdvertisement";
 import play from "../../assets/Play.png";
+import HOC from "../HigherOrderComponent/hoc";
 
 //INFO: Ad details 
 const adDetails = {
@@ -39,7 +40,7 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
         teaserRef.current.style.display = "none";
         imageRef.current.style.display = "none";
         showingAd(resumeDetails);
-    } else if (message === APPCONSTANTS.VIDEO_RESUMES && timer === 0){
+    } else if (message === APPCONSTANTS.VIDEO_RESUMES && timer < 0){
         teaserRef.current.style.display = "block";
         teaserRef?.current?.play();
     }
@@ -47,12 +48,6 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
     //INFO: to pass the ad details once the user start playing the video
     const videoStateChanged = () => {
         teaserRef.current.play();
-        // console.log(teaserRef.current.paused, teaserRef.current.currentTime)
-        // if(teaserRef.current.paused && teaserRef.current.currentTime === 0 ) {
-        //     teaserTime(Math.floor(teaserRef?.current?.currentTime), adDetails);
-        // }
-        // teaserRef.current.paused ? teaserRef?.current?.play() : teaserRef.current.pause();
-        // imageRef.current.style.display = teaserRef.current.paused ? "" : "none";
     }
 
     useEffect(()=>{
@@ -83,7 +78,7 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
     }
 
     const videoPaused = () => {
-        (message!==resumeDetails.message || timer === 0) && (imageRef.current.style.display = "");
+        imageRef.current.style.display =  "";
     }
 
     return (
@@ -94,7 +89,7 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
                 poster={props.poster} ></video>
                 <div className={props.className}>{title}</div>
                 {showAd && <div className={styles.adMessage}>{message}{minuteConverter(timer)}</div>}
-                <img className={styles.play} ref={imageRef} src={play} alt="play button" onClick={videoStateChanged} ></img>
+                {!showAdImage && <img className={styles.play} ref={imageRef} src={play} alt="play button" onClick={videoStateChanged} ></img>}
             </div>
         </React.Fragment>
     )
@@ -111,4 +106,4 @@ TeaserCard.defaultProps = {
     showingAd:() => {},
 }
 
-export default WithAdvertisement(TeaserCard);
+export default HOC(TeaserCard);

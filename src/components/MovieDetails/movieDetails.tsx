@@ -5,6 +5,7 @@ import { APPCONSTANTS } from '../../constants/appConstants';
 import WithAdvertisement from '../HigherOrderComponent/withAdvertisement';
 import adImage from "../../assets/adv-2.png";
 import { movieDetails } from '../../modal/commonModel';
+import HOC from '../HigherOrderComponent/hoc';
 
 //INFO: ad details
 const adDetails = {
