@@ -34,12 +34,13 @@ export interface teaserDetails {
   className?: string,
   startedPlaying: Function,
   message: string,
-  timer: number | string
+  timer: any
   showAd: boolean,
   showAdImage: boolean,
   showingAd: Function,
   poster: string,
-  teaserTime?: any
+  teaserTime?: any,
+  stopAd: any
 }
 
 export interface movieList {

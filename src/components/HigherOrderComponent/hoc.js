@@ -46,6 +46,7 @@ const HOC = (OriginalComponent ) => {
 
     stopAd = () => {
         this.setState({
+            message: '',
             showAdImage: false,
             showAd: false
         })
