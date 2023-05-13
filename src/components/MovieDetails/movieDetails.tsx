@@ -24,9 +24,10 @@ const resumeDetails = {
  */
 const MovieDetails: React.FC<movieDetails> = (props: movieDetails) => {
 
-    const {timer,message, startedPlaying, showAd, showAdImage, showingAd, updateLikes, updatedMovie } = props;
+    const {timer,message, startedPlaying, showAd, showAdImage, showingAd, updateLikes, updatedMovie, teaserTime , stopAd} = props;
 
     const {currentMovie, setCurrentMovie} = useContext(movieDetailsContext);
+    const [movie,setMovie] = useState<any>(currentMovie?.movie);
     const {loading, setLoading} = useContext(loadingContext);
     const [likes, setLikes] = useState(updatedMovie.likes);
 
@@ -45,8 +46,26 @@ const MovieDetails: React.FC<movieDetails> = (props: movieDetails) => {
 
     //INFO: use effect for updating the ad details on selecting the movie
     useEffect(() => {
-        (currentMovie?.movie ) && startedPlaying(adDetails);
-    }, [currentMovie]);
+        let interval:any;
+        currentMovie && setMovie(currentMovie?.movie);
+        (currentMovie?.movie !==movie ) && startedPlaying(adDetails);
+        if(message === adDetails.message && timer >= 0 ) {
+            interval = setInterval(() => {
+                teaserTime(adDetails.timer - (timer-1), adDetails);
+            },1000)
+        } else if(message === resumeDetails.message && timer >=0 ) {
+            interval = setInterval(() => {
+                teaserTime(resumeDetails.timer - (timer-1), resumeDetails);
+            },1000)
+        } else if(message === resumeDetails.message && timer < 0) {
+            stopAd();
+        }
+
+        return(() => {
+            clearInterval(interval);
+        })
+
+    }, [currentMovie,timer]);
 
     //INFO: for iterating through the actors list
     const actorsList =  currentMovie?.actors?.map((actor: string) => {
@@ -106,4 +125,4 @@ MovieDetails.defaultProps = {
     updateLikes: () => {}
 }
 
-export default  WithAdvertisement(MovieDetails);
+export default  HOC(MovieDetails);

@@ -55,7 +55,9 @@ export interface movieDetails {
   showAdImage: boolean, 
   showingAd?:any,
   updateLikes: any,
-  updatedMovie: any
+  updatedMovie: any,
+  teaserTime: any,
+  stopAd: any
 }
 
 export interface movieCard {

@@ -35,7 +35,7 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
     const {timer,message, startedPlaying, showAd, showAdImage, showingAd, teaserTime} = props;
 
     //INFO: logic for dynamically pause & play the video based on the ad details and timings
-    if(message === APPCONSTANTS.ADVERTISEMENT && timer === 0) {
+    if(message === APPCONSTANTS.ADVERTISEMENT && timer < 0) {
         teaserRef.current.pause();
         teaserRef.current.style.display = "none";
         imageRef.current.style.display = "none";
@@ -52,7 +52,7 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
 
     useEffect(()=>{
         let interval:any;
-        if(message!==resumeDetails.message && (timer >= 0 ) && (teaserRef?.current?.currentTime < adDetails.timer)) {
+        if(message!==resumeDetails.message && (timer > -1 ) && (teaserRef?.current?.currentTime < adDetails.timer+1)) {
             interval = setInterval (() => {
                 teaserTime(Math.floor(teaserRef?.current?.currentTime), adDetails);
             },1000)
@@ -78,7 +78,9 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
     }
 
     const videoPaused = () => {
-        imageRef.current.style.display =  "";
+        if(imageRef.current?.style) {
+            imageRef.current.style.display =  "";
+        }
     }
 
     return (

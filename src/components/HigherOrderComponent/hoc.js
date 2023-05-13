@@ -22,36 +22,6 @@ const HOC = (OriginalComponent ) => {
         }
     };
 
-    logic  = () => {
-        if((this.state.timer >= 0) && this.state.initialTime!==undefined) {
-            this.timeout = setTimeout(() => {
-                this.setState ({
-                    timer: this.state.initialTime-this.state.count,
-                    count: this.state.count+1
-                })
-            },[1000])
-        }
-        else {
-                clearTimeout(this.timeout);
-                if(this.state.showAdImage) {
-                    this.setState({
-                        showAdImage: false,
-                        showAd: false,
-                        timer: undefined 
-                })
-            }
-        }  
-    }
-
-    componentDidUpdate() {
-        clearTimeout(this.timeout)
-        this.logic();
-    }
-
-    componentWillUnmount() {
-        clearTimeout(this.timeout);
-    }
-
     //INFO: For starting the timer once the video is started playing
     startedPlaying = (adDetails) => {
         if(!this.state.showAdImage) {
@@ -74,6 +44,13 @@ const HOC = (OriginalComponent ) => {
         })
     }
 
+    stopAd = () => {
+        this.setState({
+            showAdImage: false,
+            showAd: false
+        })
+    }
+
     //INFO: For showing the ad image once the timer reaches 0
     showingAd = (adDetails) => {
         this.setState({
@@ -88,7 +65,7 @@ const HOC = (OriginalComponent ) => {
       render() {
         return (
           <OriginalComponent {...this.props} timer={this.state.timer} message={this.state.message} showAdImage={this.state.showAdImage} 
-          showAd={this.state.showAd} startedPlaying={this.startedPlaying} showingAd={this.showingAd} teaserTime={this.teaserTime}></OriginalComponent>
+          showAd={this.state.showAd} startedPlaying={this.startedPlaying} showingAd={this.showingAd} stopAd={this.stopAd} teaserTime={this.teaserTime}></OriginalComponent>
         );
       }
     }
