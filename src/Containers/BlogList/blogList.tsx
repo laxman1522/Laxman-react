@@ -23,12 +23,11 @@ const BlogList: React.FC<any> = (props: any) => {
 
     //INFO:using Ref for capturing user inputs - search blogs 
     const searchInputRef = useRef<any>();
-    const filteredBlogTitle = useRef<any>([]);
     //INFO: destructuring constants
     const {PLACEHOLDER, NEW, NO_BLOGS, MODALS,CONFIRM, PRIMARY_BUTTON, SECONDARY_BUTTON} = AppConstants;
 
     //INFO: destructuring the available blog details from the redux store/blogs
-    const {isLoading, blogData, error, searchTerm, types, blogAdded, blogDetails, allowEdit} = useSelector((state: any) => {
+    const {isLoading, blogData, error, searchTerm, types, blogDetails, allowEdit} = useSelector((state: any) => {
         return state.blogs;
     })
 
@@ -45,13 +44,10 @@ const BlogList: React.FC<any> = (props: any) => {
     },[allowEdit, dispatch, showWarningModal])
 
     //INFO: Mapping through the available blog list and returning the jsx for individual blog in a card format 
-    const blogList = blogData.filter((blog: any, index: number) => {
-        index === 0 && (filteredBlogTitle.current = [])
+    const blogList = blogData.filter((blog: any) => {
         //INFO: (checking whether the blog is included in the user selected types or a part of custom type) and matches the user search term
         if((types.includes(blog.type.toLocaleLowerCase())) && blog.title.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()))
         {
-            //Saving only the filtered blog title which mets all the conditions
-            filteredBlogTitle.current.push(blog.title)
             return blog;
         }
     }).map((blog:any, index: number) => {
