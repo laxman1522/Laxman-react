@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {  updateEditStatus, updateSearch, updateTypes } from "../../Stores";
 import { ThemeContext } from "../../App";
 import CustomCheckBox from "../../Components/customCheckBox/CustomCheckBox";
-import { IndexType } from "typescript";
 import Modal from "../../Components/Modal/modal";
 import modal from "../../Components/Modal/modal";
 import ModalWarning from "../../Components/modalWarning/modalWarning";
@@ -53,7 +52,12 @@ const SideBar: React.FC<any> = (props: any) => {
             updatedTypes.splice(index,1);
         }
     if(!allowEdit) {
-        dispatch(updateTypes(updatedTypes))
+        dispatch(updateTypes(updatedTypes));
+        setCheckBoxDetails({
+            name: value,
+            status: status,
+            updatedTypes: updatedTypes
+        })
     } else {
         setModal(MODALS.WARNING_MODAL);
         setCheckBoxDetails({

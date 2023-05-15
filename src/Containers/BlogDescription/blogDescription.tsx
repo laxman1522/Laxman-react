@@ -16,7 +16,7 @@ const BlogDescription: React.FC = () => {
     const dispatch = useDispatch();
 
     //INFO: updated blog Data from redux store/blogs
-    const {isLoading, allowEdit, blogDetails} = useSelector((state: any) => {
+    const {isLoading, allowEdit, blogDetails, blogData} = useSelector((state: any) => {
         return state.blogs;
     })
 

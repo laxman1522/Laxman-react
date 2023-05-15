@@ -8,6 +8,7 @@
     justify-content: flex-end;
     align-items: baseline;
     background-color: rgba($color: #3e3e3e, $alpha: 0.5);
+    z-index: 99;
     .modal-container {
         z-index: 9999;
     }

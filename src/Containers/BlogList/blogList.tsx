@@ -55,24 +55,7 @@ const BlogList: React.FC<any> = (props: any) => {
             return blog;
         }
     }).map((blog:any, index: number) => {
-        if(!allowEdit) {
-         if(searchTerm !=="" && blog.title.toLowerCase().includes(searchTerm) && (index===0)) {
-            dispatch(updateblogDetails(blog))
-            selectedIndex.current = index;
-        } else {
-            if(blogDetails.title && (blogDetails.title !== blog.title) && types.includes(blogDetails.type.toLocaleLowerCase()) && (blogDetails.title === blog.title) && (index===0)) {
-                    dispatch(updateblogDetails(blog)) 
-                    selectedIndex.current = index;
-            }
-            else if(blog.title === blogDetails.title) {
-                selectedIndex.current = index;
-            }
-             else if(index===0 && ( types.length !== blogAdded ? 4 : 3 ) && !filteredBlogTitle.current.includes(blogDetails.title)) {
-                    dispatch(updateblogDetails(blog))
-                    selectedIndex.current = index;
-            }  
-        }
-    }
+            blog.title === blogDetails.title && (selectedIndex.current = index);
         return <BlogCard key={blog.title} blogData={blog} updateBlogList={updateBlogList} selected={selectedIndex.current === index} ></BlogCard>
     })
 
@@ -84,7 +67,7 @@ const BlogList: React.FC<any> = (props: any) => {
     //INFO: for updating the search term
     const searchHandler = (event: any) => {
         if(!allowEdit) {
-            dispatch(updateSearch(event?.target?.value));
+            dispatch(updateSearch({searchTerm:event?.target?.value, blogData: blogData, modalStateChange: false}));
         } else {
             setModal(MODALS.WARNING_MODAL);
         }
@@ -95,7 +78,7 @@ const BlogList: React.FC<any> = (props: any) => {
     const openModalHandler = useCallback(() => {
         if(!allowEdit) {
             searchInputRef.current.value = ""
-            dispatch( updateSearch(""));
+            dispatch( updateSearch({searchTerm:"", blogData: blogData,modalStateChange: true}));
             showAddBlogModal();
         } else {
             setModal(MODALS.WARNING_MODAL)
@@ -106,7 +89,7 @@ const BlogList: React.FC<any> = (props: any) => {
     //INFO: To check whether the blog list is empty or not
     const isBlogListEmpty = () => {
         if(!isLoading && blogList.length === 0) {
-            blogDetails.length!==0 &&  dispatch(updateblogDetails([]))
+            // blogDetails.length!==0 &&  dispatch(updateblogDetails([]))
             return true;
         } else {
             return false;
@@ -122,7 +105,7 @@ const BlogList: React.FC<any> = (props: any) => {
     //INFO: For closing the warning modal and updating the blog details if the user clicks continue in the warning pop up
     const continueHandler = () => {
             dispatch(updateEditStatus(false));
-            dispatch(updateSearch(searchInputRef.current.value)); 
+            dispatch(updateSearch({searchTerm:searchInputRef.current.value, blogData: blogData,modalStateChange: false})); 
             setModal(''); 
     }
 

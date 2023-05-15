@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
+import { updateSelectedBlogDetails } from "../../utils/updateBlogDetails";
 import { fetchBlogs } from "../thunks/fetchBlogs";
 
 const blogSlice = createSlice({
@@ -15,7 +16,12 @@ const blogSlice = createSlice({
     },
     reducers: {
         updateSearch(state, action) {
-            state.searchTerm = action.payload
+            state.searchTerm = action.payload?.searchTerm;
+            if(!action.payload?.modalStateChange) {
+                const {alreadySelected, updatedBlogDetails} = updateSelectedBlogDetails(action.payload?.blogData, state.types, state.allowEdit, action.payload?.searchTerm, state.blogAdded,state.blogDetails);
+                !alreadySelected && (state.blogDetails = updatedBlogDetails)
+            }
+            
         },
         updateTypes(state, action) {
             state.types = action.payload
@@ -23,6 +29,8 @@ const blogSlice = createSlice({
                 return {...blog, selected: false}
             })
             state.blogData = blogData;
+                const {alreadySelected, updatedBlogDetails} = updateSelectedBlogDetails(blogData, action.payload, state.allowEdit, state.searchTerm, state.blogAdded,state.blogDetails);
+                !alreadySelected && (state.blogDetails = updatedBlogDetails)
         },
         addBlogDetails(state, action) {
             const {updatedTypes, CUSTOM_TYPE, blogTitle, blogDescription, CUSTOM_IMAGE} = action.payload;
@@ -80,11 +88,11 @@ const blogSlice = createSlice({
                     updatedBlogData.push({...blogs, selected: false});
                 }
             }
-            if(updatedBlogDetails) {
+            if(updatedBlogDetails?.title) {
                 state.blogDetails = updatedBlogDetails;
                 state.blogData = updatedBlogData;
             }
-            state.allowEdit = false; 
+            state.allowEdit = false;
         }
     },
     extraReducers(builder) {
@@ -95,7 +103,8 @@ const blogSlice = createSlice({
             })
             const uniqueTypes = action.payload.map((data) => data.type.toLowerCase()).filter((value,index,array) => array.indexOf(value) === index);
             state.types = uniqueTypes;
-            state.blogData = blogData
+            state.blogData = blogData;
+            state.blogDetails = blogData[0];
         });
         builder.addCase(fetchBlogs.pending, (state, action) => {
             state.isLoading = true;

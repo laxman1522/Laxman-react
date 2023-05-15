@@ -92,7 +92,7 @@ button {
 .user-modal,.new-blog-modal {
 .modal {
     .modal-container {
-            position: relative;
+            position: absolute;
             width: 35%;
             height: 100vh;
             padding: 75px 50px ;
@@ -106,7 +106,7 @@ button {
 .warning-pop-up {
     .modal {
         .modal-container {
-            position: relative;
+            position: absolute;
             right: 33%;
             top:25%;
             padding: 20px;

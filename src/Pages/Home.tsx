@@ -47,7 +47,7 @@ const Home = () => {
             dispatch(updateEditStatus(false));
             setModal(MODALS.NEW_BLOG)
         } else if(interactionData.interaction === "search") {
-            dispatch(updateSearch(interactionData.data));
+            dispatch(updateSearch({searchTerm:interactionData.data, blogData: [],modalStateChange: true}));
             setModal('');
         }
         
