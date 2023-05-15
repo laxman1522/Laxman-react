@@ -31,10 +31,6 @@ const MovieDetails: React.FC<movieDetails> = (props: movieDetails) => {
     const {loading, setLoading} = useContext(loadingContext);
     const [likes, setLikes] = useState(updatedMovie.likes);
 
-    if(message === APPCONSTANTS.ADVERTISEMENT && timer === 0) {
-        showingAd(resumeDetails);
-    } 
-
     useEffect(() => {
         setLikes(updatedMovie.likes)
     },[updatedMovie])
@@ -53,7 +49,10 @@ const MovieDetails: React.FC<movieDetails> = (props: movieDetails) => {
             interval = setInterval(() => {
                 teaserTime(adDetails.timer - (timer-1), adDetails);
             },1000)
-        } else if(message === resumeDetails.message && timer >=0 ) {
+        } else if(message === APPCONSTANTS.ADVERTISEMENT && timer < 0) {
+            showingAd(resumeDetails);
+        } 
+        else if(message === resumeDetails.message && timer >=0 ) {
             interval = setInterval(() => {
                 teaserTime(resumeDetails.timer - (timer-1), resumeDetails);
             },1000)

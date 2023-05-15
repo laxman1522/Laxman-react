@@ -34,17 +34,7 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
     const {title, videoSrc} = props?.teaser;
     const {timer,message, startedPlaying, showAd, showAdImage, showingAd, teaserTime, stopAd} = props;
 
-    //INFO: logic for dynamically pause & play the video based on the ad details and timings
-    if(message === APPCONSTANTS.ADVERTISEMENT && timer < 0) {
-        teaserRef.current.pause();
-        teaserRef.current.style.display = "none";
-        imageRef.current.style.display = "none";
-        showingAd(resumeDetails);
-    } else if (message === APPCONSTANTS.VIDEO_RESUMES && timer < 0){
-        teaserRef.current.style.display = "block";
-        teaserRef?.current?.play();
-        stopAd();
-    }
+    
 
     //INFO: to pass the ad details once the user start playing the video
     const videoStateChanged = () => {
@@ -57,11 +47,22 @@ const TeaserCard: React.FC<teaserDetails> = (props: teaserDetails) => {
             interval = setInterval (() => {
                 teaserTime(Math.floor(teaserRef?.current?.currentTime), adDetails);
             },1000)
-        } else if(message===resumeDetails.message && (timer >= 0 )) {
+        } else if(message === APPCONSTANTS.ADVERTISEMENT && timer < 0) {
+            teaserRef.current.pause();
+            teaserRef.current.style.display = "none";
+            imageRef.current.style.display = "none";
+            showingAd(resumeDetails);
+        } 
+         else if(message===resumeDetails.message && (timer >= 0 )) {
             interval = setInterval (() => {
                 teaserTime(resumeDetails.timer - (timer-1), resumeDetails);
             },1000)
+        } else if(message === APPCONSTANTS.VIDEO_RESUMES && timer < 0) {
+            teaserRef.current.style.display = "block";
+            teaserRef?.current?.play();
+            stopAd();
         }
+
         return(() => {
             clearInterval(interval);
         })
