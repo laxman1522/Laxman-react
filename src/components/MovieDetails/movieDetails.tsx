@@ -24,26 +24,16 @@ const resumeDetails = {
  */
 const MovieDetails: React.FC<movieDetails> = (props: movieDetails) => {
 
-    const {timer,message, startedPlaying, showAd, showAdImage, showingAd, updateLikes, updatedMovie, teaserTime , stopAd} = props;
+    const {timer,message, startedPlaying, showAd, showAdImage, showingAd, teaserTime , stopAd} = props;
 
     const {currentMovie, setCurrentMovie} = useContext(movieDetailsContext);
     const [movie,setMovie] = useState<any>(currentMovie?.movie);
-    const {loading, setLoading} = useContext(loadingContext);
-    const [likes, setLikes] = useState(updatedMovie.likes);
-
-    useEffect(() => {
-        setLikes(updatedMovie.likes)
-    },[updatedMovie])
-
-    //INFO: use effect for updating the movie details 
-    useEffect(() => {
-        setLikes(currentMovie.likes);
-    }, [currentMovie])
+    const {loading} = useContext(loadingContext);
 
     //INFO: use effect for updating the ad details on selecting the movie
     useEffect(() => {
         let interval:any;
-        currentMovie && setMovie(currentMovie?.movie);
+        (currentMovie?.movie !==movie ) && setMovie(currentMovie?.movie);
         (currentMovie?.movie !==movie ) && startedPlaying(adDetails);
         if(message === adDetails.message && timer >= 0 ) {
             interval = setInterval(() => {
@@ -64,7 +54,7 @@ const MovieDetails: React.FC<movieDetails> = (props: movieDetails) => {
             clearInterval(interval);
         })
 
-    }, [currentMovie,timer]);
+    }, [currentMovie?.movie,timer]);
 
     //INFO: for iterating through the actors list
     const actorsList =  currentMovie?.actors?.map((actor: string) => {
@@ -81,13 +71,8 @@ const MovieDetails: React.FC<movieDetails> = (props: movieDetails) => {
 
     //INFO: for updating the likes globally on clicking the like icon
     const updateLikesHandler = () => {
-        const updatedMovieDetails = currentMovie;
-        let likes = parseInt(updatedMovieDetails.likes);
-        likes = likes + 1;
-        updatedMovieDetails.likes = likes;
+        const updatedMovieDetails = {...currentMovie,likes: parseInt(currentMovie?.likes)+1};
         setCurrentMovie(updatedMovieDetails);
-        setLikes(updatedMovieDetails.likes);
-        updateLikes(updatedMovieDetails);
     }
 
     return(
@@ -98,7 +83,7 @@ const MovieDetails: React.FC<movieDetails> = (props: movieDetails) => {
             {!showAdImage && 
             <React.Fragment>
                 <div className={styles.movieName}>
-                    <div className={styles.name}>{currentMovie?.movie}<span>{likes} {APPCONSTANTS.LIKES}</span></div>
+                    <div className={styles.name}>{currentMovie?.movie}<span>{currentMovie?.likes} {APPCONSTANTS.LIKES}</span></div>
                     <div className={styles.likes} onClick={updateLikesHandler}><i className="fa fa-thumbs-o-up"></i></div>
                 </div>
                 <img src={currentMovie?.link} alt={currentMovie?.movie}></img>
