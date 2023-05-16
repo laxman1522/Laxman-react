@@ -35,22 +35,30 @@ const AddBlogs: React.FC<any> = (props: any) => {
               toggleModal();
               document.getElementById('blogList')?.scrollTo(0,0)
          } else {
-            (blogTitleRef.current.value !== "" && blogTitleRef.current.value !== undefined ) ? setTitleError({error: TITLE_ERROR,status: false}) : setTitleError({error: TITLE_ERROR,status:true});
-            (blogDescriptionRef.current.value !== "" && blogDescriptionRef.current.value !== undefined) ? setDescError({error: DESC_ERROR,status:false}) : setDescError({error: DESC_ERROR,status:true});
+            titleErrorCheck();
+            descriptionErrorCheck();
          }
      },[ALERT, CUSTOM_IMAGE, CUSTOM_TYPE, addBlog, toggleModal, types])
 
      const onTitleChange = () => {
-        ( blogTitleRef.current.value !== "" && blogTitleRef.current.value !== undefined ) ? setTitleError({error: TITLE_ERROR,status: false}) : setTitleError({error: TITLE_ERROR,status:true});
+        titleErrorCheck();
         blogTitleRef.current.value.length > 60 && setTitleError({error: TITLE_LIMIT, status: true});
      }
 
      const onDescChange = () => {
-        ( blogDescriptionRef.current.value !== "" && blogDescriptionRef.current.value !== undefined) ? setDescError({error: DESC_ERROR,status: false}) : setDescError({error: DESC_ERROR,status:true});
+        descriptionErrorCheck();
         if(blogDescriptionRef.current.offsetHeight < blogDescriptionRef.current.scrollHeight) {
             blogDescriptionRef.current.style.height = (blogDescriptionRef.current.scrollHeight + 30) + "px";
         }
         blogDescriptionRef.current.value.length > 250 && setDescError({error: DESC_LIMIT, status: true})
+     }
+
+     const titleErrorCheck = () => {
+        (blogTitleRef.current.value !== "" && blogTitleRef.current.value !== undefined ) ? setTitleError({error: TITLE_ERROR,status: false}) : setTitleError({error: TITLE_ERROR,status:true}); 
+    }
+
+     const descriptionErrorCheck = () => {
+        (blogDescriptionRef.current.value !== "" && blogDescriptionRef.current.value !== undefined) ? setDescError({error: DESC_ERROR,status:false}) : setDescError({error: DESC_ERROR,status:true});
      }
  
 

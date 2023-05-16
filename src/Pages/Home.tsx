@@ -67,7 +67,7 @@ const Home = () => {
                 setUserList(response.data);
                 setLoading(false);
             }
-    },[userList])
+    },[MODALS.USER_MODAL, userList.length])
 
     //INFO: For showing the Add Blog form to the user once the user clicks the new button in the blog list container
     const addBlogModalHandler = useCallback(() => {
