@@ -67,9 +67,9 @@ const AddBlogs: React.FC<any> = (props: any) => {
         <div className="modal-title">{NEW_BLOG}</div>
         <div className="blog-input-content">
             <div className="blog-inputs">
-                <input ref={blogTitleRef} type="text" id="title" className="title" name="title" onChange={onTitleChange} placeholder={CUSTOM_TITLE_PLACEHOLDER}></input>
+                <input ref={blogTitleRef} type="text"  className="title" name="title" onChange={onTitleChange} placeholder={CUSTOM_TITLE_PLACEHOLDER}></input>
                 {titleError?.status && <div className="error">{titleError.error}</div>}
-                <textarea ref={blogDescriptionRef} id="description" className="description" onChange={onDescChange} name="description" cols={7} placeholder={CUSTOM_DESCRIPTION_PLACEHOLDER}></textarea>
+                <textarea ref={blogDescriptionRef}  className="description" onChange={onDescChange} name="description" cols={7} placeholder={CUSTOM_DESCRIPTION_PLACEHOLDER}></textarea>
                 {descError?.status && <div className="error">{descError.error}</div>}
             </div>
             <Button buttonName={AppConstants.ADD} className={"add"} buttonClicked={addBlogHandler}></Button>

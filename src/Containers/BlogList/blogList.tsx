@@ -71,7 +71,7 @@ const BlogList: React.FC<any> = (props: any) => {
     }
 
     //INFO: To open the modal and allow the user to create new blogs
-    const openModalHandler = useCallback(() => {
+    const openModalHandler = () => {
         if(!allowEdit) {
             searchInputRef.current.value = ""
             dispatch( updateSearch({searchTerm:"", blogData: blogData,modalStateChange: true}));
@@ -80,7 +80,7 @@ const BlogList: React.FC<any> = (props: any) => {
             setModal(MODALS.WARNING_MODAL)
         }
         
-    },[dispatch, showAddBlogModal, allowEdit])
+    }
 
     //INFO: To check whether the blog list is empty or not
     const isBlogListEmpty = () => {
@@ -93,10 +93,10 @@ const BlogList: React.FC<any> = (props: any) => {
     }
 
     //INFO: For closing the modal on backdrop
-    const toggleModal = useCallback(() => {
+    const toggleModal = () => {
         searchInputRef.current.value = searchTerm;
         setModal('');
-    },[])
+    }
 
     //INFO: For closing the warning modal and updating the blog details if the user clicks continue in the warning pop up
     const continueHandler = () => {

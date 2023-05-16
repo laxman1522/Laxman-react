@@ -7,10 +7,10 @@ textarea {
     flex-direction: column;
     height: 85%;
     .description, .title {
-        background-color: #fafafa;
+        background-color: var(--blog-input-color);
     }
     .error {
-        color: #ff0000;
+        color: var(--blog-input-error);
         font-size: 1.1rem;
         font-weight: 600;
         padding-bottom: 20px;
