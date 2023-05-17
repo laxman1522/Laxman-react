@@ -21,13 +21,15 @@ const BlogList: React.FC<any> = (props: any) => {
 
     const [modal, setModal] = useState<any>('');
 
+    const blogListRef = useRef<any>();
+
     //INFO:using Ref for capturing user inputs - search blogs 
     const searchInputRef = useRef<any>();
     //INFO: destructuring constants
     const {PLACEHOLDER, NEW, NO_BLOGS, MODALS,CONFIRM, PRIMARY_BUTTON, SECONDARY_BUTTON} = AppConstants;
 
     //INFO: destructuring the available blog details from the redux store/blogs
-    const {isLoading, blogData, error, searchTerm, types, blogDetails, allowEdit} = useSelector((state: any) => {
+    const {isLoading, blogData, error, searchTerm, types, blogDetails, allowEdit, blogAdded} = useSelector((state: any) => {
         return state.blogs;
     })
 
@@ -51,7 +53,8 @@ const BlogList: React.FC<any> = (props: any) => {
             return blog;
         }
     }).map((blog:any, index: number) => {
-            blog.title === blogDetails.title && (selectedIndex.current = index);
+                blogAdded && blogListRef.current?.scrollTo(0,0);
+                blog.title === blogDetails.title && (selectedIndex.current = index);
         return <BlogCard key={blog.title} blogData={blog} updateBlogList={updateBlogList} selected={selectedIndex.current === index} ></BlogCard>
     })
 
@@ -118,7 +121,7 @@ const BlogList: React.FC<any> = (props: any) => {
                 <input ref={searchInputRef} type="text" id="blog" name="blog" onChange={searchHandler} placeholder={PLACEHOLDER}></input>
                 <Button buttonName={NEW} className={"button"} buttonClicked={openModalHandler}></Button>
             </div>
-            <div className="list-container" id="blogList">
+            <div ref={blogListRef} className="list-container">
                 {blogList}
             </div>
             {isLoading && <Loader></Loader>}

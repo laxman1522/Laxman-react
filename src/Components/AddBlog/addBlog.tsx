@@ -33,7 +33,6 @@ const AddBlogs: React.FC<any> = (props: any) => {
                 blogDescription: blogDescriptionRef.current.value
               });
               toggleModal();
-              document.getElementById('blogList')?.scrollTo(0,0)
          } else {
             titleErrorCheck();
             descriptionErrorCheck();
