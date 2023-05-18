@@ -8,7 +8,8 @@ export const AppConstants ={
         BLOGS: {
             REGIONAL: "Regional Blogs",
             NATIONAL: "National Blogs",
-            INTERNATIONAL: "International Blogs"
+            INTERNATIONAL: "International Blogs",
+            LOCAL: "Local Blogs"
         }
     },
     MENU_OPTIONS: {
@@ -29,5 +30,17 @@ export const AppConstants ={
     SRC_PREFIX: "https://jsonmockserver.vercel.app/",
     NO_BLOGS: "No Blogs available...",
     NEW_BLOG: "Add New Blog",
-    MEMBERS: "Members"
+    MEMBERS: "Members",
+    PRIMARY_BUTTON: "Yes",
+    SECONDARY_BUTTON: "No",
+    MODALS: {
+        USER_MODAL: "userModal",
+        NEW_BLOG: "newBlog",
+        WARNING_MODAL: "warningModal"
+    },
+    BLOGS: "Blogs",
+    TITLE_ERROR: "Please enter the title",
+    DESC_ERROR: "Please enter the description",
+    TITLE_LIMIT: "Please enter less than 60 characters",
+    DESC_LIMIT: "Please enter less than 250 charcters"
 }

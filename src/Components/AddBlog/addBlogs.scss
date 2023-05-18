@@ -1,10 +1,20 @@
 textarea {
     max-height: 600px;
-    height: 100%;
 }
 
 .blog-inputs {
     display: flex;
     flex-direction: column;
     height: 85%;
+    .description, .title {
+        background-color: var(--blog-input-color);
+    }
+    .error {
+        color: var(--blog-input-error);
+        font-size: 1.1rem;
+        font-weight: 600;
+        padding-bottom: 20px;
+        font-family: Roboto slab;
+    }
 }
+
