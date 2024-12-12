@@ -1,9 +1,8 @@
 export interface blog {
-    title: string,
-    photo: string,
-    details: string,
-    type: string,
+    blogData: any
     id?: number
+    selected?: boolean,
+    updateBlogList: any
 }
 
 //When a component receives only children in the prop

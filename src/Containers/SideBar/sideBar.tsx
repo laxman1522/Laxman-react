@@ -1,86 +1,134 @@
 import "./sideBar.scss";
-import React, { Ref, useContext, useEffect, useRef } from "react";
+import React, { Ref, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { AppConstants } from "../../Constants/appConstants";
 import { useDispatch, useSelector } from "react-redux";
-import {  updateTypes, updateViewMembers } from "../../Stores";
-import { fetchUsers } from "../../Stores/thunks/fetchUsers";
+import {  updateEditStatus, updateSearch, updateTypes } from "../../Stores";
 import { ThemeContext } from "../../App";
+import CustomCheckBox from "../../Components/customCheckBox/CustomCheckBox";
+import Modal from "../../Components/Modal/modal";
+import modal from "../../Components/Modal/modal";
+import ModalWarning from "../../Components/modalWarning/modalWarning";
 
 /**
  * @description Component responsible for showing the APP title and available filters and menu options
  */
-const SideBar: React.FC = () => {
+const SideBar: React.FC<any> = (props: any) => {
 
     //INFO: destructuring constants
-    const {TITLE, FILTER, MENU_OPTIONS, TYPES} = AppConstants;
+    const {TITLE, FILTER, MENU_OPTIONS, BLOGS, CUSTOM_TYPE,MODALS,CONFIRM, PRIMARY_BUTTON, SECONDARY_BUTTON} = AppConstants;
+
+    const [availableTypes, setAvailableTypes] = useState<any>([]);
+
+    const {showMembersModal, showWarningModal} = props;
+
+    const [modal, setModal] = useState<any>('');
+    const [checkBoxDetails, setCheckBoxDetails] = useState<any>();
 
     //INFO: using useDispatch to dispatch actions to redux stores
     const dispatch = useDispatch<any>();
     //INFO: destructuring function from context provider to call the function when user wants to toggle the theme
     const { theme, toggleTheme} = useContext(ThemeContext);
 
-    //INFO: destructuring the user details from the redux store/userDetails
-    const { data} = useSelector((state: any) => {
-        return state.userDetails;
+    const { types, allowEdit} = useSelector((state: any) => {
+        return state.blogs;
     })
 
-    //INFO: useEffect for updating blog types
-    useEffect(()=>{
-        const types = TYPES;
-        dispatch(updateTypes(types))
-    },[TYPES, dispatch])
-
-    //INFO:using Ref for capturing user inputs - selected Blog types 
-    const regionalRef = useRef<any>();
-    const nationalRef = useRef<any>();
-    const internationalRef = useRef<any>();
-
+    useEffect(() => {
+        availableTypes.length === 0 && setAvailableTypes(types);
+        if(types.includes(CUSTOM_TYPE.toLowerCase()) && !availableTypes.includes(CUSTOM_TYPE.toLowerCase())) {
+             setAvailableTypes([...availableTypes, CUSTOM_TYPE.toLowerCase()])
+        } 
+    },[types, availableTypes])
+    
     /**
      * @description To update the blog list based on the blog types selection
      */
-    const updateTypeHandler = () => {
-        const types = [];
-        regionalRef.current.checked && types.push("regional");
-        nationalRef.current.checked && types.push("national");
-        internationalRef.current.checked && types.push("international");
-        dispatch(updateTypes(types))
+    const updateTypeHandler = (value: string, status: boolean) => {     
+        let updatedTypes: Array<any> = [...types];
+        if(status) {
+           !updatedTypes.includes(value) && (updatedTypes = [...updatedTypes, value])
+        } else {
+            const index = updatedTypes.indexOf(value);
+            updatedTypes.splice(index,1);
+        }
+    if(!allowEdit) {
+        dispatch(updateTypes(updatedTypes));
+        setCheckBoxDetails({
+            name: value,
+            status: status,
+            updatedTypes: updatedTypes
+        })
+    } else {
+        setModal(MODALS.WARNING_MODAL);
+        setCheckBoxDetails({
+            name: value,
+            status: status,
+            updatedTypes: updatedTypes
+        })
+    }
     }
 
     //INFO: To update the modal state (open/close) based on the user action
-    const toggleModal = () => {
-       data.length===0 ? dispatch(fetchUsers()) : dispatch(updateViewMembers(true));
+    const toggleUserModal = () => {
+       showMembersModal();
     }
 
-    /**
-     * 
-     * @description Function that takes classname,value & ref as a parameter and returns the jsx for custom checkbox inputs along with label
-     */
-    const checkBoxInputs = (className: string, value: string, ref: Ref<any>) => {
-        return (
-            <div className={className}>
-                <label htmlFor={value} className="container">{value}
-                <input ref={ref} type="checkbox" id={value} value={value} onChange={updateTypeHandler} defaultChecked></input>
-                <span className="checkmark"></span></label>
-            </div> 
-        )
+     //INFO: For closing the modal on backdrop
+     const toggleModal = useCallback(() => {
+        setModal('');
+        setCheckBoxDetails({...checkBoxDetails,status:!checkBoxDetails.status})
+    },[])
+
+    //INFO: For closing the warning modal and updating the blog details if the user clicks continue in the warning pop up
+    const continueHandler = () => {
+            dispatch(updateEditStatus(false));
+            dispatch(updateTypes(checkBoxDetails.updatedTypes));
+            setModal(''); 
     }
+
+     //INFO: For taking the user back to the edit mode once the user clicks cancel in the warning pop up
+     const cancelHandler = () => {
+        setModal('');
+        setCheckBoxDetails({...checkBoxDetails,status:!checkBoxDetails.status})
+    }
+
+
+    const typesList = availableTypes.map((list: any, index: any) => {
+            if(list === checkBoxDetails?.name && allowEdit) {
+                return(
+                    <CustomCheckBox key={index} checked={checkBoxDetails.status} className={list} value={list.charAt(0).toUpperCase() + list.slice(1) + " " + BLOGS} onchange={updateTypeHandler}></CustomCheckBox>
+                )
+            } else {
+                return(
+                    <CustomCheckBox key={index} className={list} value={list.charAt(0).toUpperCase() + list.slice(1) + " " + BLOGS} onchange={updateTypeHandler}></CustomCheckBox>
+                )
+            }
+            
+    })
+
 
     return (
+        <React.Fragment>
         <div className="side-bar-container">
             <div className="title">{TITLE.FIRST_PART}<span className="second-part"> {TITLE.SECOND_PART}</span></div>
             <div className="filter">
                 <div className="heading">{FILTER.HEADING.toLocaleUpperCase()}</div>
                 <ul className="blogs">
-                    {checkBoxInputs("regional",FILTER.BLOGS.REGIONAL,regionalRef)}
-                    {checkBoxInputs("national",FILTER.BLOGS.NATIONAL,nationalRef)}
-                    {checkBoxInputs("international",FILTER.BLOGS.INTERNATIONAL,internationalRef)}
+                    {typesList}
                 </ul>
             </div>
             <div className="options">
-                <div className="view-members" onClick={toggleModal}>{MENU_OPTIONS.VIEW_MEMBERS}</div>
+                <div className="view-members" onClick={toggleUserModal}>{MENU_OPTIONS.VIEW_MEMBERS}</div>
                 <div className="dark-mode" onClick={toggleTheme}>{theme === "light" ? MENU_OPTIONS.DARK_MODE : MENU_OPTIONS.LIGHT_MODE}</div>
             </div>
         </div>
+        <div className="warning-pop-up">
+                {modal === MODALS.WARNING_MODAL && <Modal toggleModal={toggleModal}>
+                        <ModalWarning message={CONFIRM} allow={continueHandler}  cancel={cancelHandler} primaryButton={PRIMARY_BUTTON}
+                        secondaryButton={SECONDARY_BUTTON}></ModalWarning>
+                    </Modal>}
+            </div>
+        </React.Fragment>
     )
 }
 

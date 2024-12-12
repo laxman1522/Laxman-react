@@ -1,28 +1,19 @@
 import "./modal.scss";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateModalState } from "../../Stores";
-import { ElementAsChildren } from "../../model/common.model";
+import React, { useRef } from "react";
 
-const Modal = ({children}: ElementAsChildren) => {
+const Modal:React.FC<any> = ({children, toggleModal}: any) => {
 
-     //INFO: using useDispatch to dispatch actions to redux stores
-    const dispatch = useDispatch<any>();
-
-    const {isLoading} = useSelector((state: any) => {
-        return state.userDetails;
-    })
+    const modalRef = useRef<any>('');
 
     //INFO: for toggling the modal state 
-    const toggleModal = (event: any) => {
-        event.target === document.querySelector(".modal") && dispatch(updateModalState(false));
+    const toggleModalHandler = (event: any) => {
+        event.target === modalRef.current && toggleModal();
     }
 
     return (
-        <div className="modal" onClick={toggleModal}>
+        <div className="modal" ref={modalRef} onClick={toggleModalHandler}>
             <div className="modal-container">
                  {children}
-                {isLoading && <div className="loader"></div>}
             </div>
         </div>
     )

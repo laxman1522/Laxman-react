@@ -1,18 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { blogDetailsReducer } from "./Slices/blogDetails";
 import { blogReducer } from "./Slices/blogSlice";
-import {updateSearch, updateTypes, addBlogDetails, updateBlogData} from "./Slices/blogSlice";
-import { updateblogDetails, updateEditStatus } from "./Slices/blogDetails";
-import { userDetailsReducer, updateModalState , updateViewMembers, updateBlogInputs} from "./Slices/userDetails";
+import {updateSearch, updateTypes, addBlogDetails,updateBlogDetails, updateblogDetails, updateEditStatus, updateEditedBlogDetails} from "./Slices/blogSlice";
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 export const store = configureStore({
     reducer: {
-        blogs:  blogReducer,
-        blogDetails: blogDetailsReducer,
-        userDetails: userDetailsReducer
+        blogs:  blogReducer
     }
 })
 
 
 export * from "./thunks/fetchBlogs"
-export {updateSearch, updateblogDetails,updateModalState, updateTypes, updateViewMembers,addBlogDetails, updateBlogInputs, updateBlogData , updateEditStatus}
+export {updateSearch, updateblogDetails,updateBlogDetails, updateTypes,addBlogDetails, updateEditStatus, updateEditedBlogDetails}

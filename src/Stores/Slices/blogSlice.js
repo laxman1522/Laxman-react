@@ -1,7 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
+import { updateSelectedBlogDetails } from "../../utils/updateBlogDetails";
 import { fetchBlogs } from "../thunks/fetchBlogs";
-import { updateBlogInputs } from "./userDetails";
-
 
 const blogSlice = createSlice({
     name:"blog",
@@ -11,30 +10,101 @@ const blogSlice = createSlice({
         error:null,
         searchTerm:"",
         types: [],
-        blogAdded: false
+        blogAdded: false,
+        blogDetails: {},
+        allowEdit: false
     },
     reducers: {
         updateSearch(state, action) {
-            state.searchTerm = action.payload
-            state.blogAdded = false
+            state.searchTerm = action.payload?.searchTerm;
+            if(!action.payload?.modalStateChange) {
+                const {alreadySelected, updatedBlogDetails} = updateSelectedBlogDetails(action.payload?.blogData, state.types, state.allowEdit, action.payload?.searchTerm, state.blogAdded,state.blogDetails);
+                !alreadySelected && (state.blogDetails = updatedBlogDetails)
+            }
+            
         },
         updateTypes(state, action) {
             state.types = action.payload
-            state.blogAdded = false
+            const blogData = state.blogData.map((blog, index) => {
+                return {...blog, selected: false}
+            })
+            state.blogData = blogData;
+                const {alreadySelected, updatedBlogDetails} = updateSelectedBlogDetails(blogData, action.payload, state.allowEdit, state.searchTerm, state.blogAdded,state.blogDetails);
+                !alreadySelected && (state.blogDetails = updatedBlogDetails)
         },
         addBlogDetails(state, action) {
-            state.blogData = action.payload;
-            state.blogAdded = true
+            const {updatedTypes, CUSTOM_TYPE, blogTitle, blogDescription, CUSTOM_IMAGE} = action.payload;
+            const blogData = state.blogData;
+            const updatedBlogData = [];
+             const blogDetails = {
+                 type: CUSTOM_TYPE,
+                 title: blogTitle,
+                 photo: CUSTOM_IMAGE,
+                 selected: true,
+                 details: blogDescription,
+              };
+              updatedBlogData.push(blogDetails);
+              for(let blogs of blogData) {
+                    updatedBlogData.push({...blogs, selected: false})
+              }
+              state.blogData = updatedBlogData;
+              state.blogDetails = blogDetails;
+              state.blogAdded = true;
+              state.types = updatedTypes;
         },
-        updateBlogData(state,action) {
-            state.blogData = action.payload;
-            state.blogAdded = false
+        updateblogDetails(state, action) {
+            state.blogDetails = action.payload
+        },
+        updateBlogDetails(state, action) {
+            const title = action.payload
+            const blogData = state.blogData;
+            for(let blog of blogData) {
+                if(blog.title === title) {
+                    state.blogDetails = blog;
+                }
+            }
+            state.allowEdit = false;
+        },
+        updateEditStatus(state,action) {
+            state.allowEdit = action.payload
+        },
+        updateEditedBlogDetails(state,action) {
+            const blogData = state.blogData;
+            const {title,titleDefaultValue,description } = action.payload;
+            const blogDetails = state.blogDetails;
+            let updatedBlogDetails = {};
+            let updatedBlogData = [];
+            for(let blogs of blogData ) {
+                if((blogs.title === titleDefaultValue) && ((title !== blogDetails.title) || (description !== blogDetails.details))) {
+                    updatedBlogDetails = {
+                        title: title,
+                        photo: blogs.photo,
+                        details: description,
+                        selected: true,
+                        type: blogs.type,
+                    }
+                    updatedBlogData.push(updatedBlogDetails)
+                } else {
+                    updatedBlogData.push({...blogs, selected: false});
+                }
+            }
+            if(updatedBlogDetails?.title) {
+                state.blogDetails = updatedBlogDetails;
+                state.blogData = updatedBlogData;
+            }
+            state.allowEdit = false;
         }
     },
     extraReducers(builder) {
         builder.addCase(fetchBlogs.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.blogData = action.payload;
+            const blogData = action.payload.map((blog, index) => {
+                return index === 0 ? {...blog, selected:true} : {...blog, selected: false}
+            })
+            const uniqueTypes = action.payload.map((data) => data.type.toLowerCase()).filter((value,index,array) => array.indexOf(value) === index);
+            state.types = uniqueTypes;
+            state.blogData = blogData;
+            state.blogDetails = blogData[0];
         });
         builder.addCase(fetchBlogs.pending, (state, action) => {
             state.isLoading = true;
@@ -43,13 +113,10 @@ const blogSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         });
-        builder.addCase(updateBlogInputs, (state, action) => {
-            state.searchTerm = ""
-        });
     }
 })
 
 
 export const blogReducer = blogSlice.reducer;
 
-export const {updateSearch, updateTypes, addBlogDetails, updateBlogData} = blogSlice.actions;
+export const {updateSearch, updateTypes, addBlogDetails,updateBlogDetails, updateblogDetails, updateEditStatus, updateEditedBlogDetails} = blogSlice.actions;
